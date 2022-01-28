@@ -1,0 +1,18 @@
+html {
+  font-size: 10px;
+}
+
+body {
+  background-color: cadetblue;
+  padding: 15px;
+  font-size: 1.8rem;
+  font-family: "Lato", Verdana, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  color: white;
+}
+
+main {
+  margin: 20px;
+  padding: 10px;
+}
