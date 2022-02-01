@@ -41,7 +41,6 @@
   },
   "homepage": "https://github.com/rolling-scopes-school/olegov-lab-JSFE2021Q3",
   "dependencies": {
-    "normalize.css": "^8.0.1",
-    "nouislider": "^15.5.0"
+    "normalize.css": "^8.0.1"
   }
 }
