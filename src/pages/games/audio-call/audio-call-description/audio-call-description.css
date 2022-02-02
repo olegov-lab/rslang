@@ -1,0 +1,114 @@
+/*аудио колл описание*/
+.audio-call-title {
+    margin-bottom: 60px;
+    text-align: center;
+    font-size: 48px;
+    font-weight: 700;
+    color: #000;
+}
+
+.audio-call-decription {
+    border: 1px solid #4B4456;
+    padding: 30px;
+    margin: 0 auto;
+    max-width: 750px;
+    height: 450px;
+    background: linear-gradient(180deg, #FEEEEE 0%, #FFFBFB 100%);
+    border-radius: 30px;
+    text-align: center;
+}
+
+.audio-call-main-text {
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.audio-call-sub-text {
+    margin: 0 auto;
+    text-align: left;
+    max-width: 450px;
+    height: 420px;
+    font-size: 22px;
+    color: #4B4456;
+}
+
+.audio-call-buttons {
+    margin-top: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.audio-call-start-btn {
+    font-size: 18px;
+    text-align: center;
+    color: #fff;
+    background-color: #29CFAC;
+    width: 240px;
+    max-width: 100%;
+    padding: 18px 20px;
+    border-radius: 5px;
+    border: 0;
+    cursor: pointer;
+    box-shadow: 0px 0px 38px 0 hsla(41, 207, 172, 0.8);
+    transition: color .2s, background .2s, opacity .2s;
+}
+
+.audio-call-start-btn:hover {
+    background: #FF7E7E;
+
+}
+
+.audio-call-start-btn:active {
+    opacity: 0.9;
+    transform: scale(.95);
+}
+
+.select-audio-play-difficulty {
+    appearance: none;
+    border: 0;
+    outline: 0;
+    width: 240px;
+    max-width: 100%;
+    padding: 18px 20px;
+    background-color: #29CFAC;
+    border-radius: 5px;
+    font-size: 18px;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+}
+
+.select-audio-play-difficulty:hover {
+    background: #FF7E7E;
+}
+
+/*медиа для описания игры вызов*/
+@media (max-width: 768px) {
+
+    .select-audio-play-difficulty {
+        margin-bottom: 10px;
+    }
+
+    .audio-call-main-text {
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    .audio-call-sub-text {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 420px) {
+
+    .audio-call-main-text {
+        font-size: 18px;
+    }
+
+    .audio-call-sub-text {
+        font-size: 16px;
+    }
+}

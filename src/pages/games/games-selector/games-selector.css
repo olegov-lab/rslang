@@ -87,21 +87,6 @@
     .game-sprint {
         height: 250px;
     }
-
-    /*медиа для игры вызов*/
-    .select-audio-play-difficulty {
-        margin-bottom: 10px;
-    }
-
-    .audio-call-main-text {
-        font-size: 22px;
-        margin-bottom: 10px;
-    }
-
-    .audio-call-sub-text {
-        font-size: 18px;
-        margin-bottom: 10px;
-    }
 }
 
 @media (max-width: 420px) {
@@ -117,11 +102,4 @@
         height: 180px;
     }
 
-    .audio-call-main-text {
-        font-size: 18px;
-    }
-
-    .audio-call-sub-text {
-        font-size: 16px;
-    }
 }
