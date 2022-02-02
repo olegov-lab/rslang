@@ -1,0 +1,127 @@
+.games-page,
+.game-audio-description {
+    margin-top: 100px;
+}
+
+.games-page-title,
+.audio-call-title {
+    margin-bottom: 60px;
+    text-align: center;
+    font-size: 48px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #29CFAC;
+}
+
+
+.games {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.game-audio-call-select {
+    background-image: url('../../../assets/audio-call.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.game-sprint-select {
+    background-image: url('../../../assets/sprint.png');
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+
+.game-audio-call-select,
+.game-sprint-select {
+    margin: 10px;
+    position: relative;
+    width: 500px;
+    height: 290px;
+    border-radius: 5px;
+}
+
+.game-audio-call-title,
+.game-sprint-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 48px;
+    font-weight: 700;
+    text-align: center;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+/*медиа для выбора игры*/
+@media (max-width: 1024px) {
+    .games {
+        justify-content: center;
+    }
+
+    .game-audio-call-title,
+    .game-sprint-title {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .games-page-title,
+    .audio-call-title {
+        font-size: 40px;
+    }
+
+    .games {
+        margin-top: 40px;
+    }
+
+    .game-audio-call,
+    .game-sprint {
+        background-size: contain;
+    }
+
+    .game-audio-call,
+    .game-sprint {
+        height: 250px;
+    }
+
+    /*медиа для игры вызов*/
+    .select-audio-play-difficulty {
+        margin-bottom: 10px;
+    }
+
+    .audio-call-main-text {
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    .audio-call-sub-text {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 420px) {
+
+    .game-audio-call-title,
+    .game-sprint-title {
+        font-size: 32px;
+    }
+
+
+    .game-audio-call,
+    .game-sprint {
+        height: 180px;
+    }
+
+    .audio-call-main-text {
+        font-size: 18px;
+    }
+
+    .audio-call-sub-text {
+        font-size: 16px;
+    }
+}
