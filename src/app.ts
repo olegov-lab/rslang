@@ -2,7 +2,7 @@ import { Component } from './utils/component';
 import { Header } from './components/header/header';
 import { Router } from './router/router';
 import './pages/games/games-selector/games-selector';
-//import './pages/games/audio-call/audio-call-description/audio-call-description';
+import './pages/games/audio-call/audio-call-description/audio-call-description';
 
 export class App {
   main: Component;
