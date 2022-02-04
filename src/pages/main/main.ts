@@ -1,5 +1,4 @@
 import { Component } from '../../utils/component';
-import { body } from '../games/games-selector/games-selector';
 import './main.css'
 export class MainPage extends Component {
   constructor(parentNode: HTMLElement) {
@@ -18,7 +17,7 @@ body.insertAdjacentHTML('afterbegin', `
     <div class="team-info-title">наша команда</div>
   <div class="team-members">
           <div class="member-item">
-              <img src=("./assets/pasha") alt="Pasha" class="member-photo">
+              <img src=("../../assets/pasha.png") alt="Pasha" class="member-photo">
               <div class="member-description">
                 <div class="member-name">Павел Чечелев</div>
                 <a class="member-github" href="https://github.com/Chechelev">chechelev</a>
