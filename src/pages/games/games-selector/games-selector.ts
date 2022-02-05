@@ -1,3 +1,5 @@
+import './games-selector.css';
+export const body = document.body;
 const body = document.body;
 body.insertAdjacentHTML('afterend', `
 <section class="games-page" style="display:none">

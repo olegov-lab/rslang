@@ -40,6 +40,7 @@
     width: 500px;
     height: 290px;
     border-radius: 5px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
 .game-audio-call-title,
@@ -69,8 +70,7 @@
 
 @media (max-width: 768px) {
 
-    .games-page-title,
-    .audio-call-title {
+    .games-page-title {
         font-size: 40px;
     }
 
@@ -87,21 +87,6 @@
     .game-sprint {
         height: 250px;
     }
-
-    /*медиа для игры вызов*/
-    .select-audio-play-difficulty {
-        margin-bottom: 10px;
-    }
-
-    .audio-call-main-text {
-        font-size: 22px;
-        margin-bottom: 10px;
-    }
-
-    .audio-call-sub-text {
-        font-size: 18px;
-        margin-bottom: 10px;
-    }
 }
 
 @media (max-width: 420px) {
@@ -117,11 +102,4 @@
         height: 180px;
     }
 
-    .audio-call-main-text {
-        font-size: 18px;
-    }
-
-    .audio-call-sub-text {
-        font-size: 16px;
-    }
 }
