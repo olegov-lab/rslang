@@ -17,7 +17,6 @@ export class Header extends Component {
   // partOfHeader: Component;
 
 
-
   nav: Component[] = [];
 
   constructor(parentNode: HTMLElement) {
