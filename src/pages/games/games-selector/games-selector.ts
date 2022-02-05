@@ -1,8 +1,8 @@
 import './games-selector.css';
-
 export const body = document.body;
-body.insertAdjacentHTML('afterbegin', `
-<section class="games-page" style="display: none;">
+const body = document.body;
+body.insertAdjacentHTML('afterend', `
+<section class="games-page" style="display:none">
 <div class="container">
     <div class="games-page-title">Мини-игры</div>
     <div class="games">
