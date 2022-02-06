@@ -5,9 +5,9 @@ import { IWords, IUser } from "../interfaces/interface"
 const baseUrl = 'https://rslang-node.herokuapp.com';
 
 
-export const getWords = async (page = 0, group = 0):  Promise<IWords> => {
+export const getWords = async ( group = 0, page = 0):  Promise<IWords> => {
   try {
-    const rawResponse = await fetch(`${baseUrl}/words?_limit=${page}&_page=${group}`);
+    const rawResponse = await fetch(`${baseUrl}/words?group=${group}&page=${page}`);
     const content = await rawResponse.json();
 
     if (rawResponse.status === 200) {
