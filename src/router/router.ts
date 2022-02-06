@@ -1,10 +1,12 @@
 import { IRouter } from '../interfaces/interface';
 import { Component } from '../utils/component';
 import { MainPage } from '../pages/main/main';
-
+import { SprintDescriptionPage } from '../pages/games/sprint/sprint-description/sprint-description';
 
 export class Router {
   mainPage: Component;
+
+  sprintDescriptionPage: Component;
 
   winsPage: Component | undefined;
 
@@ -12,6 +14,7 @@ export class Router {
 
   constructor(private rootElement: HTMLElement) {
     this.mainPage = new MainPage(this.rootElement);
+    this.sprintDescriptionPage = new SprintDescriptionPage(this.rootElement);
 
     this.routs = [
       {
@@ -30,6 +33,12 @@ export class Router {
         name: '/games',
         component: () => {
           this.rootElement.innerText = 'игры';
+        },
+      },
+      {
+        name: '/games/sprint',
+        component: () => {
+          this.rootElement.append(this.sprintDescriptionPage.element);
         },
       },
       {
@@ -59,4 +68,8 @@ export class Router {
     window.onpopstate = () => this.updateRouter();
     this.updateRouter();
   }
+}
+
+function renderSprintDescription() {
+  throw new Error('Function not implemented.');
 }
