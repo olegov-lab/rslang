@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px 10px 0 10px;
+  position: relative;
 }
 
 .wrapper {
@@ -76,4 +77,83 @@
 .nav-btn:hover {
   background: #83cacf;
   cursor: pointer;
+}
+
+/*бургер-меню*/
+
+.burger {
+  display: none;
+}
+
+.sidepanel {
+  height: 210px;
+  width: 0;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  background-color: #e5e5e5;
+  overflow-x: hidden;
+  padding-top: 60px;
+  transition: 0.5s;
+}
+
+.active-sidepanel {
+  width: 100%;
+}
+
+.hidden-sidepanel {
+  width: 0;
+}
+
+.sidepanel a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #29cfac;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidepanel a:hover {
+  color: #83cacf;
+}
+
+.sidepanel .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #29cfac;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+}
+
+.openbtn:hover {
+  background-color: #83cacf;
+}
+
+@media (max-width: 768px) {
+  .nav-part {
+    display: none;
+  }
+
+  .burger {
+    display: block;
+  }
+}
+
+@media (max-width: 400px) {
+  .nav-logo {
+    background-size: 90%;
+    width: 100px;
+  }
 }

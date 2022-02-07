@@ -6,9 +6,9 @@ import { SprintDescriptionPage } from '../pages/games/sprint/sprint-description/
 export class Router {
   mainPage: Component;
 
+
   sprintDescriptionPage: Component;
 
-  winsPage: Component | undefined;
 
   routs: Array<IRouter>;
 
@@ -31,7 +31,6 @@ export class Router {
       },
       {
         name: '/games',
-
         component: () => {
           this.rootElement.insertAdjacentHTML('afterbegin', `
           <section class="games-page">
@@ -47,7 +46,7 @@ export class Router {
                   <div class="game-sprint-select">
                       <div class="game-sprint-title">Спринт</div>
                   </div>
-                </a>  
+                </a>
               </div>
           </div>
           </section>`);

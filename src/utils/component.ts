@@ -1,6 +1,7 @@
 export class Component {
   public element: HTMLElement;
 
+
   constructor(
     parentNode: HTMLElement,
     tagName = 'div',

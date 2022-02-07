@@ -44,7 +44,7 @@
   color: white;
 }
 
-@media (max-width: 440px) {
+@media (max-width: 450px) {
   .footer-content {
     display: flex;
     align-items: center;

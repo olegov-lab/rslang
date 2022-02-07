@@ -11,6 +11,10 @@ export class Header extends Component {
 
   linkForStatistics: Component;
 
+  contentBurger: Component;
+
+  burgerBtn:Component;
+
   enterBtn: Component;
 
   nav: Component[] = [];
@@ -22,9 +26,12 @@ export class Header extends Component {
     const containerPartOfHeader = new Component(this.element, 'div', ['nav-container-of-part']);
     const partOfHeader = new Component(containerPartOfHeader.element, 'div', ['nav-part']);
     this.linkForMain = new Component(partOfHeader.element, 'a', ['nav-link'], 'Главная');
-    this.linkForDictionary = new Component(partOfHeader.element, 'a', ['nav-link'], 'Словарь');
+    this.linkForDictionary = new Component(partOfHeader.element, 'a', ['nav-link'], 'Учебник');
     this.linkForGames = new Component(partOfHeader.element, 'a', ['nav-link'], 'Игры');
     this.linkForStatistics = new Component(partOfHeader.element, 'a', ['nav-link'], 'Статистика');
+    const burgerMenu = new Component(containerPartOfHeader.element, 'div', ['burger'], '');
+    const contentBurger = new Component(burgerMenu.element, 'div', ['sidepanel'], '');
+    const burgerBtn = new Component(burgerMenu.element, 'button', ['openbtn'], '☰');
     this.enterBtn = new Component(containerPartOfHeader.element, 'button', ['nav-btn'], 'Войти');
 
     logoHeader.element.setAttribute('href', '#/');
@@ -39,6 +46,27 @@ export class Header extends Component {
     window.addEventListener('hashchange', () => this.updateActiveOfLink(this.nav));
 
     window.addEventListener('load', () => this.updateActiveOfLink(this.nav));
+
+    contentBurger.element.innerHTML = `
+    <a href="javascript:void(0)" class="closebtn" ">&times;</a>
+    <a href="#/">Главная</a>
+    <a href="#/dictionary">Учебник</a>
+    <a href="#/games">Игры</a>
+    <a href="#/statistics">Статистика</a>
+    `;
+
+    const changeBurger = document.querySelector('.openbtn');
+    const changeMenu = document.querySelector('.sidepanel');
+    const closeBtn = document.querySelector('.closebtn');
+
+    changeBurger.addEventListener('click' , (event) => {
+      changeMenu.classList.add('active-sidepanel');
+    })
+
+    closeBtn.addEventListener('click' , (event) => {
+      changeMenu.classList.remove('active-sidepanel');
+    })
+
   }
 
   updateActiveOfLink(nav: Component[]): void {
@@ -52,4 +80,5 @@ export class Header extends Component {
       return item;
     });
   }
+
 }
