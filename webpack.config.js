@@ -33,6 +33,26 @@ const config = {
     new CopyPlugin({
       patterns: [
         {
+          from: "./src/assets/fig3.png",
+          to: "./assets/fig3.png",
+        },
+        {
+          from: "./src/assets/fig2.png",
+          to: "./assets/fig2.png",
+        },
+        {
+          from: "./src/assets/fig1.png",
+          to: "./assets/fig1.png",
+        },
+        {
+          from: "./src/assets/adv-title.png",
+          to: "./assets/adv-title.png",
+        },
+        {
+          from: "./src/assets/greeting.png",
+          to: "./assets/greeting.png",
+        },
+        {
           from: "./src/assets/team-title-back.png",
           to: "./assets/team-title-back.png",
         },

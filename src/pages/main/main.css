@@ -1,4 +1,108 @@
+/*Блок приветствия*/
+
+.greeting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-image: url("../../assets/greeting.png");
+  background-repeat: no-repeat;
+  background-position: right;
+  width: 100%;
+  height: 550px;
+  background-size: contain;
+}
+
+.greeting-contain {
+  text-align: center;
+  width: 50%;
+}
+
+.greeting-contain > p:first-child {
+  font-weight: bold;
+  font-size: 7.5rem;
+  line-height: 89px;
+  margin: 0;
+}
+
+.greeting-contain > p:nth-child(2) {
+  font-weight: bold;
+  font-size: 7.5rem;
+  line-height: 89px;
+  color: #29cfac;
+  margin: 0;
+}
+
+.greeting-contain > p:nth-child(3) {
+  font-weight: bold;
+  font-size: 2.4rem;
+  color: #4b4456;
+  line-height: 30px;
+}
+
+/*Блок преимущества*/
+
+.advantage {
+  margin-bottom: 50px;
+}
+
+.advantage-info-title {
+  max-width: 600px;
+  position: relative;
+  text-align: center;
+  margin: 0 auto 50px;
+  position: relative;
+  margin-bottom: 50px;
+  text-transform: uppercase;
+  font-size: 48px;
+  font-weight: 700;
+  color: #29cfac;
+}
+
+.advantage-info-title::before {
+  content: "";
+  background-image: url("../../assets/adv-title.png");
+  width: 81px;
+  height: 73px;
+  position: absolute;
+  left: -66px;
+  top: -10px;
+  z-index: 2;
+}
+
+.advantage-contain {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+figure {
+  background: linear-gradient(180deg, #feeeee 0%, #fffbfb 100%);
+  border-radius: 78px;
+  text-align: center;
+  padding: 60px;
+  transition: all 0.2s;
+}
+
+figure:hover {
+  transform: scale(1.02);
+}
+
+figcaption > p:first-child {
+  color: #29cfac;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 24px;
+  text-transform: uppercase;
+}
+
+figcaption > p:last-child {
+  color: #4b4456;
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 36px;
+}
 /*команда*/
+
 .team-info-title {
   max-width: 430px;
   position: relative;
@@ -101,6 +205,13 @@
   color: #4b4456;
 }
 
+@media (max-width: 1100px) {
+  /*для преимущества*/
+  .advantage-contain {
+    flex-direction: column;
+  }
+}
+
 @media (max-width: 768px) {
   /*для команды*/
   .team-members {
@@ -108,12 +219,62 @@
     flex-wrap: wrap;
     justify-content: center;
   }
+
+  /*для приветствия*/
+  .greeting {
+    height: 200px;
+    background-position: right;
+  }
+
+  .greeting-contain {
+    width: 100%;
+  }
+
+  .greeting-contain > p:first-child {
+    font-size: 4rem;
+    line-height: 48px;
+  }
+
+  .greeting-contain > p:nth-child(2) {
+    font-size: 4rem;
+    line-height: 48px;
+    color: #0c6652;
+  }
+
+  .greeting-contain > p:nth-child(3) {
+    font-size: 1.4rem;
+    line-height: 20px;
+  }
+
+  /*для преимущества*/
+  .advantage-info-title {
+    font-size: 4rem;
+    margin-bottom: 30px;
+  }
+
+  .advantage-info-title::before {
+    left: -18px;
+  }
+
+  .team-info-title {
+    font-size: 4rem;
+    margin-bottom: 30px;
+  }
 }
 
 @media (max-width: 420px) {
+  /*для преимущества*/
+  .advantage-info-title {
+    font-size: 3rem;
+  }
+
+  .advantage-info-title::before {
+    display: none;
+  }
+
   /*для команды*/
   .team-info-title {
-    font-size: 40px;
+    font-size: 3rem;
     margin-bottom: 30px;
   }
 

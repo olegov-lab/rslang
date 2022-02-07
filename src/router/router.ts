@@ -6,8 +6,6 @@ import { MainPage } from '../pages/main/main';
 export class Router {
   mainPage: Component;
 
-  winsPage: Component | undefined;
-
   routs: Array<IRouter>;
 
   constructor(private rootElement: HTMLElement) {
@@ -28,7 +26,6 @@ export class Router {
       },
       {
         name: '/games',
-
         component: () => {
           this.rootElement.insertAdjacentHTML('afterbegin', `
           <section class="games-page">
@@ -44,7 +41,7 @@ export class Router {
                   <div class="game-sprint-select">
                       <div class="game-sprint-title">Спринт</div>
                   </div>
-                </a>  
+                </a>
               </div>
           </div>
           </section>`);
