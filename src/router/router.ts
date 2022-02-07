@@ -28,8 +28,74 @@ export class Router {
       },
       {
         name: '/games',
-        component: async () => {
-          this.rootElement.innerText = 'игры';
+
+        component: () => {
+          this.rootElement.insertAdjacentHTML('afterbegin', `
+          <section class="games-page">
+          <div class="container">
+              <div class="games-page-title">Мини-игры</div>
+              <div class="games">
+                <a href="#/games/audio">
+                  <div class="game-audio-call-select">
+                      <div class="game-audio-call-title">Аудиовызов</div>
+                  </div>
+                </a>
+                <a href="#/games/sprint">
+                  <div class="game-sprint-select">
+                      <div class="game-sprint-title">Спринт</div>
+                  </div>
+                </a>  
+              </div>
+          </div>
+          </section>`);
+        },
+      },
+      {
+        name: '/games/audio',
+        component: () => {
+          this.rootElement.insertAdjacentHTML('afterbegin',  `
+          <section class="game-audio-description"">
+          <div class="container">
+              <div class="audio-call-title">Аудиовызов</div>
+              <div class="audio-call-description">
+                  <div class="audio-call-main-text">«Аудиовызов» - это тренировка, которая <br> улучшает восприятие речи на слух</div>
+                  <div class="audio-call-sub-text">
+                      <ul>
+                          <li>Используйте мышь, чтобы выбрать</li>
+                          <li>Используйте цифровые клавиши от 1 до 5 для выбора ответа</li>
+                          <li>Используйте пробел для повтроного звучания слова</li>
+                          <li>Используйте клавишу Enter для подсказки или для перехода к следующему слову</li>
+                        </ul>
+                  </div>
+              </div>
+              <div class="audio-call-buttons">
+                  <div class="audio-call-difficulty">
+                      <select class="select-audio-play-difficulty">
+                          <option>Выберите сложность</option>
+                          <option value="value1">Группа 1</option>
+                          <option value="value2">Группа 2</option>
+                          <option value="value3">Группа 3</option>
+                          <option value="value1">Группа 4</option>
+                          <option value="value2">Группа 5</option>
+                          <option value="value3">Группа 6</option>
+                          <option value="value3">Группа 7</option>
+                        </select>
+                  </div>
+                  <div class="audio-call-start">
+                      <button class="audio-call-start-btn">Начать игру</button>
+                  </div>
+              </div>
+          </div>
+          </section>`
+
+          );
+        },
+      },
+      {
+        name: '/games/sprint',
+        component: () => {
+          this.rootElement.insertAdjacentHTML('afterbegin', ``);
+
         },
       },
       {
