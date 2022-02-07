@@ -2,19 +2,21 @@ import { IRouter } from '../interfaces/interface';
 import { Component } from '../utils/component';
 import { MainPage } from '../pages/main/main';
 import { SprintDescriptionPage } from '../pages/games/sprint/sprint-description/sprint-description';
+import { SprintPage } from '../pages/games/sprint/sprint-game/sprint-page/sprint-page';
 
 export class Router {
   mainPage: Component;
 
-
   sprintDescriptionPage: Component;
 
+  sprintPage: Component;
 
   routs: Array<IRouter>;
 
   constructor(private rootElement: HTMLElement) {
     this.mainPage = new MainPage(this.rootElement);
     this.sprintDescriptionPage = new SprintDescriptionPage(this.rootElement);
+    this.sprintPage = new SprintPage(this.rootElement);
 
     this.routs = [
       {
@@ -59,9 +61,15 @@ export class Router {
         },
       },
       {
+        name: '/games/sprint/sprint-game',
+        component: () => {
+          this.rootElement.append(this.sprintPage.element);
+        },
+      },
+      {
         name: '/games/audio',
         component: () => {
-          this.rootElement.insertAdjacentHTML('afterbegin',  `
+          this.rootElement.insertAdjacentHTML('afterbegin', `
           <section class="game-audio-description"">
           <div class="container">
               <div class="audio-call-title">Аудиовызов</div>
@@ -94,9 +102,7 @@ export class Router {
                   </div>
               </div>
           </div>
-          </section>`
-
-          );
+          </section>`);
         },
       },
       {

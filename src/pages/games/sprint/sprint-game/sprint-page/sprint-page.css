@@ -1,0 +1,64 @@
+.game-sprint {
+  height: 750px; /* TODO посмотреть по месту с учетом общей верстки */
+  width: 100%;
+  position: relative;
+
+  background: linear-gradient(180deg, rgba(255, 236, 236, 0) 0%, #ffecec 100%);
+}
+
+.game-section {
+  position: absolute;
+  left: calc(50% - 250px);
+  top: calc(50% - 200px);
+  width: 500px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border: 2px solid #29cfac;
+  border-radius: 30px;
+  background: rgba(170, 236, 176, 0.2);
+}
+.section-navigation {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.game-button-false,
+.game-button-true {
+  height: 40px;
+  width: 120px;
+  border: none;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+}
+
+.game-button-false {
+  margin-right: 50px;
+  background: #ff7e7e;
+}
+.game-button-true {
+  background: #29cfac;
+}
+
+.game-word {
+  font-family: Rubik;
+  font-size: 36px;
+  line-height: 43px;
+  text-align: center;
+}
+
+.game-translate {
+  font-family: Rubik;
+  font-size: 24px;
+  line-height: 28px;
+  text-align: center;
+}
+
+.btn:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}

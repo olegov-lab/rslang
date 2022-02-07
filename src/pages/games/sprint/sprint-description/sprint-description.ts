@@ -23,10 +23,12 @@ const sprintDescriptionSection = `
                     <option value="value2">Группа 5</option>
                     <option value="value3">Группа 6</option>
                     <option value="value3">Группа 7</option>
-                  </select>
+                </select>
             </div>
             <div class="sprint-start">
-                <button class="sprint-start-btn">Начать игру</button>
+              <a href="#/games/sprint/sprint-game">
+                <button class="sprint-start-btn" id="sprint-start-btn">Начать игру</button>
+              </a>
             </div>
         </div>
     `;
@@ -36,5 +38,6 @@ export class SprintDescriptionPage extends Component {
 
     const sprintGuest = new Component(this.element, 'div', ['container'], '');
     sprintGuest.element.innerHTML = sprintDescriptionSection;
+    document.addEventListener('click', () => console.log('hi')); // start game
   }
 }
