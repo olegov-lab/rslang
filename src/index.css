@@ -4,9 +4,7 @@ html {
 
 body {
   background-color: #e5e5e5;
-  padding: 15px;
   font-size: 1.6rem;
-  /* font-family: "Lato", Verdana, sans-serif; */
   font-family: "Rubik", Verdana, sans-serif;
   font-style: normal;
   font-weight: 500;
@@ -16,4 +14,10 @@ body {
 main {
   margin: 20px;
   padding: 10px;
+}
+
+.container {
+  max-width: 1170px;
+  margin: 0 auto;
+  padding: 0 15px;
 }

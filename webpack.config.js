@@ -32,9 +32,20 @@ const config = {
 
     new CopyPlugin({
       patterns: [
-        // { from: "./src/assets/arrow.svg", to: "./assets/arrow.svg" },
-        // { from: "./src/assets/car.svg", to: "./assets/car.svg" },
-        // { from: "./src/assets/flag.svg", to: "./assets/flag.svg" },
+        {
+          from: "./src/assets/team-title-back.png",
+          to: "./assets/team-title-back.png",
+        },
+        { from: "./src/assets/sprint.png", to: "./assets/sprint.png" },
+        { from: "./src/assets/RS-Lang.svg", to: "./assets/RS-Lang.svg" },
+        { from: "./src/assets/audio-call.png", to: "./assets/audio-call.png" },
+        { from: "./src/assets/pasha.png", to: "./assets/pasha.png" },
+        { from: "./src/assets/oleg.jpg", to: "./assets/oleg.jpg" },
+        { from: "./src/assets/ivan.jpg", to: "./assets/ivan.jpg" },
+        {
+          from: "./src/assets/GitHub-icon.png",
+          to: "./assets/GitHub-icon.png",
+        },
         { from: "./src/assets/favicon.png", to: "./assets/favicon.png" },
       ],
     }),

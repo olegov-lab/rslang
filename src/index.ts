@@ -2,6 +2,7 @@ import { App } from './app';
 import './normalize.css';
 import './index.css';
 
+import {getWords} from "./api/api"
 
 window.addEventListener('DOMContentLoaded', () => {
   const rootElement = document.body;
@@ -10,5 +11,7 @@ window.addEventListener('DOMContentLoaded', () => {
   app.init();
 
 });
+
+
 
 
