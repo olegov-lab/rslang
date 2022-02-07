@@ -13,16 +13,10 @@ export class Header extends Component {
 
   enterBtn: Component;
 
-
-  // partOfHeader: Component;
-
-
-
   nav: Component[] = [];
 
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', ['header', 'wrapper']);
-
 
     const logoHeader = new Component(this.element, 'a', ['nav-logo']);
     const containerPartOfHeader = new Component(this.element, 'div', ['nav-container-of-part']);

@@ -16,18 +16,19 @@ export class Router {
     this.routs = [
       {
         name: '/',
-        component: () => {
+        component: async () => {
           this.rootElement.append(this.mainPage.element);
         },
       },
       {
         name: '/dictionary',
-        component: () => {
+        component: async () => {
           this.rootElement.innerText = 'словарь';
         },
       },
       {
         name: '/games',
+
         component: () => {
           this.rootElement.insertAdjacentHTML('afterbegin', `
           <section class="games-page">
@@ -94,11 +95,12 @@ export class Router {
         name: '/games/sprint',
         component: () => {
           this.rootElement.insertAdjacentHTML('afterbegin', ``);
+
         },
       },
       {
         name: '/statistics',
-        component: () => {
+        component: async () => {
           this.rootElement.innerText = 'статистика';
         },
       },
