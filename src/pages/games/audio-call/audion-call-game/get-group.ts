@@ -1,5 +1,5 @@
 import { choosePage } from "./get-page";
-import { getPageAndGroup } from "./audio-call";
+import { getPageAndGroup } from "./get-page-and-group";
 
 /*выбор группы слова*/
 export function chooseGroup() {

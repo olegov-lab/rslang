@@ -1,7 +1,9 @@
 import './audio-call.css';
 import { pageNum, wordsRusArray, arrCopy  } from './audio-call';
 import { playSound } from './play-word-audio';
+import { checkAnswer } from './check-answer';
 import { choosePage } from './get-page';
+import { nextPage } from './audio-call';
 
 /*рендер страницы игры*/
 export function renderGameAudioPage() {
@@ -40,6 +42,7 @@ export function renderGameAudioPage() {
 
     const answersBlock = document.createElement('div');
     answersBlock.className = 'audio-game-answers';
+    answersBlock.addEventListener('click', checkAnswer);
 
     for (let i = 0; i < 5; i += 1) {
       const answer = document.createElement('div');
@@ -51,6 +54,7 @@ export function renderGameAudioPage() {
 
     const buttonBlock = document.createElement('div');
     buttonBlock.className = 'audion-btn';
+    buttonBlock.addEventListener('click', nextPage)
 
     const knowButton = document.createElement('button');
     knowButton.className = 'know';
