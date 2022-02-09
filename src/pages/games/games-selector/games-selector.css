@@ -1,6 +1,11 @@
+.games-page {
+    height: 74.5vh;
+    overflow-x: hidden;
+}
+
 .games-page,
 .game-audio-description {
-    margin-top: 100px;
+    margin: 100px 0 30px;
 }
 
 .games-page-title,
@@ -35,12 +40,24 @@
 
 .game-audio-call-select,
 .game-sprint-select {
+    transition: all .5s;
+}
+
+.game-audio-call-select:hover,
+.game-sprint-select:hover {
+    transform: scale(1.02);
+    filter: drop-shadow(0px 0px 30px rgba(41, 207, 172, 0.7));
+}
+
+
+.game-audio-call-select,
+.game-sprint-select {
     margin: 10px;
     position: relative;
     width: 500px;
     height: 290px;
     border-radius: 5px;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    filter: drop-shadow(0px 0px 30px rgba(255, 122, 175, 0.7));
 }
 
 .game-audio-call-title,
@@ -78,13 +95,13 @@
         margin-top: 40px;
     }
 
-    .game-audio-call,
-    .game-sprint {
+    .game-audio-call-select,
+    .game-sprint-select {
         background-size: contain;
     }
 
-    .game-audio-call,
-    .game-sprint {
+    .game-audio-call-select,
+    .game-sprint-select {
         height: 250px;
     }
 }
@@ -97,8 +114,8 @@
     }
 
 
-    .game-audio-call,
-    .game-sprint {
+    .game-audio-call-select,
+    .game-sprint-select {
         height: 180px;
     }
 

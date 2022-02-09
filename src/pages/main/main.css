@@ -17,14 +17,14 @@
   width: 50%;
 }
 
-.greeting-contain > p:first-child {
+.greeting-contain>p:first-child {
   font-weight: bold;
   font-size: 7.5rem;
   line-height: 89px;
   margin: 0;
 }
 
-.greeting-contain > p:nth-child(2) {
+.greeting-contain>p:nth-child(2) {
   font-weight: bold;
   font-size: 7.5rem;
   line-height: 89px;
@@ -32,7 +32,7 @@
   margin: 0;
 }
 
-.greeting-contain > p:nth-child(3) {
+.greeting-contain>p:nth-child(3) {
   font-weight: bold;
   font-size: 2.4rem;
   color: #4b4456;
@@ -77,7 +77,8 @@
 
 figure {
   background: linear-gradient(180deg, #feeeee 0%, #fffbfb 100%);
-  border-radius: 78px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  border-radius: 30px;
   text-align: center;
   padding: 60px;
   transition: all 0.2s;
@@ -87,7 +88,7 @@ figure:hover {
   transform: scale(1.02);
 }
 
-figcaption > p:first-child {
+figcaption>p:first-child {
   color: #29cfac;
   font-weight: bold;
   font-size: 20px;
@@ -95,13 +96,18 @@ figcaption > p:first-child {
   text-transform: uppercase;
 }
 
-figcaption > p:last-child {
+figcaption>p:last-child {
   color: #4b4456;
   font-weight: 500;
   font-size: 26px;
   line-height: 36px;
 }
+
 /*команда*/
+
+.team-info {
+  margin-bottom: 30px;
+}
 
 .team-info-title {
   max-width: 430px;
@@ -136,8 +142,9 @@ figcaption > p:last-child {
 
 .member-item {
   margin: 10px;
-  max-width: 400px;
-  min-height: 600px;
+  width: 400px;
+  max-width: 100%;
+  max-height: 600px;
   padding: 20px;
   background: linear-gradient(180deg, #feeeee 0%, #fffbfb 100%);
   border-radius: 30px;
@@ -156,6 +163,8 @@ figcaption > p:last-child {
 
 .member-photo {
   max-width: 100%;
+  margin: 0 auto;
+  display: flex;
 }
 
 .member-name {
@@ -197,6 +206,7 @@ figcaption > p:last-child {
 
 .member-actions-block li {
   padding: 10px;
+  text-align: start;
 }
 
 .memeber-actions {
@@ -206,13 +216,19 @@ figcaption > p:last-child {
 }
 
 @media (max-width: 1100px) {
+
   /*для преимущества*/
   .advantage-contain {
     flex-direction: column;
   }
+
+  .team-members {
+    justify-content: center;
+  }
 }
 
 @media (max-width: 768px) {
+
   /*для команды*/
   .team-members {
     display: flex;
@@ -230,18 +246,18 @@ figcaption > p:last-child {
     width: 100%;
   }
 
-  .greeting-contain > p:first-child {
+  .greeting-contain>p:first-child {
     font-size: 4rem;
     line-height: 48px;
   }
 
-  .greeting-contain > p:nth-child(2) {
+  .greeting-contain>p:nth-child(2) {
     font-size: 4rem;
     line-height: 48px;
     color: #0c6652;
   }
 
-  .greeting-contain > p:nth-child(3) {
+  .greeting-contain>p:nth-child(3) {
     font-size: 1.4rem;
     line-height: 20px;
   }
@@ -263,6 +279,7 @@ figcaption > p:last-child {
 }
 
 @media (max-width: 420px) {
+
   /*для преимущества*/
   .advantage-info-title {
     font-size: 3rem;
