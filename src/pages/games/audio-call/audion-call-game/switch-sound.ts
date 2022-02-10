@@ -16,7 +16,6 @@ export function playWrongSound() {
 
 export function switchSound() {
   const image = document.querySelector('.switch-sound');
-  console.log(image)
   if(isPlay) {
     isPlay = false; 
     image.classList.add('active');
