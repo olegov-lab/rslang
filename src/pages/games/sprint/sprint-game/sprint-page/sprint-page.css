@@ -62,3 +62,21 @@
   cursor: pointer;
   transform: scale(1.1);
 }
+
+.answer-icon-true {
+  position: absolute;
+  top: 285px;
+  left: calc(50% - 30px);
+  height: 60px;
+  width: 60px;
+  z-index: 100;
+  background-image: url(../../../../../assets/iconTrue.svg);
+}
+.answer-icon-false {
+  position: absolute;
+  top: 285px;
+  left: calc(50% - 30px);
+  height: 60px;
+  width: 60px;
+  background-image: url(../../../../../assets/iconFalse.svg);
+}

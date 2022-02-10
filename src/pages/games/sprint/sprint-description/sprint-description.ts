@@ -33,11 +33,20 @@ const sprintDescriptionSection = `
         </div>
     `;
 export class SprintDescriptionPage extends Component {
+  showFirstWord: (words)=>void;
+
+  startGame: () => void;
+
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'section', ['game-sprint-description']);
 
     const sprintGuest = new Component(this.element, 'div', ['container'], '');
     sprintGuest.element.innerHTML = sprintDescriptionSection;
-    document.addEventListener('click', () => console.log('hi')); // start game
+
+    const btnStartGame = sprintGuest.element.querySelector('.sprint-start-btn');
+    btnStartGame.addEventListener('click', () => {
+      console.log('btnStartGame');
+      this.startGame();
+    });
   }
 }

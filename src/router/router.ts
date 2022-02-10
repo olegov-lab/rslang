@@ -2,22 +2,22 @@ import { IRouter } from '../interfaces/interface';
 import { Component } from '../utils/component';
 import { MainPage } from '../pages/main/main';
 import { SprintDescriptionPage } from '../pages/games/sprint/sprint-description/sprint-description';
-import { SprintPage } from '../pages/games/sprint/sprint-game/sprint-page/sprint-page';
+import { SprintGame } from '../pages/games/sprint/sprint-game/sprint';
 
 export class Router {
   mainPage: Component;
 
   sprintDescriptionPage: Component;
 
-  sprintPage: Component;
+  sprintGame: SprintGame;
 
   routs: Array<IRouter>;
 
   constructor(private rootElement: HTMLElement) {
     this.mainPage = new MainPage(this.rootElement);
-    this.sprintDescriptionPage = new SprintDescriptionPage(this.rootElement);
-    this.sprintPage = new SprintPage(this.rootElement);
-
+    // this.sprintDescriptionPage = new SprintDescriptionPage(this.rootElement);
+    this.sprintGame = new SprintGame(this.rootElement);
+    
     this.routs = [
       {
         name: '/',
@@ -57,13 +57,13 @@ export class Router {
       {
         name: '/games/sprint',
         component: () => {
-          this.rootElement.append(this.sprintDescriptionPage.element);
+          this.sprintGame.renderDescription();
         },
       },
       {
         name: '/games/sprint/sprint-game',
         component: () => {
-          this.rootElement.append(this.sprintPage.element);
+          this.sprintGame.renderGame();
         },
       },
       {

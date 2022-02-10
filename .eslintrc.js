@@ -26,5 +26,6 @@ module.exports = {
     "no-console": "off",
     "default-param-last": "off",
     "consistent-return": "off",
+    "no-restricted-syntax": "off",
   },
 };
