@@ -1,21 +1,28 @@
+import './audio-call.css';
 import { getWords } from "../../../../api/api";
-import { renderGameAudioPage } from "./render-audio-call-page";
 import { choosePage} from "./get-page";
+import {showAnswer} from "./show-answer";
+import { renderGameAudioPage } from "./render-audio-call-page";
+import {hideAnswer} from "./hide-answer";
+import { chooseGroup} from './get-group'
 
 const body = document.body;
-let audioArray = [];
-let wordsEnArray = [];
-let wordsRusArray = [];
-let wordsImgArray = [];
-let arrTrueAnswer = [];
-let arrFalseAnswer = [];
-let arrCopy = [];
+export let audioArray = [];
+export let wordsEnArray = [];
+export let wordsRusArray = [];
+export let wordsImgArray = [];
+export let arrTrueAnswer = [];
+export let arrFalseAnswer = [];
+export let arrCopy = [];
 
-let pageNum: number = 0;
+export let pageNum: number = 0;
 const lastPage: number = 19;
 
-const getPageAndGroup = async (a = 0, b = 0) => {
+/* получаем данные */
+export const getPageAndGroup = async (a = 0, b = 0) => {
   const words = await getWords(a, b);
+  clearArrays();
+
   for (let i = 0; i < 20; i++) {
     audioArray.push(words[i].audio);
     wordsEnArray.push(words[i].word);
@@ -25,6 +32,7 @@ const getPageAndGroup = async (a = 0, b = 0) => {
 };
 getPageAndGroup();
 
+/* получаем данные из другой группы для еще одного массива */
 const getRandomAnswers = async () => {
   const words = await getWords(choosePage(0, 5), choosePage(0, 29));
   for (let i = 0; i < 20; i++) {
@@ -33,13 +41,17 @@ const getRandomAnswers = async () => {
 };
 getRandomAnswers();
 
-/*выбор группы слова*/
-function chooseGroup() {
-  const gameAudioDesc = document.querySelector('.select-audio-play-difficulty') as HTMLInputElement;
-  const group = +gameAudioDesc.value;
+/* очистка массивов */
+function clearArrays() {
+  audioArray = [];
+  wordsEnArray = [];
+  wordsRusArray = [];
+  wordsImgArray = [];
+  arrTrueAnswer = [];
+  arrFalseAnswer = [];
+}
 
-  getPageAndGroup(choosePage(0, 29), group);
-};
+
 body.addEventListener('change', chooseGroup);
-
 body.addEventListener('click', renderGameAudioPage);
+
