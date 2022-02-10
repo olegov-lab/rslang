@@ -4,6 +4,7 @@ import { choosePage} from "./get-page";
 import {showAnswer} from "./show-answer";
 import { renderGameAudioPage } from "./render-audio-call-page";
 import {hideAnswer} from "./hide-answer";
+import {playSound} from './play-word-audio';
 import { chooseGroup} from './get-group'
 
 const body = document.body;
@@ -50,6 +51,38 @@ function clearArrays() {
   arrTrueAnswer = [];
   arrFalseAnswer = [];
 }
+
+/* нажатие на не знаю */
+export function nextPage() {
+  const target = event.target as HTMLElement;
+  const answers = document.querySelectorAll('.answer') as NodeList;
+
+  if ((target as HTMLDivElement).closest('.audion-btn')) {
+    if (target.innerText === 'Не знаю') {
+      showAnswer();
+      answers.forEach((el: any) => {
+        if (el.innerText === wordsRusArray[pageNum]) {
+          el.style.color = 'green';
+          el.classList.add('active');
+        } else {
+          el.style.opacity = '0.4';
+        }
+      });
+      target.innerText = 'Далее';
+    } else {
+      pageNum++;
+      target.innerText = 'Не знаю';
+      answers.forEach((el: any) => {
+        el.style.color = 'black';
+        el.style.opacity = '1';
+        el.style.textDecoration = 'none';
+        el.classList.remove('active');
+      })
+      playSound();
+      hideAnswer();
+    }
+  }
+};
 
 
 body.addEventListener('change', chooseGroup);
