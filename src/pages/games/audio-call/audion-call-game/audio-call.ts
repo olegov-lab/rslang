@@ -6,7 +6,8 @@ import { renderGameAudioPage } from "./render-audio-call-page";
 import {hideAnswer} from "./hide-answer";
 import {playSound} from './play-word-audio';
 import {getNewWords} from './get-new-words';
-import { chooseGroup} from './get-group'
+import { chooseGroup} from './get-group';
+import { playWrongSound } from "./switch-sound";
 
 const body = document.body;
 export let audioArray = [];
@@ -49,6 +50,7 @@ export function nextPage() {
   if ((target as HTMLDivElement).closest('.audion-btn')) {
     if (target.innerText === 'Не знаю') {
       showAnswer();
+      playWrongSound();
       answers.forEach((el: any) => {
         if (el.innerText === wordsRusArray[pageNum]) {
           el.style.color = 'green';

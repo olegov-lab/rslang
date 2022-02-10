@@ -1,5 +1,6 @@
-import {wordsRusArray, pageNum, arrTrueAnswer, arrFalseAnswer} from "./audio-call";
-import {showAnswer} from "./show-answer";
+import { wordsRusArray, pageNum, arrTrueAnswer, arrFalseAnswer } from "./audio-call";
+import { showAnswer } from "./show-answer";
+import { playCorrectSound, playWrongSound } from "./switch-sound";
 
 /*проверка ответа*/
 export function checkAnswer() {
@@ -10,13 +11,16 @@ export function checkAnswer() {
     answers.forEach((el: any) => {
       if (target.innerText === wordsRusArray[pageNum]) {
         target.classList.add('active');
-        arrTrueAnswer.push(el);
+        arrTrueAnswer.push(wordsRusArray[pageNum]);
+        playCorrectSound();
+        console.log(arrTrueAnswer);
         if (el.innerText != wordsRusArray[pageNum]) {
           el.style.opacity = '0.4';
         }
       } else {
         target.style.color = 'red';
         target.style.textDecoration = 'line-through';
+        playWrongSound();
         if (el.innerText === wordsRusArray[pageNum]) {
           el.classList.add('active');
         }
