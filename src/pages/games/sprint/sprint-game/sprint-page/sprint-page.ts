@@ -1,5 +1,7 @@
 import { Component } from '../../../../../utils/component';
+import { Results } from './results';
 import './sprint-page.css';
+import { sprintData } from './sprintData';
 
 const sprintSection = `
 <nav class="section-navigation">
@@ -24,6 +26,12 @@ export class SprintPage extends Component {
 
   showFirstWord: (words: any[])=>void;
 
+  renderResults: any;
+
+  currentNumber: number;
+
+  btnTrue: HTMLElement;
+
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'section', ['game-sprint']);
 
@@ -39,5 +47,17 @@ export class SprintPage extends Component {
     btnFalse.addEventListener('click', (event) => {
       this.showNextWord(event);
     });
+
+    /* const btnResult = sprintGuest.element.querySelector('.game-button-result');
+    btnResult.addEventListener('click', (event) => {
+      this.renderResults();
+    }); */
+  }
+
+  renderCard() {
+    const wordFeld = this.element.querySelector('.game-word') as HTMLElement;
+    const translateFeld = this.element.querySelector('.game-translate') as HTMLElement
+    wordFeld.innerText = sprintData.currentWordsKit[sprintData.currentNumberWord].word;
+    translateFeld.innerText = sprintData.currentWordsKit[sprintData.currentNumberWord].translate;
   }
 }

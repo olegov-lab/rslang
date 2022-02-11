@@ -7,17 +7,13 @@ import { SprintGame } from '../pages/games/sprint/sprint-game/sprint';
 export class Router {
   mainPage: Component;
 
-  sprintDescriptionPage: Component;
-
   sprintGame: SprintGame;
 
   routs: Array<IRouter>;
 
   constructor(private rootElement: HTMLElement) {
     this.mainPage = new MainPage(this.rootElement);
-    // this.sprintDescriptionPage = new SprintDescriptionPage(this.rootElement);
     this.sprintGame = new SprintGame(this.rootElement);
-    
     this.routs = [
       {
         name: '/',
@@ -58,12 +54,6 @@ export class Router {
         name: '/games/sprint',
         component: () => {
           this.sprintGame.renderDescription();
-        },
-      },
-      {
-        name: '/games/sprint/sprint-game',
-        component: () => {
-          this.sprintGame.renderGame();
         },
       },
       {

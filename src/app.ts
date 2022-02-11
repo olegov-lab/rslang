@@ -4,6 +4,7 @@ import { Router } from './router/router';
 import { Footer } from './components/footer/footer';
 import './pages/games/games-selector/games-selector';
 import './pages/games/audio-call/audio-call-description/audio-call-description';
+import './pages/games/sprint/sprint-game/sprint-page/sprintData';
 
 export class App {
   main: Component;

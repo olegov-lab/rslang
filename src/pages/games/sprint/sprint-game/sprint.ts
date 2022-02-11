@@ -2,27 +2,30 @@ import { Component } from '../../../../utils/component';
 import { SprintPage } from './sprint-page/sprint-page';
 import { generateWordsForGame } from './sprint-page/getWordCollection';
 import { SprintDescriptionPage } from '../sprint-description/sprint-description';
+import { Results } from './sprint-page/results';
+import { sprintData } from './sprint-page/sprintData';
 
 export class SprintGame extends Component {
   main: HTMLElement;
 
-  startGame: () => void;
-
-  currentWords: number;
-
   words: any;
+
+  resultArray: object[];
+
+  sprintPage: any;
+
+  wordFeld: HTMLElement;
+
+  translateFeld: HTMLElement;
 
   constructor(parentNode: HTMLElement) {
     super(parentNode);
     this.main = parentNode;
-    this.currentWords = 0;
-    // eslint-disable-next-line no-unused-expressions
-    this.words;
+    generateWordsForGame();
   }
 
   renderDescription() {
     const sprintDescriptionPage = new SprintDescriptionPage(this.main);
-
     sprintDescriptionPage.startGame = () => {
       console.log('start game');
       this.renderGame();
@@ -38,37 +41,38 @@ export class SprintGame extends Component {
         curentAnswer = false;
       }
     }
-    const root = document.querySelector('.game-sprint') as HTMLElement;
-    console.log(root);
-    
-    if (this.words[this.currentWords].answer === curentAnswer) {
+
+    if (sprintData.currentWordsKit[sprintData.currentNumberWord].answer === curentAnswer) {
       const icon = new Component(this.main, 'div', ['answer-icon-true'], '');
       setInterval(() => icon.destroy(), 500);
-      console.log('correct'); // FIXME добавить значек правильно
+      sprintData.currentWordsKit[sprintData.currentNumberWord].answer = true;
     } else {
+      sprintData.currentWordsKit[sprintData.currentNumberWord].answer = false;
       const icon = new Component(this.main, 'div', ['answer-icon-false'], '');
       setInterval(() => icon.destroy(), 500);
-      console.log('mistake'); // FIXME добавить значек не правильно
     }
   }
 
   renderGame() {
     const sprintPage = new SprintPage(this.main);
-    const wordFeld = sprintPage.element.querySelector('.game-word') as HTMLElement;
-    const translateFeld = sprintPage.element.querySelector('.game-translate') as HTMLElement;
-
-    generateWordsForGame(0, 0).then((words) => {
-      this.words = words;
-      wordFeld.innerText = words[this.currentWords].word;
-      translateFeld.innerText = words[this.currentWords].translate;
-    });
+    document.querySelector('.game-sprint-description').remove();
+    sprintPage.renderCard();
 
     sprintPage.showNextWord = (event) => {
       this.checkAnswer(event);
-      console.log('showNextWord');
-      this.currentWords += 1;
-      sprintPage.destroy();
-      this.renderGame();
+      sprintData.currentNumberWord += 1;
+      sprintPage.renderCard();
+      console.log(sprintData.currentNumberWord);
+      if ((sprintData.currentNumberWord % 20) === 19) {
+        sprintData.currentPage -= 1;
+        generateWordsForGame();
+      }
+    };
+
+    sprintPage.renderResults = () => {
+      const root = document.querySelector('.main') as HTMLElement;
+      const results = new Results(root);
+      results.renderAnswers(this.words);
     };
   }
 }
