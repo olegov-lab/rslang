@@ -6,20 +6,21 @@ import { renderGameAudioPage } from "./render-audio-call-page";
 import {hideAnswer} from "./hide-answer";
 import {playSound} from './play-word-audio';
 import {getNewWords} from './get-new-words';
-import { chooseGroup} from './get-group'
+import { chooseGroup} from './get-group';
+import { playWrongSound } from "./switch-sound";
 
 const body = document.body;
-export let audioArray = [];
-export let wordsEnArray = [];
-export let wordsRusArray = [];
-export let wordsImgArray = [];
-export let arrTrueAnswer = [];
-export let arrFalseAnswer = [];
-export let arrCopy = [];
+export let audioArray: string [] = [];
+export let wordsEnArray: string [] = [];
+export let wordsRusArray: string [] = [];
+export let wordsImgArray: string [] = [];
+export let arrTrueAnswer: string [] = [];
+export let arrFalseAnswer: string [] = [];
+export let arrCopy: string [] = [];
+
 
 export let pageNum: number = 0;
 const lastPage: number = 19;
-
 
 
 /* получаем данные из другой группы для еще одного массива */
@@ -28,8 +29,10 @@ const getRandomAnswers = async () => {
   for (let i = 0; i < 20; i++) {
     arrCopy.push(words[i].wordTranslate);
   }
+   arrCopy =  arrCopy.sort(() => Math.random() - 0.5)
 };
 getRandomAnswers();
+
 
 /* очистка массивов */
 export function clearArrays() {
@@ -48,17 +51,18 @@ export function nextPage() {
 
   if ((target as HTMLDivElement).closest('.audion-btn')) {
     if (target.innerText === 'Не знаю') {
+      arrFalseAnswer.push(wordsRusArray[pageNum]);
       showAnswer();
+      playWrongSound();
       answers.forEach((el: any) => {
         if (el.innerText === wordsRusArray[pageNum]) {
-          el.style.color = 'green';
           el.classList.add('active');
         } else {
           el.style.opacity = '0.4';
         }
       });
       target.innerText = 'Далее';
-    } else {
+    } else if (pageNum < 19) {
       pageNum++;
       target.innerText = 'Не знаю';
       answers.forEach((el: any) => {
@@ -66,10 +70,14 @@ export function nextPage() {
         el.style.opacity = '1';
         el.style.textDecoration = 'none';
         el.classList.remove('active');
+        el.classList.remove('event');
       })
       playSound();
       hideAnswer();
       getNewWords();
+    }
+    else {
+      console.log('end')
     }
   }
 };

@@ -4,6 +4,7 @@ import { playSound } from './play-word-audio';
 import { checkAnswer } from './check-answer';
 import { choosePage } from './get-page';
 import { nextPage } from './audio-call';
+import { switchSound } from './switch-sound';
 
 /*рендер страницы игры*/
 export function renderGameAudioPage() {
@@ -23,6 +24,10 @@ export function renderGameAudioPage() {
 
     const gameAudioPage = document.createElement('div');
     gameAudioPage.className = 'game-audio-page';
+
+    const soundSwitcher = document.createElement('div');
+    soundSwitcher.className = 'switch-sound';
+    soundSwitcher.addEventListener('click', switchSound)
 
     const imageBlock = document.createElement('div');
     imageBlock.className = 'audio-game-img';
@@ -62,6 +67,7 @@ export function renderGameAudioPage() {
 
     section.appendChild(container);
     container.appendChild(gameAudioPage);
+    gameAudioPage.appendChild(soundSwitcher);
     gameAudioPage.appendChild(imageBlock);
     gameAudioPage.appendChild(soundBlock);
     imageBlock.appendChild(wordImage);

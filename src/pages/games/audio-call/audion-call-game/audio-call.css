@@ -109,7 +109,13 @@
 .answer.active {
     border: 2px solid #29CFAC;
     color: #008000;
+    pointer-events: none;
 }
+
+.answer.event {
+    pointer-events: none;
+}
+
 
 .audion-btn {
     margin: 0 auto;
@@ -133,4 +139,15 @@
     cursor: pointer;
     background: none;
     border: none;
+}
+
+.switch-sound {
+    background-image: url('../../../../assets/musical-note.png');
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.switch-sound.active {
+    background-image: url('../../../../assets/musical-note-mute-1.png');
 }
