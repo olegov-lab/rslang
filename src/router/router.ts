@@ -1,20 +1,24 @@
 import { IRouter } from '../interfaces/interface';
 import { Component } from '../utils/component';
 import { MainPage } from '../pages/main/main';
-import { SprintDescriptionPage } from '../pages/games/sprint/sprint-description/sprint-description';
+import { SprintDescriptionPage }
+from '../pages/games/sprint/sprint-description/sprint-description';
+
+import { Form } from "../pages/form/form";
 
 export class Router {
   mainPage: Component;
 
-
   sprintDescriptionPage: Component;
 
+  form: Component;
 
   routs: Array<IRouter>;
 
   constructor(private rootElement: HTMLElement) {
     this.mainPage = new MainPage(this.rootElement);
     this.sprintDescriptionPage = new SprintDescriptionPage(this.rootElement);
+    this.form = new Form(this.rootElement);
 
     this.routs = [
       {
@@ -103,6 +107,12 @@ export class Router {
         name: '/statistics',
         component: async () => {
           this.rootElement.innerText = 'статистика';
+        },
+      },
+      {
+        name: '/signin',
+        component: async () => {
+          this.rootElement.append(this.form.element);
         },
       },
     ];

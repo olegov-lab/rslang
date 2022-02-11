@@ -7,7 +7,7 @@ export const renderAdvantageBlock = () => `
 <img src="../../assets/fig1.png"alt="lesson">
 <figcaption>
 <p>УЧЕБНИК</p>
-<p>Изучай слова в учебники</p>
+<p>Изучай слова в учебнике</p>
 </figcaption>
 </figure>
 

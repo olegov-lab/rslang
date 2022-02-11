@@ -17,6 +17,8 @@ export class Header extends Component {
 
   enterBtn: Component;
 
+  exiteBtn: Component;
+
   nav: Component[] = [];
 
   constructor(parentNode: HTMLElement) {
@@ -29,16 +31,20 @@ export class Header extends Component {
     this.linkForDictionary = new Component(partOfHeader.element, 'a', ['nav-link'], 'Учебник');
     this.linkForGames = new Component(partOfHeader.element, 'a', ['nav-link'], 'Игры');
     this.linkForStatistics = new Component(partOfHeader.element, 'a', ['nav-link'], 'Статистика');
+
+    this.enterBtn = new Component(containerPartOfHeader.element, 'a', ['nav-btn'], 'Войти');
+    this.exiteBtn = new Component(containerPartOfHeader.element, 'a', ['nav-btnEx', 'hidden'], 'Выйти');
+
     const burgerMenu = new Component(containerPartOfHeader.element, 'div', ['burger'], '');
     const contentBurger = new Component(burgerMenu.element, 'div', ['sidepanel'], '');
     const burgerBtn = new Component(burgerMenu.element, 'button', ['openbtn'], '☰');
-    this.enterBtn = new Component(containerPartOfHeader.element, 'button', ['nav-btn'], 'Войти');
 
     logoHeader.element.setAttribute('href', '#/');
     this.linkForMain.element.setAttribute('href', '#/');
     this.linkForDictionary.element.setAttribute('href', '#/dictionary');
     this.linkForGames.element.setAttribute('href', '#/games');
     this.linkForStatistics.element.setAttribute('href', '#/statistics');
+    this.enterBtn.element.setAttribute('href', '#/signin');
 
     this.nav = [this.linkForMain, this.linkForDictionary,
                 this.linkForGames, this.linkForStatistics];
@@ -58,6 +64,7 @@ export class Header extends Component {
     const changeBurger = document.querySelector('.openbtn');
     const changeMenu = document.querySelector('.sidepanel');
     const closeBtn = document.querySelector('.closebtn');
+    const exiteBtn = document.querySelector('.nav-btnEx');
 
     changeBurger.addEventListener('click' , (event) => {
       changeMenu.classList.add('active-sidepanel');
@@ -65,6 +72,14 @@ export class Header extends Component {
 
     closeBtn.addEventListener('click' , (event) => {
       changeMenu.classList.remove('active-sidepanel');
+    })
+
+    exiteBtn.addEventListener('click', () => {
+
+      document.querySelector('.nav-btn').classList.remove('hidden');
+      document.querySelector('.nav-btnEx').classList.add('hidden');
+      window.location.hash = '#/signin';
+      localStorage.clear();
     })
 
   }

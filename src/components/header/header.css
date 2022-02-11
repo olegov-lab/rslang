@@ -67,16 +67,35 @@
 .nav-btn {
   background: #29cfac;
   border-radius: 5px;
-  width: 100px;
-  /* height: 46px; */
+  padding: 5px 10px 5px 10px;
   color: white;
   border: none;
   transition: all 0.4s;
+  text-decoration: none;
 }
 
 .nav-btn:hover {
   background: #83cacf;
   cursor: pointer;
+}
+
+.nav-btnEx {
+  background: #29cfac;
+  border-radius: 5px;
+  padding: 5px 10px 5px 10px;
+  color: white;
+  border: none;
+  transition: all 0.4s;
+  text-decoration: none;
+}
+
+.nav-btnEx:hover {
+  background: #83cacf;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
 }
 
 /*бургер-меню*/

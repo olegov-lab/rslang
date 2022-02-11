@@ -21,7 +21,19 @@ export interface IUser {
     password: "string"
 }
 
+export interface IUserID {
+  id: "string",
+  email: "string",
+}
 export interface IRouter {
   name: string;
   component: () => void;
+}
+
+export interface IUserToken {
+    message: "string",
+    token: "string",
+    refreshToken: "string",
+    userId: "string",
+    name: "string"
 }

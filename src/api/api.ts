@@ -1,8 +1,6 @@
-import { IWords, IUser } from "../interfaces/interface"
+import { IWords, IUser } from "../interfaces/interface";
 
-
-
-const baseUrl = 'https://rslang-node.herokuapp.com';
+export const baseUrl = 'https://rslang-node.herokuapp.com';
 
 
 export const getWords = async ( group = 0, page = 0):  Promise<IWords> => {
@@ -22,23 +20,7 @@ export const getWords = async ( group = 0, page = 0):  Promise<IWords> => {
   }
 };
 
-export const createUser = async (user: {}): Promise<void> => {
-  try{
-    const rawResponse = await fetch(`${baseUrl}/users`, {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(user)
-  });
-  return rawResponse.json();
-} catch (err) {
-  if (err instanceof Error) {
-    throw new Error(err.message);
-  }
-}
-};
+
 
 
 
