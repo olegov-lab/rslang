@@ -1,23 +1,25 @@
 import { IRouter } from '../interfaces/interface';
 import { Component } from '../utils/component';
 import { MainPage } from '../pages/main/main';
+import { SprintDescriptionPage } from '../pages/games/sprint/sprint-description/sprint-description';
+import { SprintGame } from '../pages/games/sprint/sprint-game/sprint';
 import { SprintDescriptionPage }
 from '../pages/games/sprint/sprint-description/sprint-description';
-
 import { Form } from "../pages/form/form";
+
 
 export class Router {
   mainPage: Component;
 
-  sprintDescriptionPage: Component;
-
+  sprintGame: SprintGame;
+ 
   form: Component;
 
   routs: Array<IRouter>;
 
   constructor(private rootElement: HTMLElement) {
     this.mainPage = new MainPage(this.rootElement);
-    this.sprintDescriptionPage = new SprintDescriptionPage(this.rootElement);
+    this.sprintGame = new SprintGame(this.rootElement);
     this.form = new Form(this.rootElement);
 
     this.routs = [
@@ -59,13 +61,13 @@ export class Router {
       {
         name: '/games/sprint',
         component: () => {
-          this.rootElement.append(this.sprintDescriptionPage.element);
+          this.sprintGame.renderDescription();
         },
       },
       {
         name: '/games/audio',
         component: () => {
-          this.rootElement.insertAdjacentHTML('afterbegin',  `
+          this.rootElement.insertAdjacentHTML('afterbegin', `
           <section class="game-audio-description"">
           <div class="container">
               <div class="audio-call-title">Аудиовызов</div>
@@ -98,9 +100,7 @@ export class Router {
                   </div>
               </div>
           </div>
-          </section>`
-
-          );
+          </section>`);
         },
       },
       {
