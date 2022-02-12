@@ -3,6 +3,7 @@ interface IGameData {
     translate: string,
     audio: string,
     answer: boolean,
+    userAnswer?: boolean,
 }
 
 export const sprintData: {

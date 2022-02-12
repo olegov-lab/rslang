@@ -18,6 +18,7 @@ const sprintSection = `
 <div class="game-btn-container">
   <button class="btn game-button-false" id="game-button-false">&#10094 Не верно</button>
   <button class="btn game-button-true" id="game-button-true">Верно &#10095</button>
+  <button class="btn game-button-result" id="game-button-true">Result</button>
 </div>
 </div>`;
 
@@ -48,10 +49,10 @@ export class SprintPage extends Component {
       this.showNextWord(event);
     });
 
-    /* const btnResult = sprintGuest.element.querySelector('.game-button-result');
+    const btnResult = sprintGuest.element.querySelector('.game-button-result');
     btnResult.addEventListener('click', (event) => {
       this.renderResults();
-    }); */
+    });
   }
 
   renderCard() {
