@@ -1,0 +1,9 @@
+.textbook-container {
+  padding: 10px;
+}
+
+a.disabled-link {
+  pointer-events: none;
+  cursor: default;
+  color: #888;
+}

@@ -5,21 +5,28 @@ import { SprintGame } from '../pages/games/sprint/sprint-game/sprint';
 import { SprintDescriptionPage }
 from '../pages/games/sprint/sprint-description/sprint-description';
 import { Form } from "../pages/form/form";
+import { Textbook } from "../pages/textbook/textbook";
 
 
 export class Router {
   mainPage: Component;
 
   sprintGame: SprintGame;
- 
+
   form: Component;
 
   routs: Array<IRouter>;
+
+  textbook: Component;
 
   constructor(private rootElement: HTMLElement) {
     this.mainPage = new MainPage(this.rootElement);
     this.sprintGame = new SprintGame(this.rootElement);
     this.form = new Form(this.rootElement);
+    this.textbook = new Textbook(this.rootElement);
+
+
+
 
     this.routs = [
       {
@@ -29,9 +36,51 @@ export class Router {
         },
       },
       {
-        name: '/dictionary',
+        name: '/textbook',
         component: async () => {
-          this.rootElement.innerText = 'словарь';
+          this.rootElement.append(this.textbook.element);
+        },
+      },
+      {
+        name: `/textbook/0`,
+        component: async () => {
+          this.rootElement.append(this.textbook.element);
+        },
+      },
+      {
+        name: `/textbook/1`,
+        component: async () => {
+          this.rootElement.append(this.textbook.element);
+        },
+      },
+      {
+        name: `/textbook/2`,
+        component: async () => {
+          this.rootElement.append(this.textbook.element);
+        },
+      },
+      {
+        name: `/textbook/3`,
+        component: async () => {
+          this.rootElement.append(this.textbook.element);
+        },
+      },
+      {
+        name: `/textbook/4`,
+        component: async () => {
+          this.rootElement.append(this.textbook.element);
+        },
+      },
+      {
+        name: `/textbook/5`,
+        component: async () => {
+          this.rootElement.append(this.textbook.element);
+        },
+      },
+      {
+        name: `/textbook/6`,
+        component: async () => {
+          this.rootElement.append(this.textbook.element);
         },
       },
       {
