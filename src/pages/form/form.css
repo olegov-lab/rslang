@@ -1,0 +1,65 @@
+li {
+  padding: 5px;
+  list-style-type: none;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.div-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.text-field,
+.pass-field {
+  max-width: 600px;
+  padding: 10px;
+  box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.2);
+  border: 1px solid #ccc;
+  color: #159fc8;
+  padding-left: 30px;
+}
+
+.errors-status {
+  color: rgb(16, 16, 17);
+  text-align: center;
+  margin: 10px;
+  padding: 10px;
+}
+
+.correct-mail,
+.correct-pass {
+  font-size: small;
+}
+
+.btns-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+}
+
+.enter-btn-form,
+.registr-btn-form {
+  background: #29cfacad;
+  border-radius: 5px;
+  padding: 5px 10px 5px 10px;
+  color: white;
+  border: none;
+  transition: all 0.4s;
+  text-decoration: none;
+  transition: all 0.4s;
+}
+
+.enter-btn-form:hover,
+.registr-btn-form:hover {
+  cursor: pointer;
+  background: #162627;
+}

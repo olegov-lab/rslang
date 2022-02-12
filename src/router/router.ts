@@ -3,17 +3,25 @@ import { Component } from '../utils/component';
 import { MainPage } from '../pages/main/main';
 import { SprintDescriptionPage } from '../pages/games/sprint/sprint-description/sprint-description';
 import { SprintGame } from '../pages/games/sprint/sprint-game/sprint';
+import { SprintDescriptionPage }
+from '../pages/games/sprint/sprint-description/sprint-description';
+import { Form } from "../pages/form/form";
+
 
 export class Router {
   mainPage: Component;
 
   sprintGame: SprintGame;
+ 
+  form: Component;
 
   routs: Array<IRouter>;
 
   constructor(private rootElement: HTMLElement) {
     this.mainPage = new MainPage(this.rootElement);
     this.sprintGame = new SprintGame(this.rootElement);
+    this.form = new Form(this.rootElement);
+
     this.routs = [
       {
         name: '/',
@@ -78,13 +86,13 @@ export class Router {
                   <div class="audio-call-difficulty">
                       <select class="select-audio-play-difficulty">
                           <option>Выберите сложность</option>
-                          <option value="value1">Группа 1</option>
-                          <option value="value2">Группа 2</option>
-                          <option value="value3">Группа 3</option>
-                          <option value="value1">Группа 4</option>
-                          <option value="value2">Группа 5</option>
-                          <option value="value3">Группа 6</option>
-                          <option value="value3">Группа 7</option>
+                          <option value="0">Группа 1</option>
+                          <option value="1">Группа 2</option>
+                          <option value="2">Группа 3</option>
+                          <option value="3">Группа 4</option>
+                          <option value="4">Группа 5</option>
+                          <option value="5">Группа 6</option>
+                          <option value="6">Группа 7</option>
                         </select>
                   </div>
                   <div class="audio-call-start">
@@ -99,6 +107,12 @@ export class Router {
         name: '/statistics',
         component: async () => {
           this.rootElement.innerText = 'статистика';
+        },
+      },
+      {
+        name: '/signin',
+        component: async () => {
+          this.rootElement.append(this.form.element);
         },
       },
     ];
