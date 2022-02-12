@@ -1,7 +1,6 @@
 import { IRouter } from '../interfaces/interface';
 import { Component } from '../utils/component';
 import { MainPage } from '../pages/main/main';
-import { SprintDescriptionPage } from '../pages/games/sprint/sprint-description/sprint-description';
 import { SprintGame } from '../pages/games/sprint/sprint-game/sprint';
 import { SprintDescriptionPage }
 from '../pages/games/sprint/sprint-description/sprint-description';
