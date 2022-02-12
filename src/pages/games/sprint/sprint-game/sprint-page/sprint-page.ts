@@ -1,4 +1,5 @@
 import { Component } from '../../../../../utils/component';
+import { SprintGame } from '../sprint';
 import { Results } from './results';
 import './sprint-page.css';
 import { sprintData } from './sprintData';
@@ -18,7 +19,6 @@ const sprintSection = `
 <div class="game-btn-container">
   <button class="btn game-button-false" id="game-button-false">&#10094 Не верно</button>
   <button class="btn game-button-true" id="game-button-true">Верно &#10095</button>
-  <button class="btn game-button-result" id="game-button-true">Result</button>
 </div>
 </div>`;
 
@@ -26,8 +26,6 @@ export class SprintPage extends Component {
   showNextWord: (event)=>void;
 
   showFirstWord: (words: any[])=>void;
-
-  renderResults: any;
 
   currentNumber: number;
 
@@ -47,11 +45,6 @@ export class SprintPage extends Component {
     const btnFalse = sprintGuest.element.querySelector('.game-button-false');
     btnFalse.addEventListener('click', (event) => {
       this.showNextWord(event);
-    });
-
-    const btnResult = sprintGuest.element.querySelector('.game-button-result');
-    btnResult.addEventListener('click', (event) => {
-      this.renderResults();
     });
   }
 

@@ -57,6 +57,7 @@ export class SprintGame extends Component {
     const sprintPage = new SprintPage(this.main);
     document.querySelector('.game-sprint-description').remove();
     sprintPage.renderCard();
+    this.showTimer();
 
     sprintPage.showNextWord = (event) => {
       this.checkAnswer(event);
@@ -67,11 +68,27 @@ export class SprintGame extends Component {
         generateWordsForGame();
       }
     };
+  }
 
-    sprintPage.renderResults = () => {
-      const root = document.querySelector('.main') as HTMLElement;
-      const results = new Results(root);
-      results.renderAnswers();
-    };
+  static renderResults() {
+    const root = document.querySelector('.main') as HTMLElement;
+    const results = new Results(root);
+    results.renderAnswers();
+  }
+
+  showTimer() {
+    const timer = new Component(this.main, 'div', ['sprint-timer']);
+    let timeLeft = 60;
+    const timerId = setInterval(() => {
+      console.log(timeLeft);
+      if (timeLeft > 0) {
+        timer.element.innerText = `${timeLeft}`;
+        timeLeft -= 1;
+      } else {
+        SprintGame.renderResults();
+        timer.destroy();
+        clearInterval(timerId);
+      }
+    }, 1000);
   }
 }
