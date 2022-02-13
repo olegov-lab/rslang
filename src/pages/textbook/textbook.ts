@@ -6,6 +6,7 @@ import { TextbookHeader } from "../../components/textbook-container/textbook-hea
 import {
   getWords
 } from '../../api/api';
+import { getUserAggrWord } from "../../api/user-aggregated";
 
 export class Textbook extends Component {
   private textbookContainer: TextbookContainer;

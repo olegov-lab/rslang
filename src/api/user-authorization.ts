@@ -6,6 +6,8 @@ export let message: string;
 export let refreshToken: string;
 export let userId: string;
 
+
+
 export const createUser = async (user: {}): Promise<IUser> => {
   try {
     const rawResponse = await fetch(`${baseUrl}/users`, {
@@ -78,6 +80,7 @@ export const loginUser = async (user: {}): Promise<IUserToken> => {
 
  //Сохранение токена, данных пользователя
    localStorage.setItem('token', token);
+
    localStorage.setItem('message', message);
    localStorage.setItem('refreshToken', refreshToken);
    localStorage.setItem('userId', userId);
