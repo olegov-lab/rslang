@@ -78,9 +78,10 @@ export class Header extends Component {
 
       document.querySelector('.nav-btn').classList.remove('hidden');
       document.querySelector('.nav-btnEx').classList.add('hidden');
+      window.location.hash = '#/';
       localStorage.clear();
       window.location.reload();
-      //window.location.hash = '#/signin';
+
 
     })
 

@@ -23,8 +23,10 @@ export class Textbook extends Component {
 
     if (localStorage.getItem('page')) {
       this.page = +localStorage.getItem('page');
+    } else {
+      localStorage.setItem('group', "0");
+      localStorage.setItem('page', "0");
     }
-
 
     this.getAllWords(this.group, this.page);
 
@@ -118,27 +120,25 @@ private async getAllWords(group: number, page: number): Promise<void> {
     if(localStorage.getItem('token')) {
 
       const difBtn = document.querySelector('.btn.btn-dif');
-      difBtn.removeAttribute('disabled');
-      difBtn.classList.remove('non-event');
+      //difBtn.removeAttribute('disabled');
+      //difBtn.classList.remove('non-event');
 
       const remBtn = document.querySelector('.btn.btn-rem');
-      remBtn.removeAttribute('disabled');
-      remBtn.classList.remove('non-event');
+      //remBtn.removeAttribute('disabled');
+      //remBtn.classList.remove('non-event');
 
     } else {
       const difBtn = document.querySelector('.btn.btn-dif');
-      difBtn.setAttribute('disabled', 'true');
-      difBtn.classList.add('non-event');
+      //difBtn.setAttribute('disabled', 'true');
+      //difBtn.classList.add('non-event');
 
       const remBtn = document.querySelector('.btn.btn-rem');
-      remBtn.setAttribute('disabled', 'true');
-      remBtn.classList.add('non-event');
+      //remBtn.setAttribute('disabled', 'true');
+      //remBtn.classList.add('non-event');
     }
 
   }
 }
-
-
 
 
 }
