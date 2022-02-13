@@ -1,0 +1,91 @@
+.textbook-header {
+  padding: 20px;
+}
+
+.textbook-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.textbook-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+}
+
+.word-desc {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.option-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+.word-img {
+  width: 27%;
+  border-radius: 5px;
+}
+
+.word-translate {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+a.disabled-link {
+  pointer-events: none;
+  cursor: default;
+  color: #888;
+}
+
+.play-word {
+  background-image: url("../../assets/playButton.svg");
+  background-repeat: no-repeat;
+  background-color: inherit;
+  height: 30px;
+  width: 30px;
+  border: 0;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+
+.play-word:hover {
+  transform: scale(1.2);
+}
+
+.btn-dif {
+  background: #29cfac;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  border: 0;
+  width: 28%;
+  height: 44px;
+  transition: all 0.4s;
+}
+
+.btn-rem {
+  background: #fff4f4;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  border: 0;
+  width: 28%;
+  height: 44px;
+  transition: all 0.4s;
+}
+
+.non-event {
+  pointer-events: none;
+}
+
+.red7 {
+  background-color: red;
+}

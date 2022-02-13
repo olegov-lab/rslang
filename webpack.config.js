@@ -33,51 +33,70 @@ const config = {
     new CopyPlugin({
       patterns: [
         {
+          from: "./src/assets/playButton.svg",
+          to: "./assets/playButton.svg",
+        },
+        {
           from: "./src/assets/fig3.png",
           to: "./assets/fig3.png",
-        }, {
+        },
+        {
           from: "./src/assets/fig2.png",
           to: "./assets/fig2.png",
-        }, {
+        },
+        {
           from: "./src/assets/fig1.png",
           to: "./assets/fig1.png",
-        }, {
+        },
+        {
           from: "./src/assets/adv-title.png",
           to: "./assets/adv-title.png",
-        }, {
+        },
+        {
           from: "./src/assets/greeting.png",
           to: "./assets/greeting.png",
-        }, {
+        },
+        {
           from: "./src/assets/team-title-back.png",
           to: "./assets/team-title-back.png",
-        }, {
+        },
+        {
           from: "./src/assets/sprint.png",
-          to: "./assets/sprint.png"
-        }, {
+          to: "./assets/sprint.png",
+        },
+        {
           from: "./src/assets/RS-Lang.svg",
-          to: "./assets/RS-Lang.svg"
-        }, {
+          to: "./assets/RS-Lang.svg",
+        },
+        {
           from: "./src/assets/audio-call.png",
-          to: "./assets/audio-call.png"
-        }, {
+          to: "./assets/audio-call.png",
+        },
+        {
           from: "./src/assets/pasha.png",
-          to: "./assets/pasha.png"
-        }, {
+          to: "./assets/pasha.png",
+        },
+        {
           from: "./src/assets/oleg.jpg",
-          to: "./assets/oleg.jpg"
-        }, {
+          to: "./assets/oleg.jpg",
+        },
+        {
           from: "./src/assets/ivan.jpg",
-          to: "./assets/ivan.jpg"
-        }, {
+          to: "./assets/ivan.jpg",
+        },
+        {
           from: "./src/assets/GitHub-icon.png",
           to: "./assets/GitHub-icon.png",
-        }, {
+        },
+        {
           from: "./src/assets/favicon.png",
-          to: "./assets/favicon.png"
-        }, {
+          to: "./assets/favicon.png",
+        },
+        {
           from: "./src/assets/audio/correct-sound.mp3",
           to: "./assets/correct-sound.mp3",
-        }, {
+        },
+        {
           from: "./src/assets/audio/wrong-sound.mp3",
           to: "./assets/wrong-sound.mp3",
         },

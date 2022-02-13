@@ -41,7 +41,7 @@ export class Header extends Component {
 
     logoHeader.element.setAttribute('href', '#/');
     this.linkForMain.element.setAttribute('href', '#/');
-    this.linkForDictionary.element.setAttribute('href', '#/dictionary');
+    this.linkForDictionary.element.setAttribute('href', '#/textbook');
     this.linkForGames.element.setAttribute('href', '#/games');
     this.linkForStatistics.element.setAttribute('href', '#/statistics');
     this.enterBtn.element.setAttribute('href', '#/signin');
@@ -56,7 +56,7 @@ export class Header extends Component {
     contentBurger.element.innerHTML = `
     <a href="javascript:void(0)" class="closebtn" ">&times;</a>
     <a href="#/">Главная</a>
-    <a href="#/dictionary">Учебник</a>
+    <a href="#/textbook">Учебник</a>
     <a href="#/games">Игры</a>
     <a href="#/statistics">Статистика</a>
     `;
@@ -78,8 +78,11 @@ export class Header extends Component {
 
       document.querySelector('.nav-btn').classList.remove('hidden');
       document.querySelector('.nav-btnEx').classList.add('hidden');
-      window.location.hash = '#/signin';
+      window.location.hash = '#/';
       localStorage.clear();
+      window.location.reload();
+
+
     })
 
   }
