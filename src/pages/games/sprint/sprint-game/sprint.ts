@@ -28,21 +28,11 @@ export class SprintGame extends Component {
   renderDescription() {
     const sprintDescriptionPage = new SprintDescriptionPage(this.main);
     sprintDescriptionPage.startGame = () => {
-      console.log('start game');
       this.renderGame();
     };
   }
 
-  checkAnswer(event) {
-    let curentAnswer: boolean;
-    if (event.target instanceof Element) {
-      if (event.target.id === 'game-button-true') {
-        curentAnswer = true;
-      } else {
-        curentAnswer = false;
-      }
-    }
-
+  checkAnswer(curentAnswer) {
     if (sprintData.currentWordsKit[sprintData.currentNumberWord].answer === curentAnswer) {
       const sound = new PlaySound();
       sound.playCorrectSound();
@@ -83,7 +73,7 @@ export class SprintGame extends Component {
 
   showTimer() {
     const timer = new Component(this.main, 'div', ['sprint-timer']);
-    let timeLeft = 5;
+    let timeLeft = 60;
     const timerId = setInterval(() => {
       if (!sprintData.timerStatus) {
         SprintGame.renderResults();

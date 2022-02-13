@@ -38,13 +38,25 @@ export class SprintPage extends Component {
     sprintGuest.element.innerHTML = sprintSection;
 
     const btnTrue = sprintGuest.element.querySelector('.game-button-true');
-    btnTrue.addEventListener('click', (event) => {
-      this.showNextWord(event);
+    btnTrue.addEventListener('click', () => {
+      this.showNextWord(true);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowRight') {
+        this.showNextWord(true);
+      }
     });
 
     const btnFalse = sprintGuest.element.querySelector('.game-button-false');
-    btnFalse.addEventListener('click', (event) => {
-      this.showNextWord(event);
+    btnFalse.addEventListener('click', () => {
+      this.showNextWord(false);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') {
+        this.showNextWord(false);
+      }
     });
 
     const btnSound = sprintGuest.element.querySelector('.btn-sound') as HTMLElement;
@@ -56,6 +68,12 @@ export class SprintPage extends Component {
     const btnClose = sprintGuest.element.querySelector('.btn-close');
     btnClose.addEventListener('click', () => {
       sprintData.timerStatus = false;
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        sprintData.timerStatus = false;
+      }
     });
   }
 

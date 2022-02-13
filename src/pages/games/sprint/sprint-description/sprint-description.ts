@@ -28,9 +28,7 @@ const sprintDescriptionSection = `
                 </select>
             </div>
             <div class="sprint-start">
-              
                 <button class="sprint-start-btn" id="sprint-start-btn">Начать игру</button>
-             
             </div>
         </div>
     `;
@@ -47,7 +45,6 @@ export class SprintDescriptionPage extends Component {
 
     const btnStartGame = sprintGuest.element.querySelector('.sprint-start-btn');
     btnStartGame.addEventListener('click', () => {
-      console.log('btnStartGame');
       this.startGame();
     });
     const select = document.querySelector('.select-sprint-difficulty') as HTMLInputElement;
