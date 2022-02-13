@@ -41,6 +41,14 @@ export class TextbookHeader extends Component {
     this.linkForPart6 = new Component(partOfHeader.element, 'a', ['nav-link'], 'Раздел 6');
     this.linkForPart7 = new Component(partOfHeader.element, 'a', ['nav-link', 'disabled-link'], 'Раздел 7');
 
+    if(localStorage.getItem('token')) {
+      this.linkForPart7.element.classList.remove('disabled-link');
+      this.linkForPart7.element.classList.add('red7');
+    } else {
+      this.linkForPart7.element.classList.add('disabled-link');
+      this.linkForPart7.element.classList.remove('red7');
+    }
+
     this.gamesBtn = new Component(containerPartOfHeader.element, 'a', ['nav-btn'], 'Мини-игры');
 
 

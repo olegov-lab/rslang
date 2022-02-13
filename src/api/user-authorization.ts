@@ -58,6 +58,7 @@ export const loginUser = async (user: {}): Promise<IUserToken> => {
     document.querySelector('.nav-btn').classList.add('hidden');
     document.querySelector('.nav-btnEx').classList.remove('hidden');
     window.location.hash = '#/';
+    window.location.reload();
   }
 
   if (rawResponse.status === 422 || rawResponse.status === 403) {

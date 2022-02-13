@@ -23,6 +23,20 @@ export class Router {
     this.mainPage = new MainPage(this.rootElement);
     this.sprintGame = new SprintGame(this.rootElement);
     this.form = new Form(this.rootElement);
+
+    // let groupLoad;
+
+    // if(typeof +window.location.href.slice(-1) === 'number') {
+
+    // groupLoad = +window.location.href.slice(-1);
+    // const page = document.querySelector('.pagination__title');
+
+    // this.textbook = new Textbook(this.rootElement, groupLoad,1);
+
+    // } else {
+    //   let groupLoad = 0;
+    // }
+
     this.textbook = new Textbook(this.rootElement);
 
 

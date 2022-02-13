@@ -7,24 +7,43 @@ export class Pagination extends Component {
   updatePage: (page: number) => void = () => {};
   private page = 0;
   private title: Component;
+  private optinBtnPrevNext: Component;
   nextButton: UIButton;
   prevButton: UIButton;
 
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', ['pagination']);
 
-    this.title = new Component(
-      this.element,
-      'h3',
-      ['pagination__title'],
-      `Page #${this.page+1}`,
-    );
 
-    this.prevButton = new UIButton(this.element, ['btn-prev'], 'Prev', true);
+    if (localStorage.getItem('page')) {
+      this.page = +localStorage.getItem('page');
+
+      this.title = new Component(
+        this.element,
+        'h3',
+        ['pagination__title'],
+        `Страница #${this.page+1}`,
+      );
+    } else {
+
+      this.title = new Component(
+        this.element,
+        'h3',
+        ['pagination__title'],
+        `Страница #${this.page+1}`,
+      );
+
+    }
+
+    const optionBtnPrevNext = new Component(this.element,'div',['option-prev-next']);
+
+    this.prevButton = new UIButton(optionBtnPrevNext.element, ['btn-prev','btn-mod'], 'Назад', true);
     this.prevButton.onClickButton = () => this.switchPage('prev');
 
-    this.nextButton = new UIButton(this.element, ['btn-next'], 'Next');
+    this.nextButton = new UIButton(optionBtnPrevNext.element, ['btn-next','btn-mod'], 'Вперед');
     this.nextButton.onClickButton = () => this.switchPage('next');
+
+    this.prevButton.element.removeAttribute('disabled');
   }
 
   updateNextButton(page: number, totalCount: number, limit: number): void {
@@ -38,8 +57,10 @@ export class Pagination extends Component {
   private updatePrevButton(): void {
     if (this.page === 0) {
       this.prevButton.setDisabled(true);
+      //this.prevButton.element.classList.add('non-event');
     } else {
       this.prevButton.setDisabled(false);
+      //this.prevButton.element.classList.remove('non-event');
     }
   }
 
@@ -50,7 +71,7 @@ export class Pagination extends Component {
 
     if (type === 'next') this.page++;
 
-    this.title.element.innerHTML = `Page #${this.page + 1}`;
+    this.title.element.innerHTML = `Страница #${this.page + 1}`;
     this.updatePage(this.page);
     this.updatePrevButton();
   }
