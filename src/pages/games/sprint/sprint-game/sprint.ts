@@ -83,15 +83,24 @@ export class SprintGame extends Component {
 
   showTimer() {
     const timer = new Component(this.main, 'div', ['sprint-timer']);
-    let timeLeft = 60;
+    let timeLeft = 5;
     const timerId = setInterval(() => {
-      if (timeLeft > 0) {
-        timer.element.innerText = `${timeLeft}`;
-        timeLeft -= 1;
-      } else {
+      if (!sprintData.timerStatus) {
         SprintGame.renderResults();
         timer.destroy();
         clearInterval(timerId);
+        sprintData.timerStatus = true;
+      } else {
+        // eslint-disable-next-line no-lonely-if
+        if (timeLeft > 0) {
+          timer.element.innerText = `${timeLeft}`;
+          timeLeft -= 1;
+        } else {
+          SprintGame.renderResults();
+          timer.destroy();
+          clearInterval(timerId);
+          sprintData.timerStatus = true;
+        }
       }
     }, 1000);
   }

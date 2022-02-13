@@ -1,5 +1,6 @@
 .game-sprint-results {
     position: relative;
+    display: flex;
     margin: 20px auto;
     width: 40%;
     border: 2px solid #29cfac;

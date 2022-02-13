@@ -7,11 +7,13 @@ interface IGameData {
 }
 
 export const sprintData: {
+    timerStatus: boolean,
     muted: boolean,
     currentGroup: undefined|number,
     currentPage: undefined|number,
     currentNumberWord: number,
     currentWordsKit: Array<IGameData>} = {
+      timerStatus: true,
       muted: false,
       currentGroup: undefined,
       currentPage: undefined,
