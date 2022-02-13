@@ -37,8 +37,14 @@ export class Textbook extends Component {
 const btnT = document.querySelector('.textbook-container-block');
 
 btnT.addEventListener('click', (event) => {
+
 let target = event.target as HTMLElement;
-playSound(target.dataset.audio);
+
+if(target.classList.contains('play-word')) {
+  playSound(target.dataset.audio);
+} else {
+  return;
+}
 })
 
 function playSound(target) {

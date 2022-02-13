@@ -43,7 +43,12 @@ export class Pagination extends Component {
     this.nextButton = new UIButton(optionBtnPrevNext.element, ['btn-next','btn-mod'], 'Вперед');
     this.nextButton.onClickButton = () => this.switchPage('next');
 
-    this.prevButton.element.removeAttribute('disabled');
+    if(this.prevButton.element.hasAttribute('disabled')) {
+      this.prevButton.element.removeAttribute('disabled');
+    } else {
+      this.prevButton.element.setAttribute('disabled', 'true');
+    }
+
   }
 
   updateNextButton(page: number, totalCount: number, limit: number): void {
