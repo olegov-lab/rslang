@@ -1,0 +1,89 @@
+import './audio-call-results';
+import{ arrTrueAnswer , arrFalseAnswer, clearArraysRepeat} from './audio-call';
+
+
+export function renderAudioCallResults() {
+    const fragment = document.createDocumentFragment();
+
+    const popup = document.createElement('div');
+    popup.className = 'popup popup-order';
+
+    const popupWrapper = document.createElement('div');
+    popupWrapper.className = 'popup_wrapper';
+
+    const popupInner = document.createElement('div');
+    popupInner.className = 'popup_inner';
+
+    const popupContent = document.createElement('div');
+    popupContent.className = 'popup_content';
+
+    const popupTitle = document.createElement('h2');
+    popupTitle.className = 'popup-title';
+
+    if (arrTrueAnswer.length <= 5) {
+        popupTitle.innerHTML = 'Попробуйте еще раз!'
+    } else if (arrTrueAnswer.length > 5 && arrTrueAnswer.length < 14) {
+        popupTitle.innerHTML = 'Хороший результат!'
+    } else if (arrTrueAnswer.length > 14 && arrTrueAnswer.length < 19) {
+        popupTitle.innerHTML = 'Вы молодец!'
+    }
+
+    const resultsContainer = document.createElement('div');
+    resultsContainer.className = 'results-container';
+
+    const leftResults = document.createElement('div');
+    leftResults.className = 'left';
+
+    const correctWordsNumber = document.createElement('div');
+    correctWordsNumber.className = 'correct-words-number';
+    correctWordsNumber.innerHTML = `Знаю: ${arrTrueAnswer.length}`;
+
+    for (let i = 0; i < arrTrueAnswer.length; i += 1) {
+        const word = document.createElement('div');
+        word.className = 'word';
+        word.innerText = arrTrueAnswer[i];
+        correctWordsNumber.append(word);
+    }
+
+    const rightResults = document.createElement('div');
+    rightResults.className = 'right';
+
+    const wrongWordsNumber = document.createElement('div');
+    wrongWordsNumber.className = 'wrong-words-number';
+    wrongWordsNumber.innerHTML = `Ошибок: ${arrFalseAnswer.length}`;
+
+    for (let i = 0; i < arrFalseAnswer.length; i += 1) {
+        const word = document.createElement('div');
+        word.className = 'word';
+        word.innerText = arrFalseAnswer[i];
+        wrongWordsNumber.append(word);
+    }
+
+    const returnBtnContainer = document.createElement('a');
+    returnBtnContainer.className = 'return-btn-container';
+    returnBtnContainer.href = "#/games/audio";
+
+    const returnBtn = document.createElement('div');
+    returnBtn.className = 'return-btn';
+    returnBtn.addEventListener('click', clearArraysRepeat);
+
+    const returnGame = document.createElement('div');
+    returnGame.className = 'return';
+    returnGame.innerHTML = 'Сыграть еще!';
+
+    fragment.appendChild(popup);
+    popup.appendChild(popupWrapper);
+    popupWrapper.appendChild(popupInner);
+    popupInner.appendChild(popupContent);
+    popupContent.appendChild(popupTitle);
+    popupContent.appendChild(resultsContainer);
+    resultsContainer.appendChild(leftResults);
+    resultsContainer.appendChild(rightResults);
+    leftResults.append(correctWordsNumber);
+    rightResults.append(wrongWordsNumber);
+    popupContent.appendChild(returnBtnContainer);
+    returnBtnContainer.appendChild(returnBtn);
+    returnBtn.appendChild(returnGame);
+    const main = document.querySelector('.main');
+    main.appendChild(fragment);
+};

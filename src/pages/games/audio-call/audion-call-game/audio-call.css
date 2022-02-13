@@ -151,3 +151,125 @@
 .switch-sound.active {
     background-image: url('../../../../assets/musical-note-mute-1.png');
 }
+
+
+/*POPUP кнопка для других проектов*/
+.popup {
+    position: fixed;
+    z-index: 30;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .7);
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    pointer-events: auto;
+    transition: all .2s;
+
+}
+
+.popup.is-active {
+    pointer-events: auto;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.popup_wrapper {
+    display: table;
+    height: 100%;
+    width: 100%;
+}
+
+.popup_inner {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 50px 0;
+
+}
+
+.popup_content {
+    position: relative;
+    background: linear-gradient(to bottom, #fff, #ffcce0);
+    padding: 70px 20px;
+    max-width: 730px;
+    margin: 0 auto;
+    border-radius: 20px;
+
+}
+
+.popup-title {
+    text-align: center;
+    font-size: 32px;
+}
+
+.results-container {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.correct-words-number {
+    color: #29CFAC;
+}
+
+.wrong-words-number {
+    color: #FF7E7E;
+}
+
+.correct-words-number,
+.wrong-words-number {
+    font-size: 24px;
+    margin-bottom: 15px;
+    font-weight: 400;
+}
+
+.word {
+    padding: 10px;
+    font-size: 20px;
+}
+
+.return-btn-container {
+    display: flex;
+    justify-content: center;
+}
+
+.return-btn {
+    width: 200px;
+    padding: 5px;
+    text-align: center;
+    font-size: 20px;
+    color: #4B4456;
+    border: 1px solid #4B4456;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all .3s;
+}
+
+.return-btn-container {
+    text-decoration: none;
+}
+
+.return {
+    color: #4B4456;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.return-btn:hover {
+    border: 1px solid #29CFAC;
+    transform: scale(1.1);
+}
+
+.return-btn:active {
+    transform: scale(0.97);
+}
+
+@media (max-width: 420px) {
+
+    /*для попапа результатов*/
+    .results-container {
+        flex-direction: column;
+    }
+}

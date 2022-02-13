@@ -8,6 +8,7 @@ import {playSound} from './play-word-audio';
 import {getNewWords} from './get-new-words';
 import { chooseGroup} from './get-group';
 import { playWrongSound } from "./switch-sound";
+import { renderAudioCallResults} from "./audio-call-results";
 
 const body = document.body;
 export let audioArray: string [] = [];
@@ -44,6 +45,13 @@ export function clearArrays() {
   arrFalseAnswer = [];
 }
 
+/*очистка если пользователь заъочет сыграть снова*/ 
+export function clearArraysRepeat() {
+  pageNum = 0;
+  arrTrueAnswer = [];
+  arrFalseAnswer = [];
+}
+
 /* нажатие на не знаю */
 export function nextPage() {
   const target = event.target as HTMLElement;
@@ -62,7 +70,7 @@ export function nextPage() {
         }
       });
       target.innerText = 'Далее';
-    } else if (pageNum < 19) {
+    } else if (pageNum < lastPage) {
       pageNum++;
       target.innerText = 'Не знаю';
       answers.forEach((el: any) => {
@@ -71,13 +79,14 @@ export function nextPage() {
         el.style.textDecoration = 'none';
         el.classList.remove('active');
         el.classList.remove('event');
-      })
+      });
       playSound();
       hideAnswer();
       getNewWords();
+      console.log(pageNum)
     }
     else {
-      console.log('end')
+      renderAudioCallResults();
     }
   }
 };
