@@ -1,4 +1,5 @@
 import { Component } from '../../../../../utils/component';
+import { SprintGame } from '../sprint';
 import { Results } from './results';
 import './sprint-page.css';
 import { sprintData } from './sprintData';
@@ -26,8 +27,6 @@ export class SprintPage extends Component {
 
   showFirstWord: (words: any[])=>void;
 
-  renderResults: any;
-
   currentNumber: number;
 
   btnTrue: HTMLElement;
@@ -47,11 +46,6 @@ export class SprintPage extends Component {
     btnFalse.addEventListener('click', (event) => {
       this.showNextWord(event);
     });
-
-    /* const btnResult = sprintGuest.element.querySelector('.game-button-result');
-    btnResult.addEventListener('click', (event) => {
-      this.renderResults();
-    }); */
   }
 
   renderCard() {

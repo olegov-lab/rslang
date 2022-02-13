@@ -8,11 +8,9 @@ import { sprintData } from './sprint-page/sprintData';
 export class SprintGame extends Component {
   main: HTMLElement;
 
-  words: any;
-
   resultArray: object[];
 
-  sprintPage: any;
+  sprintPage: SprintPage;
 
   wordFeld: HTMLElement;
 
@@ -45,11 +43,13 @@ export class SprintGame extends Component {
     if (sprintData.currentWordsKit[sprintData.currentNumberWord].answer === curentAnswer) {
       const icon = new Component(this.main, 'div', ['answer-icon-true'], '');
       setInterval(() => icon.destroy(), 500);
-      sprintData.currentWordsKit[sprintData.currentNumberWord].answer = true;
+      sprintData.currentWordsKit[sprintData.currentNumberWord].userAnswer = true;
+      console.log(sprintData.currentWordsKit[sprintData.currentNumberWord].userAnswer);
     } else {
-      sprintData.currentWordsKit[sprintData.currentNumberWord].answer = false;
       const icon = new Component(this.main, 'div', ['answer-icon-false'], '');
       setInterval(() => icon.destroy(), 500);
+      sprintData.currentWordsKit[sprintData.currentNumberWord].userAnswer = false;
+      console.log(sprintData.currentWordsKit[sprintData.currentNumberWord].userAnswer);
     }
   }
 
@@ -57,22 +57,38 @@ export class SprintGame extends Component {
     const sprintPage = new SprintPage(this.main);
     document.querySelector('.game-sprint-description').remove();
     sprintPage.renderCard();
+    this.showTimer();
 
     sprintPage.showNextWord = (event) => {
       this.checkAnswer(event);
       sprintData.currentNumberWord += 1;
       sprintPage.renderCard();
-      console.log(sprintData.currentNumberWord);
       if ((sprintData.currentNumberWord % 20) === 19) {
         sprintData.currentPage -= 1;
         generateWordsForGame();
       }
     };
+  }
 
-    sprintPage.renderResults = () => {
-      const root = document.querySelector('.main') as HTMLElement;
-      const results = new Results(root);
-      results.renderAnswers(this.words);
-    };
+  static renderResults() {
+    const root = document.querySelector('.main') as HTMLElement;
+    const results = new Results(root);
+    results.renderAnswers();
+  }
+
+  showTimer() {
+    const timer = new Component(this.main, 'div', ['sprint-timer']);
+    let timeLeft = 60;
+    const timerId = setInterval(() => {
+      console.log(timeLeft);
+      if (timeLeft > 0) {
+        timer.element.innerText = `${timeLeft}`;
+        timeLeft -= 1;
+      } else {
+        SprintGame.renderResults();
+        timer.destroy();
+        clearInterval(timerId);
+      }
+    }, 1000);
   }
 }
