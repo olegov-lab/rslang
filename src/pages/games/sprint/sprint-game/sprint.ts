@@ -4,6 +4,7 @@ import { generateWordsForGame } from './sprint-page/getWordCollection';
 import { SprintDescriptionPage } from '../sprint-description/sprint-description';
 import { Results } from './sprint-page/results';
 import { sprintData } from './sprint-page/sprintData';
+import { PlaySound } from './PlaySound';
 
 export class SprintGame extends Component {
   main: HTMLElement;
@@ -15,6 +16,8 @@ export class SprintGame extends Component {
   wordFeld: HTMLElement;
 
   translateFeld: HTMLElement;
+
+  sound: PlaySound;
 
   constructor(parentNode: HTMLElement) {
     super(parentNode);
@@ -41,15 +44,17 @@ export class SprintGame extends Component {
     }
 
     if (sprintData.currentWordsKit[sprintData.currentNumberWord].answer === curentAnswer) {
+      const sound = new PlaySound();
+      sound.playCorrectSound();
       const icon = new Component(this.main, 'div', ['answer-icon-true'], '');
       setInterval(() => icon.destroy(), 500);
       sprintData.currentWordsKit[sprintData.currentNumberWord].userAnswer = true;
-      console.log(sprintData.currentWordsKit[sprintData.currentNumberWord].userAnswer);
     } else {
+      const sound = new PlaySound();
+      sound.playWrongSound();
       const icon = new Component(this.main, 'div', ['answer-icon-false'], '');
       setInterval(() => icon.destroy(), 500);
       sprintData.currentWordsKit[sprintData.currentNumberWord].userAnswer = false;
-      console.log(sprintData.currentWordsKit[sprintData.currentNumberWord].userAnswer);
     }
   }
 
@@ -80,7 +85,6 @@ export class SprintGame extends Component {
     const timer = new Component(this.main, 'div', ['sprint-timer']);
     let timeLeft = 60;
     const timerId = setInterval(() => {
-      console.log(timeLeft);
       if (timeLeft > 0) {
         timer.element.innerText = `${timeLeft}`;
         timeLeft -= 1;

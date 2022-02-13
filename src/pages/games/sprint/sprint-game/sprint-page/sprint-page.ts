@@ -1,13 +1,15 @@
 import { Component } from '../../../../../utils/component';
+import { PlaySound } from '../PlaySound';
 import { SprintGame } from '../sprint';
 import { Results } from './results';
 import './sprint-page.css';
 import { sprintData } from './sprintData';
+import { changeMuteIcon } from '../utils';
 
 const sprintSection = `
 <nav class="section-navigation">
 <div class="nav-container">
-  <button class="btn">Sound</button>
+  <button class="btn btn-sound unmuted"></button>
   <button class="btn">FS</button>
 </div>
 <button>Close</button>
@@ -46,6 +48,12 @@ export class SprintPage extends Component {
     btnFalse.addEventListener('click', (event) => {
       this.showNextWord(event);
     });
+
+    const btnSound = sprintGuest.element.querySelector('.btn-sound') as HTMLElement;
+    btnSound.addEventListener('click', () => {
+      PlaySound.changeMute();
+      changeMuteIcon(btnSound);
+    });
   }
 
   renderCard() {
@@ -55,3 +63,4 @@ export class SprintPage extends Component {
     translateFeld.innerText = sprintData.currentWordsKit[sprintData.currentNumberWord].translate;
   }
 }
+
