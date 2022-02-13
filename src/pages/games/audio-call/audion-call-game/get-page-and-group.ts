@@ -12,5 +12,6 @@ export const getPageAndGroup = async (a = 0, b = 0) => {
       wordsRusArray.push(words[i].wordTranslate);
       wordsImgArray.push(words[i].image);
     }
+    console.log(wordsRusArray)
   };
   getPageAndGroup();

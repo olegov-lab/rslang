@@ -1,5 +1,5 @@
 import './audio-call.css';
-import { pageNum, wordsRusArray, arrCopy  } from './audio-call';
+import {  pageNum, wordsRusArray, arrCopy } from './audio-call';
 import { playSound } from './play-word-audio';
 import { checkAnswer } from './check-answer';
 import { choosePage } from './get-page';
