@@ -6,6 +6,7 @@ import { SprintDescriptionPage }
 from '../pages/games/sprint/sprint-description/sprint-description';
 import { Form } from "../pages/form/form";
 import { Textbook } from "../pages/textbook/textbook";
+//import { Part7 } from "../pages/textbook/part7/part7";
 
 
 export class Router {
@@ -18,6 +19,8 @@ export class Router {
   routs: Array<IRouter>;
 
   textbook: Component;
+
+  //part7: Component
 
   constructor(private rootElement: HTMLElement) {
     this.mainPage = new MainPage(this.rootElement);
@@ -38,6 +41,7 @@ export class Router {
     // }
 
     this.textbook = new Textbook(this.rootElement);
+    //this.part7 = new Part7(this.rootElement);
 
 
 
@@ -198,4 +202,6 @@ export class Router {
     window.onpopstate = () => this.updateRouter();
     this.updateRouter();
   }
+
+
 }

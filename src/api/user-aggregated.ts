@@ -21,7 +21,7 @@ export const createUserWord = async ({ userId, wordId, word }) => {
     body: JSON.stringify(word)
   });
   const content = await rawResponse.json();
-  console.log(content);
+  //onsole.log(content);
 };
 
 
@@ -39,8 +39,68 @@ export const getUserAggrWord = async ({userId, group, page}) => {
     const content = await rawResponse.json();
 
     if (rawResponse.status === 200) {
+     //console.log(content[0].paginatedResults);
+
      console.log(content);
-     return content;
+     return content[0].paginatedResults;
+    }
+
+    return null;
+  } catch (err) {
+    if (err instanceof Error) {
+      throw new Error(err.message);
+    }
+  }
+};
+
+
+export const getUserAggrWordHard = async ({userId, group, page}) => {
+  try {
+    const rawResponse = await fetch(`${baseUrl}/users/${userId}/aggregatedWords?group=${group}&page=${page}&wordsPerPage=20&filter={"$and":[{"userWord.difficulty":"hard", "userWord.optional.testFieldString":"test", "userWord.optional.testFieldBoolean": true}]}`, {
+      method: 'GET',
+      //withCredentials: true,
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/json',
+      }
+    });
+
+    const content = await rawResponse.json();
+
+    if (rawResponse.status === 200) {
+     //console.log(content[0].paginatedResults);
+
+     //console.log(content);
+     return content[0].paginatedResults;
+    }
+
+    return null;
+  } catch (err) {
+    if (err instanceof Error) {
+      throw new Error(err.message);
+    }
+  }
+};
+
+
+export const getUserAggrWordHardAll = async (userId) => {
+  try {
+    const rawResponse = await fetch(`${baseUrl}/users/${userId}/aggregatedWords?wordsPerPage=6000&filter={"$and":[{"userWord.difficulty":"hard", "userWord.optional.testFieldString":"test", "userWord.optional.testFieldBoolean": true}]}`, {
+      method: 'GET',
+      //withCredentials: true,
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/json',
+      }
+    });
+
+    const content = await rawResponse.json();
+
+    if (rawResponse.status === 200) {
+     //console.log(content[0].paginatedResults);
+
+     //console.log(content);
+     return content[0].paginatedResults;
     }
 
     return null;

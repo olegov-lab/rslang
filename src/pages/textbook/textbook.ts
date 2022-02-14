@@ -6,17 +6,23 @@ import { TextbookHeader } from "../../components/textbook-container/textbook-hea
 import {
   getWords
 } from '../../api/api';
-import { getUserAggrWord } from "../../api/user-aggregated";
+import { getUserAggrWord, createUserWord, getUserAggrWordHard, getUserAggrWordHardAll } from "../../api/user-aggregated";
+//import { userId } from '../../api/user-authorization';
+//import { good } from "../textbook/part7/part7";
 
 export class Textbook extends Component {
+  onClickButton: () => void = () => {};
   private textbookContainer: TextbookContainer;
   private textbookHeader: TextbookHeader;
   textbookItem: TextbookItem;
   group = 0;
   page = 0;
 
+
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', ['textbook', 'wrapper']);
+
+
 
     if (localStorage.getItem('group')) {
       this.group = +localStorage.getItem('group');
@@ -28,6 +34,7 @@ export class Textbook extends Component {
       localStorage.setItem('group', "0");
       localStorage.setItem('page', "0");
     }
+
 
     this.getAllWords(this.group, this.page);
 
@@ -73,6 +80,45 @@ let newArr = arr.join('');
 
 };
 
+
+ //!
+
+  btnT.addEventListener('click', async (event) => {
+  let target = event.target as HTMLElement;
+
+  let wordId = target.dataset.id;
+
+  if(target.classList.contains('btn-dif')) {
+    console.log(wordId);
+
+    let state = {
+      userId: localStorage.getItem('userId'),
+      wordId: wordId,
+      word: { "difficulty": "hard", "optional": {testFieldString: 'test', testFieldBoolean: true} }
+    }
+
+    let state2 = {
+      userId: localStorage.getItem('userId'),
+      group:localStorage.getItem('group'),
+      page: localStorage.getItem('page'),
+    }
+
+    let userId = localStorage.getItem('userId');
+
+    createUserWord(state);
+
+    getUserAggrWordHard(state2);
+
+    // this.arrHard = await getUserAggrWordHardAll(userId);
+
+    // console.log(this.arrHard);
+
+  } else {
+    return;
+  }
+  });
+
+
     navPartTextbook.addEventListener('click', (event) => {
        let target = event.target as HTMLElement;
 
@@ -92,9 +138,7 @@ let newArr = arr.join('');
       this.page = page;
       localStorage.setItem('page', String(this.page));
       this.getAllWords(this.group, this.page);
-
     };
-
 }
 
 
@@ -108,14 +152,34 @@ set toLinkHref(value) {
 
 private async getAllWords(group: number, page: number): Promise<void> {
 
-  const data = await getWords(group, page);
+
+  let data;
+
+  if(!localStorage.getItem('token')){
+    data = await getWords(group, page);
+  } else if (localStorage.getItem('group') == '6') {
+
+    let userId = localStorage.getItem('userId');
+
+    const data = await getUserAggrWordHardAll(userId);
+
+    const words: {} = data;
+    this.textbookContainer.addItems(words);
+
+
+
+  }
+  else {
+    let userId = localStorage.getItem('userId');
+    data = await getUserAggrWord({userId, group, page});
+  }
 
   if (data) {
     const words: {} = data;
 
     this.textbookContainer.addItems(words);
 
-    this.textbookContainer.pagination.updateNextButton(this.page,28,1);
+    this.textbookContainer.pagination.updateNextButton(this.page, 28, 1);
 
 
     if(localStorage.getItem('token')) {

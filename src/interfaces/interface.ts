@@ -1,5 +1,5 @@
 export interface IWords {
-  id: "string",
+  _id: "string",
   group: 0,
   page: 0,
   word: "string",

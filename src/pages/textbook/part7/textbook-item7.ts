@@ -1,12 +1,12 @@
-import { Component } from '../../utils/component';
-import { UIButton } from '../UI/button/button';
-import { IWords } from '../../interfaces/interface';
+import { Component } from '../../../utils/component';
+import { UIButton } from '../../../components/UI/button/button';
+import { IWords } from '../../../interfaces/interface';
 
 
 
-import './textbook-container.css';
+//import '../../../components/textbook-container/';
 
-export class TextbookItem extends Component {
+export class TextbookItem7 extends Component {
   private difficultWordBtn: UIButton;
   private removeWordBtn: UIButton;
   public word: IWords;
