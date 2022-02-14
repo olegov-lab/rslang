@@ -13,6 +13,9 @@ export interface IWords {
   wordTranslate: "string",
   textMeaningTranslate: "string",
   textExampleTranslate: "string",
+  userWord?: {
+    difficulty: "string"
+  }
 }
 
 export interface IUser {

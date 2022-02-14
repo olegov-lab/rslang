@@ -6,7 +6,13 @@ import { TextbookHeader } from "../../components/textbook-container/textbook-hea
 import {
   getWords
 } from '../../api/api';
-import { getUserAggrWord, createUserWord, getUserAggrWordHard, getUserAggrWordHardAll } from "../../api/user-aggregated";
+import { getUserAggrWord, createUserWord, getUserAggrWordHard,
+         getUserAggrWordHardAll, updateUserWord }
+from "../../api/user-aggregated";
+import { checkWrong } from "../../components/react/check-wrong";
+import { getPaginat } from "../../components/react/get-paginat";
+import { removePaginat } from "../../components/react/get-paginat";
+
 //import { userId } from '../../api/user-authorization';
 //import { good } from "../textbook/part7/part7";
 
@@ -41,6 +47,10 @@ export class Textbook extends Component {
     this.textbookHeader = new TextbookHeader(this.element);
 
     this.textbookContainer = new TextbookContainer(this.element);
+
+
+
+
 
     const navPartTextbook = document.querySelector('.nav-part-textbook');
 
@@ -84,12 +94,21 @@ let newArr = arr.join('');
  //!
 
   btnT.addEventListener('click', async (event) => {
+
   let target = event.target as HTMLElement;
 
   let wordId = target.dataset.id;
 
+
   if(target.classList.contains('btn-dif')) {
-    console.log(wordId);
+
+  const itemChange = document.getElementById(`${wordId}`);
+
+
+  itemChange.classList.remove('easy-word');
+  itemChange.classList.add('hard-word');
+
+
 
     let state = {
       userId: localStorage.getItem('userId'),
@@ -107,13 +126,36 @@ let newArr = arr.join('');
 
     createUserWord(state);
 
+    updateUserWord(state);
+
     getUserAggrWordHard(state2);
+    checkWrong();
 
     // this.arrHard = await getUserAggrWordHardAll(userId);
 
     // console.log(this.arrHard);
 
-  } else {
+  } else if(target.classList.contains('btn-rem')) {
+
+    console.log(wordId);
+
+    const itemChange = document.getElementById(`${wordId}`);
+    itemChange.classList.remove('hard-word');
+    itemChange.classList.add('easy-word');
+
+
+    let state = {
+      userId: localStorage.getItem('userId'),
+      wordId: wordId,
+      word: { "difficulty": "easy", "optional": {testFieldString: 'test', testFieldBoolean: true} }
+    }
+
+    createUserWord(state);
+    updateUserWord(state);
+    checkWrong();
+  }
+
+  else {
     return;
   }
   });
@@ -131,6 +173,7 @@ let newArr = arr.join('');
        this.getAllWords(this.group, this.page);
 
        Textbook.prototype.toLinkHref = +this.group;
+
 
     })
 
@@ -153,11 +196,18 @@ set toLinkHref(value) {
 private async getAllWords(group: number, page: number): Promise<void> {
 
 
+
   let data;
 
   if(!localStorage.getItem('token')){
     data = await getWords(group, page);
+
+    getPaginat();
+
   } else if (localStorage.getItem('group') == '6') {
+
+
+  removePaginat();
 
     let userId = localStorage.getItem('userId');
 
@@ -166,12 +216,14 @@ private async getAllWords(group: number, page: number): Promise<void> {
     const words: {} = data;
     this.textbookContainer.addItems(words);
 
-
+  removePaginat();
 
   }
   else {
     let userId = localStorage.getItem('userId');
     data = await getUserAggrWord({userId, group, page});
+    getPaginat();
+
   }
 
   if (data) {
@@ -203,6 +255,8 @@ private async getAllWords(group: number, page: number): Promise<void> {
     }
 
   }
+
+  checkWrong();
 }
 
 

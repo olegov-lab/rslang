@@ -25,6 +25,25 @@ export const createUserWord = async ({ userId, wordId, word }) => {
 };
 
 
+
+export const updateUserWord = async ({ userId, wordId, word }) => {
+  const rawResponse = await fetch(`${baseUrl}/users/${userId}/words/${wordId}`, {
+    method: 'PUT',
+    //withCredentials: true,
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(word)
+  });
+  const content = await rawResponse.json();
+  //onsole.log(content);
+};
+
+
+
+
 export const getUserAggrWord = async ({userId, group, page}) => {
   try {
     const rawResponse = await fetch(`${baseUrl}/users/${userId}/aggregatedWords?group=${group}&page=${page}&wordsPerPage=20`, {
