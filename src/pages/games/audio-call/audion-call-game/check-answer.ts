@@ -1,9 +1,9 @@
-import { wordsRusArray, pageNum, arrTrueAnswer, arrFalseAnswer } from "./audio-call";
+import { wordsRusArray, wordsEnArray, pageNum, arrTrueAnswer, arrFalseAnswer, arrTrueAnswerEn, arrFalseAnswerEn, arrFalseAnswerAudio, audioArray, arrTrueAnswerAudio } from "./audio-call";
 import { showAnswer } from "./show-answer";
 import { playCorrectSound, playWrongSound } from "./switch-sound";
 
 /*проверка ответа*/
-export function checkAnswer() {
+export function checkAnswer(event: MouseEvent) {
     const target = event.target as HTMLElement;
     const answers = document.querySelectorAll('.answer') as NodeList;
     const knowBtn = document.querySelector('.audion-btn') as HTMLElement;
@@ -11,11 +11,14 @@ export function checkAnswer() {
     if ((target.closest('.answer') as HTMLElement).innerText === wordsRusArray[pageNum]) {
       target.classList.add('active');
       arrTrueAnswer.push(wordsRusArray[pageNum]);
+      arrTrueAnswerEn.push(wordsEnArray[pageNum]);
+      arrTrueAnswerAudio.push(audioArray[pageNum]);
       playCorrectSound();
-      answers.forEach((el: any) => {
+      answers.forEach((el: HTMLElement) => {
         if (el.innerText != wordsRusArray[pageNum]) {
           el.style.opacity = '0.4';
           el.classList.add('event');
+          el.style["pointer-events"] = "none";
         }
     });
     }
@@ -23,16 +26,20 @@ export function checkAnswer() {
       target.style.color = 'red';
       target.style.textDecoration = 'line-through';
       playWrongSound();
-      answers.forEach((el: any) => {
+      answers.forEach((el: HTMLElement) => {
       if (el.innerText === wordsRusArray[pageNum]) {
         el.classList.add('active');
+        el.style["pointer-events"] = "none";
       }
       else if (el.innerText != wordsRusArray[pageNum]) {
         el.style.opacity = '0.4';
         el.classList.add('event');
+        el.style["pointer-events"] = "none";
       }
     })
     arrFalseAnswer.push(wordsRusArray[pageNum]);
+    arrFalseAnswerEn.push(wordsEnArray[pageNum]);
+    arrFalseAnswerAudio.push(audioArray[pageNum]);
 }
 showAnswer();
 knowBtn.innerText = 'Далее';
