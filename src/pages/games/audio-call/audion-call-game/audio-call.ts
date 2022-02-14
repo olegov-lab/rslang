@@ -45,7 +45,7 @@ export function clearArrays() {
   arrFalseAnswer = [];
 }
 
-/*очистка если пользователь заъочет сыграть снова*/ 
+/*очистка если пользователь заъочет сыграть снова*/
 export function clearArraysRepeat() {
   pageNum = 0;
   arrTrueAnswer = [];

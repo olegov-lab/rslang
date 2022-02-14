@@ -12,6 +12,7 @@ from "../../api/user-aggregated";
 import { checkWrong } from "../../components/react/check-wrong";
 import { getPaginat } from "../../components/react/get-paginat";
 import { removePaginat } from "../../components/react/get-paginat";
+import { getWordOptions, removeWordOptions } from "../../components/react/get-word-options";
 
 //import { userId } from '../../api/user-authorization';
 //import { good } from "../textbook/part7/part7";
@@ -43,6 +44,7 @@ export class Textbook extends Component {
 
 
     this.getAllWords(this.group, this.page);
+
 
     this.textbookHeader = new TextbookHeader(this.element);
 
@@ -205,7 +207,6 @@ private async getAllWords(group: number, page: number): Promise<void> {
     getPaginat();
 
   } else if (localStorage.getItem('group') == '6') {
-
 
   removePaginat();
 

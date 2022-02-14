@@ -36,8 +36,23 @@ export class TextbookItem extends Component {
     const wordDesc = new Component(this.element, 'div', ['word-desc']);
     wordDesc.element.innerHTML = `
     <div class="word-translate" >
-      <p>${word.word} - ${word.transcription} - ${word.wordTranslate}</p>
-      <button class="play-word" data-audio="${word.audio}"></button>
+      <div class="word-options">
+        <p>${word.word} - ${word.transcription} - ${word.wordTranslate}</p>
+        <button class="play-word" data-audio="${word.audio}"></button>
+      </div>
+
+
+      <div class="likes-option">
+      <div class="dislike">
+        <img src="../../assets/dislike.png" />
+        <span>0</span>
+      </div>
+      <di class="like">
+        <span>0</span>
+        <img src="../../assets/like.png" />
+      </div>
+      </div>
+
       <audio src="https://raw.githubusercontent.com/irinainina/rslang/rslang-data/data/${word.audio}"></audio>
 
     </div>

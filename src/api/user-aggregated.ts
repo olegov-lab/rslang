@@ -1,5 +1,7 @@
 //import { token, userId } from "./user-authorization";
 
+import { IWords } from "../interfaces/interface";
+
 import { baseUrl } from "./api";
 
 
@@ -44,7 +46,7 @@ export const updateUserWord = async ({ userId, wordId, word }) => {
 
 
 
-export const getUserAggrWord = async ({userId, group, page}) => {
+export const getUserAggrWord = async ({userId, group, page}): Promise<IWords> => {
   try {
     const rawResponse = await fetch(`${baseUrl}/users/${userId}/aggregatedWords?group=${group}&page=${page}&wordsPerPage=20`, {
       method: 'GET',

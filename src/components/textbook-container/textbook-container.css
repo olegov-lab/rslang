@@ -44,6 +44,15 @@
 .word-translate {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.word-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 10px;
 }
 
@@ -102,4 +111,26 @@ a.disabled-link {
 
 .easy-word {
   background-color: chartreuse;
+}
+
+.likes-option {
+  display: flex;
+  align-items: center;
+}
+
+.dislike,
+.like {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dislike img {
+  width: 32px;
+  height: 32px;
+}
+
+.like img {
+  width: 32px;
+  height: 32px;
 }
