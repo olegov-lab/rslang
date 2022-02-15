@@ -79,7 +79,7 @@ export class TextbookHeader extends Component {
 
     window.addEventListener('load', () => this.updateActiveOfLink(this.nav));
 
-    window.addEventListener('load', removePaginat);
+    //window.addEventListener('load', removePaginat);
 
     contentBurger.element.innerHTML = `
     <a href="javascript:void(0)" class="closebtn" ">&times;</a>
