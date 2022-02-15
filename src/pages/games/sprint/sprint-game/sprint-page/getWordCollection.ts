@@ -1,4 +1,5 @@
 import { getWords } from '../../../../../api/api';
+import { getUserAggrWord } from '../../../../../api/user-aggregated';
 import { sprintData } from './sprintData';
 
 const getWordsCollection = async (group = 0, page = 0) => {
@@ -45,5 +46,4 @@ export const generateWordsForGame = () => {
     }
   });
   console.log('получен массив');
-  
 };
