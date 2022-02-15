@@ -115,6 +115,8 @@ export function nextPage() {
   const knowBtn = document.querySelector('.audion-btn') as HTMLElement;
 
   if (knowBtn.innerHTML === 'Не знаю' && keyPress === 13) {
+    event.preventDefault();
+    console.log(knowBtn);
       arrFalseAnswer.push(wordsRusArray[pageNum]);
       showAnswer();
       playWrongSound();
@@ -140,7 +142,6 @@ export function nextPage() {
     playSound();
     hideAnswer();
     getNewWords();
-    console.log(pageNum)
   }
   else {
     renderAudioCallResults();

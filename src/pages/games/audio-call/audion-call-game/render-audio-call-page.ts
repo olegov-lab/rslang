@@ -28,7 +28,10 @@ export function renderGameAudioPage() {
 
     const soundSwitcher = document.createElement('div');
     soundSwitcher.className = 'switch-sound';
-    soundSwitcher.addEventListener('click', switchSound)
+    soundSwitcher.addEventListener('click', switchSound);
+
+    const gameImg = document.createElement('div');
+    gameImg.className = 'game-image';
 
     const imageBlock = document.createElement('div');
     imageBlock.className = 'audio-game-img';
@@ -71,8 +74,9 @@ export function renderGameAudioPage() {
     section.appendChild(container);
     container.appendChild(gameAudioPage);
     gameAudioPage.appendChild(soundSwitcher);
-    gameAudioPage.appendChild(imageBlock);
+    gameAudioPage.appendChild(gameImg);
     gameAudioPage.appendChild(soundBlock);
+    gameImg.appendChild(imageBlock)
     imageBlock.appendChild(wordImage);
     soundBlock.appendChild(soundImage);
     soundBlock.appendChild(soundWord);
