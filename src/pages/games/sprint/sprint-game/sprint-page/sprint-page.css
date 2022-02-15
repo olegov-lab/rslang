@@ -118,3 +118,12 @@
 .unmuted {
     background-image: url(../../../../../assets/musical-note.png);
 }
+
+.btn-close {
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: transparent;
+    background-size: contain;
+    background-image: url(../../../../../assets//close-icon.svg);
+}

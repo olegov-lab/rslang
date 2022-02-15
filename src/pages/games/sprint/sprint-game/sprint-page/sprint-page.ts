@@ -1,18 +1,16 @@
 import { Component } from '../../../../../utils/component';
 import { PlaySound } from '../PlaySound';
-import { SprintGame } from '../sprint';
-import { Results } from './results';
 import './sprint-page.css';
 import { sprintData } from './sprintData';
 import { changeMuteIcon } from '../utils';
+import { SprintGame } from '../sprint';
 
 const sprintSection = `
 <nav class="section-navigation">
 <div class="nav-container">
   <button class="btn btn-sound unmuted"></button>
-  <button class="btn">FS</button>
 </div>
-<button>Close</button>
+<button class="btn-close"></button>
 </nav>
 <div class="game-section">
   <div class="progress"></div>
@@ -40,13 +38,25 @@ export class SprintPage extends Component {
     sprintGuest.element.innerHTML = sprintSection;
 
     const btnTrue = sprintGuest.element.querySelector('.game-button-true');
-    btnTrue.addEventListener('click', (event) => {
-      this.showNextWord(event);
+    btnTrue.addEventListener('click', () => {
+      this.showNextWord(true);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowRight') {
+        this.showNextWord(true);
+      }
     });
 
     const btnFalse = sprintGuest.element.querySelector('.game-button-false');
-    btnFalse.addEventListener('click', (event) => {
-      this.showNextWord(event);
+    btnFalse.addEventListener('click', () => {
+      this.showNextWord(false);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') {
+        this.showNextWord(false);
+      }
     });
 
     const btnSound = sprintGuest.element.querySelector('.btn-sound') as HTMLElement;
@@ -54,13 +64,23 @@ export class SprintPage extends Component {
       PlaySound.changeMute();
       changeMuteIcon(btnSound);
     });
+
+    const btnClose = sprintGuest.element.querySelector('.btn-close');
+    btnClose.addEventListener('click', () => {
+      sprintData.timerStatus = false;
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        sprintData.timerStatus = false;
+      }
+    });
   }
 
   renderCard() {
     const wordFeld = this.element.querySelector('.game-word') as HTMLElement;
-    const translateFeld = this.element.querySelector('.game-translate') as HTMLElement
+    const translateFeld = this.element.querySelector('.game-translate') as HTMLElement;
     wordFeld.innerText = sprintData.currentWordsKit[sprintData.currentNumberWord].word;
     translateFeld.innerText = sprintData.currentWordsKit[sprintData.currentNumberWord].translate;
   }
 }
-

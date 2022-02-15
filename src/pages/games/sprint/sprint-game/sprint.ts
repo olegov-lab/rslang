@@ -28,21 +28,11 @@ export class SprintGame extends Component {
   renderDescription() {
     const sprintDescriptionPage = new SprintDescriptionPage(this.main);
     sprintDescriptionPage.startGame = () => {
-      console.log('start game');
       this.renderGame();
     };
   }
 
-  checkAnswer(event) {
-    let curentAnswer: boolean;
-    if (event.target instanceof Element) {
-      if (event.target.id === 'game-button-true') {
-        curentAnswer = true;
-      } else {
-        curentAnswer = false;
-      }
-    }
-
+  checkAnswer(curentAnswer) {
     if (sprintData.currentWordsKit[sprintData.currentNumberWord].answer === curentAnswer) {
       const sound = new PlaySound();
       sound.playCorrectSound();
@@ -85,13 +75,22 @@ export class SprintGame extends Component {
     const timer = new Component(this.main, 'div', ['sprint-timer']);
     let timeLeft = 60;
     const timerId = setInterval(() => {
-      if (timeLeft > 0) {
-        timer.element.innerText = `${timeLeft}`;
-        timeLeft -= 1;
-      } else {
+      if (!sprintData.timerStatus) {
         SprintGame.renderResults();
         timer.destroy();
         clearInterval(timerId);
+        sprintData.timerStatus = true;
+      } else {
+        // eslint-disable-next-line no-lonely-if
+        if (timeLeft > 0) {
+          timer.element.innerText = `${timeLeft}`;
+          timeLeft -= 1;
+        } else {
+          SprintGame.renderResults();
+          timer.destroy();
+          clearInterval(timerId);
+          sprintData.timerStatus = true;
+        }
       }
     }, 1000);
   }
