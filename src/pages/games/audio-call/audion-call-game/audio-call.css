@@ -68,7 +68,7 @@
     background-image: url('../../../../assets/sound.png');
     background-position: center;
     background-repeat: no-repeat;
-    transition: all .5s;
+    transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
 
 .sound:hover {
@@ -280,6 +280,10 @@
 
 .return-btn:active {
     transform: scale(0.97);
+}
+
+.game-image {
+    min-height: 8rem;
 }
 
 @media (max-width: 420px) {
