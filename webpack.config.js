@@ -33,6 +33,14 @@ const config = {
     new CopyPlugin({
       patterns: [
         {
+          from: "./src/assets/like.png",
+          to: "./assets/like.png",
+        },
+        {
+          from: "./src/assets/dislike.png",
+          to: "./assets/dislike.png",
+        },
+        {
           from: "./src/assets/playButton.svg",
           to: "./assets/playButton.svg",
         },

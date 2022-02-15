@@ -1,5 +1,9 @@
 import { Component } from '../../utils/component';
 
+import { checkWrong } from "../../components/react/check-wrong";
+
+import { removePaginat } from "../../components/react/get-paginat";
+
 //import './header.css';
 
 export class TextbookHeader extends Component {
@@ -49,7 +53,7 @@ export class TextbookHeader extends Component {
       this.linkForPart7.element.classList.remove('red7');
     }
 
-    this.gamesBtn = new Component(containerPartOfHeader.element, 'a', ['nav-btn'], 'Мини-игры');
+    this.gamesBtn = new Component(containerPartOfHeader.element, 'a', ['nav-btn', 'games-mini'], 'Мини-игры');
 
 
     const burgerMenu = new Component(containerPartOfHeader.element, 'div', ['burger'], '');
@@ -74,6 +78,8 @@ export class TextbookHeader extends Component {
     window.addEventListener('hashchange', () => this.updateActiveOfLink(this.nav));
 
     window.addEventListener('load', () => this.updateActiveOfLink(this.nav));
+
+    window.addEventListener('load', removePaginat);
 
     contentBurger.element.innerHTML = `
     <a href="javascript:void(0)" class="closebtn" ">&times;</a>

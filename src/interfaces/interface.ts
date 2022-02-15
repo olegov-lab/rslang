@@ -1,5 +1,5 @@
 export interface IWords {
-  id: "string",
+  _id: "string",
   group: 0,
   page: 0,
   word: "string",
@@ -13,6 +13,9 @@ export interface IWords {
   wordTranslate: "string",
   textMeaningTranslate: "string",
   textExampleTranslate: "string",
+  userWord?: {
+    difficulty: "string"
+  }
 }
 
 export interface IUser {

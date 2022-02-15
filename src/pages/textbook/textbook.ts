@@ -6,16 +6,30 @@ import { TextbookHeader } from "../../components/textbook-container/textbook-hea
 import {
   getWords
 } from '../../api/api';
+import { getUserAggrWord, createUserWord, getUserAggrWordHard,
+         getUserAggrWordHardAll, updateUserWord }
+from "../../api/user-aggregated";
+import { checkWrong } from "../../components/react/check-wrong";
+import { getPaginat } from "../../components/react/get-paginat";
+import { removePaginat } from "../../components/react/get-paginat";
+import { getWordOptions, removeWordOptions } from "../../components/react/get-word-options";
+
+//import { userId } from '../../api/user-authorization';
+//import { good } from "../textbook/part7/part7";
 
 export class Textbook extends Component {
+  onClickButton: () => void = () => {};
   private textbookContainer: TextbookContainer;
   private textbookHeader: TextbookHeader;
   textbookItem: TextbookItem;
   group = 0;
   page = 0;
 
+
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', ['textbook', 'wrapper']);
+
+
 
     if (localStorage.getItem('group')) {
       this.group = +localStorage.getItem('group');
@@ -28,11 +42,17 @@ export class Textbook extends Component {
       localStorage.setItem('page', "0");
     }
 
+
     this.getAllWords(this.group, this.page);
+
 
     this.textbookHeader = new TextbookHeader(this.element);
 
     this.textbookContainer = new TextbookContainer(this.element);
+
+
+
+
 
     const navPartTextbook = document.querySelector('.nav-part-textbook');
 
@@ -72,6 +92,77 @@ let newArr = arr.join('');
 
 };
 
+
+ //!
+
+  btnT.addEventListener('click', async (event) => {
+
+  let target = event.target as HTMLElement;
+
+  let wordId = target.dataset.id;
+
+
+  if(target.classList.contains('btn-dif')) {
+
+  const itemChange = document.getElementById(`${wordId}`);
+
+
+  itemChange.classList.remove('easy-word');
+  itemChange.classList.add('hard-word');
+
+
+
+    let state = {
+      userId: localStorage.getItem('userId'),
+      wordId: wordId,
+      word: { "difficulty": "hard", "optional": {testFieldString: 'test', testFieldBoolean: true} }
+    }
+
+    let state2 = {
+      userId: localStorage.getItem('userId'),
+      group:localStorage.getItem('group'),
+      page: localStorage.getItem('page'),
+    }
+
+    let userId = localStorage.getItem('userId');
+
+    createUserWord(state);
+
+    updateUserWord(state);
+
+    getUserAggrWordHard(state2);
+    checkWrong();
+
+    // this.arrHard = await getUserAggrWordHardAll(userId);
+
+    // console.log(this.arrHard);
+
+  } else if(target.classList.contains('btn-rem')) {
+
+    console.log(wordId);
+
+    const itemChange = document.getElementById(`${wordId}`);
+    itemChange.classList.remove('hard-word');
+    itemChange.classList.add('easy-word');
+
+
+    let state = {
+      userId: localStorage.getItem('userId'),
+      wordId: wordId,
+      word: { "difficulty": "easy", "optional": {testFieldString: 'test', testFieldBoolean: true} }
+    }
+
+    createUserWord(state);
+    updateUserWord(state);
+    checkWrong();
+  }
+
+  else {
+    return;
+  }
+  });
+
+
     navPartTextbook.addEventListener('click', (event) => {
        let target = event.target as HTMLElement;
 
@@ -85,15 +176,14 @@ let newArr = arr.join('');
 
        Textbook.prototype.toLinkHref = +this.group;
 
+
     })
 
     this.textbookContainer.updatePage = (page) => {
       this.page = page;
       localStorage.setItem('page', String(this.page));
       this.getAllWords(this.group, this.page);
-
     };
-
 }
 
 
@@ -107,14 +197,42 @@ set toLinkHref(value) {
 
 private async getAllWords(group: number, page: number): Promise<void> {
 
-  const data = await getWords(group, page);
+
+
+  let data;
+
+  if(!localStorage.getItem('token')){
+    data = await getWords(group, page);
+
+    getPaginat();
+
+  } else if (localStorage.getItem('group') == '6') {
+
+  removePaginat();
+
+    let userId = localStorage.getItem('userId');
+
+    const data = await getUserAggrWordHardAll(userId);
+
+    const words: {} = data;
+    this.textbookContainer.addItems(words);
+
+  removePaginat();
+
+  }
+  else {
+    let userId = localStorage.getItem('userId');
+    data = await getUserAggrWord({userId, group, page});
+    getPaginat();
+
+  }
 
   if (data) {
     const words: {} = data;
 
     this.textbookContainer.addItems(words);
 
-    this.textbookContainer.pagination.updateNextButton(this.page,28,1);
+    this.textbookContainer.pagination.updateNextButton(this.page, 28, 1);
 
 
     if(localStorage.getItem('token')) {
@@ -138,6 +256,8 @@ private async getAllWords(group: number, page: number): Promise<void> {
     }
 
   }
+
+  checkWrong();
 }
 
 

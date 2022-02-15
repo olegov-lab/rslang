@@ -1,11 +1,14 @@
-import {clearArrays, audioArray, wordsEnArray, wordsRusArray, wordsImgArray} from './audio-call';
-import { getWords } from '../../../../api/api';
+import { clearArrays, audioArray, wordsEnArray, wordsRusArray, wordsImgArray} from './audio-call';
+import {  getWords } from '../../../../api/api';
+
+import { getUserAggrWord } from "../../../../api/user-aggregated";
 
 /* получаем данные */
 export const getPageAndGroup = async (a = 0, b = 0) => {
     const words = await getWords(a, b);
+
     clearArrays();
-  
+
     for (let i = 0; i < 20; i++) {
       audioArray.push(words[i].audio);
       wordsEnArray.push(words[i].word);
@@ -13,5 +16,7 @@ export const getPageAndGroup = async (a = 0, b = 0) => {
       wordsImgArray.push(words[i].image);
     }
     console.log(wordsRusArray)
+    console.log(words)
+
   };
   getPageAndGroup();
