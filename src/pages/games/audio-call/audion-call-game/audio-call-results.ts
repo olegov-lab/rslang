@@ -1,5 +1,5 @@
 import './audio-call-results';
-import{ arrTrueAnswer , arrFalseAnswer, clearArraysRepeat} from './audio-call';
+import{ arrTrueAnswer , arrFalseAnswer, arrTrueAnswerEn, arrFalseAnswerEn, clearArraysRepeat, arrTrueAnswerAudio, arrFalseAnswerAudio } from './audio-call';
 
 
 export function renderAudioCallResults() {
@@ -22,9 +22,9 @@ export function renderAudioCallResults() {
 
     if (arrTrueAnswer.length <= 5) {
         popupTitle.innerHTML = 'Попробуйте еще раз!'
-    } else if (arrTrueAnswer.length > 5 && arrTrueAnswer.length < 14) {
+    } else if (arrTrueAnswer.length > 5 && arrTrueAnswer.length <= 14) {
         popupTitle.innerHTML = 'Хороший результат!'
-    } else if (arrTrueAnswer.length > 14 && arrTrueAnswer.length < 19) {
+    } else if (arrTrueAnswer.length > 14 && arrTrueAnswer.length <= 20) {
         popupTitle.innerHTML = 'Вы молодец!'
     }
 
@@ -39,11 +39,28 @@ export function renderAudioCallResults() {
     correctWordsNumber.innerHTML = `Знаю: ${arrTrueAnswer.length}`;
 
     for (let i = 0; i < arrTrueAnswer.length; i += 1) {
+        const wordBlock = document.createElement('div');
+        wordBlock.className = 'word';
+    
+        const wordIcon = document.createElement('span');
+        wordIcon.className = 'result-word-icon';
+
         const word = document.createElement('div');
-        word.className = 'word';
-        word.innerText = arrTrueAnswer[i];
-        correctWordsNumber.append(word);
+        word.className = 'word-word';
+
+        wordBlock.appendChild(wordIcon);
+
+        word.innerText = `${arrTrueAnswer[i]} — ${arrTrueAnswerEn[i] }`;
+        wordBlock.append(word);
+        correctWordsNumber.append(wordBlock);
+        wordIcon.onclick = () => {
+            const audio = new Audio(`https://raw.githubusercontent.com/irinainina/rslang/rslang-data/data/${arrTrueAnswerAudio[i]}`);
+        audio.play();
+        }
     }
+
+    const line = document.createElement('hr');
+    line.className = 'hr-style';
 
     const rightResults = document.createElement('div');
     rightResults.className = 'right';
@@ -53,10 +70,25 @@ export function renderAudioCallResults() {
     wrongWordsNumber.innerHTML = `Ошибок: ${arrFalseAnswer.length}`;
 
     for (let i = 0; i < arrFalseAnswer.length; i += 1) {
+        const wordBlock = document.createElement('div');
+        wordBlock.className = 'word';
+    
+        const wordIcon = document.createElement('span');
+        wordIcon.className = 'result-word-icon';
+
         const word = document.createElement('div');
-        word.className = 'word';
-        word.innerText = arrFalseAnswer[i];
-        wrongWordsNumber.append(word);
+        word.className = 'word-word';
+
+        wordBlock.appendChild(wordIcon);
+
+        word.innerText = `${arrFalseAnswer[i]} — ${arrFalseAnswerEn[i] }`;
+        wordBlock.append(word);
+        wrongWordsNumber.append(wordBlock);
+
+        wordIcon.onclick = () => {
+            const audio = new Audio(`https://raw.githubusercontent.com/irinainina/rslang/rslang-data/data/${arrFalseAnswerAudio[i]}`);
+        audio.play();
+        }
     }
 
     const returnBtnContainer = document.createElement('a');
@@ -78,6 +110,7 @@ export function renderAudioCallResults() {
     popupContent.appendChild(popupTitle);
     popupContent.appendChild(resultsContainer);
     resultsContainer.appendChild(leftResults);
+    resultsContainer.appendChild(line);
     resultsContainer.appendChild(rightResults);
     leftResults.append(correctWordsNumber);
     rightResults.append(wrongWordsNumber);
@@ -87,3 +120,4 @@ export function renderAudioCallResults() {
     const main = document.querySelector('.main');
     main.appendChild(fragment);
 };
+

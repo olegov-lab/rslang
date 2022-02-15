@@ -203,10 +203,11 @@
 }
 
 .results-container {
-    display: flex;
-    justify-content: space-around;
-    text-align: center;
     margin-bottom: 25px;
+}
+
+.hr-style {
+    margin: 20px;
 }
 
 .correct-words-number {
@@ -222,11 +223,26 @@
     font-size: 24px;
     margin-bottom: 15px;
     font-weight: 400;
+    padding: 25px;
 }
 
 .word {
     padding: 10px;
     font-size: 20px;
+    color: #000;
+    display: flex;
+    align-items: center;
+}
+
+.result-word-icon {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    margin: 5px 10px;
+    background-image: url('../../../../assets/sound.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    cursor: pointer;
 }
 
 .return-btn-container {

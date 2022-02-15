@@ -1,5 +1,5 @@
 import './audio-call.css';
-import {  pageNum, wordsRusArray, arrCopy } from './audio-call';
+import {  pageNum, wordsRusArray, arrCopy, spaceSound, clearArraysRepeat } from './audio-call';
 import { playSound } from './play-word-audio';
 import { checkAnswer } from './check-answer';
 import { choosePage } from './get-page';
@@ -15,6 +15,7 @@ export function renderGameAudioPage() {
   if ((target as HTMLDivElement).closest('.audio-call-start')) {
 
     gameAudioDesc.style.display = "none";
+    clearArraysRepeat();
 
     const section = document.createElement('section');
     section.className = 'game-audio';
@@ -64,6 +65,8 @@ export function renderGameAudioPage() {
     const knowButton = document.createElement('button');
     knowButton.className = 'know';
     knowButton.innerText = 'Не знаю';
+
+    document.addEventListener('keydown', spaceSound);
 
     section.appendChild(container);
     container.appendChild(gameAudioPage);
