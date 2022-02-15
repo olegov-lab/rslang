@@ -48,6 +48,9 @@ export class Header extends Component {
 
     this.nav = [this.linkForMain, this.linkForDictionary,
                 this.linkForGames, this.linkForStatistics];
+    
+    // слушатель сохраняет источник для игр в local storage
+    this.linkForGames.element.addEventListener('click', () => localStorage.setItem('gameSource', 'nav'));
 
     window.addEventListener('hashchange', () => this.updateActiveOfLink(this.nav));
 

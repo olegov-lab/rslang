@@ -54,6 +54,8 @@ export class TextbookHeader extends Component {
     }
 
     this.gamesBtn = new Component(containerPartOfHeader.element, 'a', ['nav-btn', 'games-mini'], 'Мини-игры');
+    // слушатель сохраняет источник для игр в local storage
+    this.gamesBtn.element.addEventListener('click', () => localStorage.setItem('gameSource', 'dictionary'));
 
 
     const burgerMenu = new Component(containerPartOfHeader.element, 'div', ['burger'], '');
@@ -68,7 +70,7 @@ export class TextbookHeader extends Component {
     this.linkForPart5.element.setAttribute('href', '#/textbook/4');
     this.linkForPart6.element.setAttribute('href', '#/textbook/5');
     this.linkForPart7.element.setAttribute('href', '#/textbook/6');
-    this.gamesBtn.element.setAttribute('href', '#/games-mini');
+    this.gamesBtn.element.setAttribute('href', '#/games');
 
     this.nav = [this.linkForPart1, this.linkForPart2,
                 this.linkForPart3, this.linkForPart4,
