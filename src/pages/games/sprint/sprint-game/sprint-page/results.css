@@ -1,71 +1,71 @@
 .game-sprint-results {
-    position: relative;
-    display: flex;
-    margin: 20px auto;
-    width: 40%;
-    border: 2px solid #29cfac;
-    border-radius: 30px;
-    background: rgba(170, 236, 176, 0.2);
+  position: relative;
+  display: flex;
+  margin: 20px auto;
+  width: 60%;
+  border: 2px solid #29cfac;
+  border-radius: 30px;
+  background: rgba(170, 236, 176, 0.2);
 }
 
 .correct-answer-wrapper,
 .wrong-answer-wrapper {
-    width: 80%;
-    margin: 30px auto;
-    text-align: left;
+  width: 80%;
+  margin: 30px auto;
+  text-align: left;
 }
 
 .correct-answer-list,
 .wrong-answer-list {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
 }
 
 .correct-answer-title,
 .wrong-answer-title {
-    border-bottom: 2px solid black;
-    font-family: Rubik;
-    font-size: 3rem;
-    line-height: 43px;
-    text-align: center;
+  border-bottom: 2px solid black;
+  font-family: Rubik;
+  font-size: 3rem;
+  line-height: 43px;
+  text-align: center;
 }
 
 .sprint-result-count-correct,
 .sprint-result-count-wrong {
-    display: inline-block;
-    width: 40px;
-    margin: 5px 20px;
-    padding: 0 20px;
-    border-radius: 20px;
-    text-align: center;
+  display: inline-block;
+  width: 40px;
+  margin: 5px 20px;
+  padding: 0 20px;
+  border-radius: 20px;
+  text-align: center;
 }
 
 .sprint-result-count-correct {
-    background-color: #29cfac;
+  background-color: #29cfac;
 }
 
 .sprint-result-count-wrong {
-    background-color: #ff7e7e;
+  background-color: #ff7e7e;
 }
 
 .result-word-string {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .result-word-icon {
-    display: inline-block;
-    height: 20px;
-    width: 20px;
-    margin: 5px 10px;
-    background-image: url(../../../../../assets//sound.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    cursor: pointer;
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  margin: 5px 10px;
+  background-image: url(../../../../../assets//sound.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
 }
 
 .result-word-icon:hover {
-    transform: scale(1.2);
+  transform: scale(1.2);
 }

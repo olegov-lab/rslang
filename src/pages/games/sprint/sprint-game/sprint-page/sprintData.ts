@@ -1,4 +1,5 @@
 interface IGameData {
+    id: string,
     word: string,
     translate: string,
     audio: string,
