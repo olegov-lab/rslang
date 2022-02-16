@@ -2,6 +2,8 @@ import { IRouter } from '../interfaces/interface';
 import { Component } from '../utils/component';
 import { MainPage } from '../pages/main/main';
 import { SprintGame } from '../pages/games/sprint/sprint-game/sprint';
+import { getPageAndGroup } from '../pages/games/audio-call/audion-call-game/get-page-and-group';
+import { renderGameChoice } from '../pages/games/games-selector/games-selector';
 import { SprintDescriptionPage }
 from '../pages/games/sprint/sprint-description/sprint-description';
 import { Form } from "../pages/form/form";
@@ -104,24 +106,8 @@ export class Router {
       {
         name: '/games',
         component: () => {
-          this.rootElement.insertAdjacentHTML('afterbegin', `
-          <section class="games-page">
-          <div class="container">
-              <div class="games-page-title">Мини-игры</div>
-              <div class="games">
-                <a href="#/games/audio">
-                  <div class="game-audio-call-select">
-                      <div class="game-audio-call-title">Аудиовызов</div>
-                  </div>
-                </a>
-                <a href="#/games/sprint">
-                  <div class="game-sprint-select">
-                      <div class="game-sprint-title">Спринт</div>
-                  </div>
-                </a>
-              </div>
-          </div>
-          </section>`);
+          this.rootElement.append(renderGameChoice());
+          getPageAndGroup();
         },
       },
       {

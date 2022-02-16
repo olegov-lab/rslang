@@ -12,22 +12,21 @@ import { renderAudioCallResults} from "./audio-call-results";
 //import { pressKeyBoard } from './keybord';
 
 export const body = document.body;
-export let audioArray: string [] = [];
-export let wordsEnArray: string [] = [];
-export let wordsRusArray: string [] = [];
-export let wordsImgArray: string [] = [];
-export let arrTrueAnswer: string [] = [];
-export let arrFalseAnswer: string [] = [];
-export let arrTrueAnswerEn: string [] = [];
-export let arrFalseAnswerEn: string [] = [];
-export let arrTrueAnswerAudio: string [] = [];
-export let arrFalseAnswerAudio: string [] = [];
-export let arrCopy: string [] = [];
+export let audioArray: string [] = []; // исходный массив аудио
+export let wordsEnArray: string [] = []; // исходный массив англ слов
+export let wordsRusArray: string [] = []; // исходный массив русских слов
+export let wordsImgArray: string [] = []; // исходный массив картинок
+export let arrTrueAnswer: string [] = []; // массив правильных ответов(рус)
+export let arrFalseAnswer: string [] = []; // массив неправильных ответов(рус)
+export let arrTrueAnswerEn: string [] = []; // массив правильных ответов(англ для статистики)
+export let arrFalseAnswerEn: string [] = []; // массив неправильных ответов(англ для статистики)
+export let arrTrueAnswerAudio: string [] = []; // массив правильных ответов(звуки для статистики)
+export let arrFalseAnswerAudio: string [] = [];  // массив неправильных ответов(звуки для статистики)
+export let arrCopy: string [] = []; // рандомный массив для замешки с ответами
 
 
-export let pageNum: number = 0;
-const lastPage: number = 19;
-
+export let pageNum: number = 0; // номер текущей страницы
+const lastPage: number = 19; // номер последней страницы
 
 /* получаем данные из другой группы для еще одного массива */
 const getRandomAnswers = async () => {
@@ -40,7 +39,7 @@ const getRandomAnswers = async () => {
 getRandomAnswers();
 
 
-/* очистка массивов */
+/* полная очистка массивов () */
 export function clearArrays() {
   audioArray = [];
   wordsEnArray = [];
@@ -51,10 +50,10 @@ export function clearArrays() {
   arrTrueAnswerEn = [];
   arrFalseAnswerEn = [];
   arrTrueAnswerAudio = [];
-  arrFalseAnswerAudio= [];
+  arrFalseAnswerAudio = [];
 }
 
-/*очистка если пользователь заъочет сыграть снова*/
+/*очистка если пользователь захочет сыграть снова*/
 export function clearArraysRepeat() {
   pageNum = 0;
   arrTrueAnswer = [];
@@ -72,11 +71,14 @@ export function nextPage() {
 
   if ((target as HTMLDivElement).closest('.audion-btn')) {
     if (target.innerText === 'Не знаю') {
+
       arrFalseAnswer.push(wordsRusArray[pageNum]);
       arrFalseAnswerEn.push(wordsEnArray[pageNum]);
       arrFalseAnswerAudio.push(audioArray[pageNum]);
+
       showAnswer();
       playWrongSound();
+
       answers.forEach((el: any) => {
         if (el.innerText === wordsRusArray[pageNum]) {
           el.classList.add('active');
@@ -86,7 +88,9 @@ export function nextPage() {
           el.style["pointer-events"] = "none";
         }
       });
+
       target.innerText = 'Далее';
+
     } else if (pageNum < lastPage) {
       pageNum++;
       target.innerText = 'Не знаю';
@@ -98,10 +102,12 @@ export function nextPage() {
         el.classList.remove('event');
         el.style["pointer-events"] = "auto";
       });
+
       playSound();
       hideAnswer();
       getNewWords();
     }
+
     else {
       renderAudioCallResults();
     }

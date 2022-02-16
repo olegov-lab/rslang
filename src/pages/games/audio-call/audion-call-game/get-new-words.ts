@@ -3,13 +3,13 @@ import { arrCopy, wordsRusArray, pageNum } from './audio-call';
 /*получение новых слов*/
 export function getNewWords() {
     const answers = document.querySelectorAll('.answer');
+    shuffle(arrCopy);
     answers[0].innerHTML = arrCopy[0];
     answers[1].innerHTML = arrCopy[1];
     answers[2].innerHTML = arrCopy[2];
     answers[3].innerHTML = arrCopy[3];
     answers[4].innerHTML = arrCopy[4];
     answers[choosePage(0, 4)].innerHTML = wordsRusArray[pageNum];
-    shuffle(arrCopy);
   };
 
   function shuffle(array) {
