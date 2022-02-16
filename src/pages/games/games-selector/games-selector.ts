@@ -27,7 +27,7 @@ export function renderGameChoice() {
     gameAudioCallTitle.innerText = 'Аудиовызов';
 
     const gameSprint = document.createElement('a');
-    gameSprint.href = '#/games/audio';
+    gameSprint.href = '#/games/sprint';
 
     const gameSprintSelect = document.createElement('div');
     gameSprintSelect.classList.add('game-sprint-select');
