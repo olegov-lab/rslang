@@ -9,7 +9,8 @@ import {getNewWords} from './get-new-words';
 import { chooseGroup} from './get-group';
 import { playWrongSound, playCorrectSound } from "./switch-sound";
 import { renderAudioCallResults} from "./audio-call-results";
-import { resetLongestAnswerRightAudioCall } from "./longestAnswerRightAudioCall";
+import { resetLongestAnswerRightAudioCall } from "./longest-answer-right-AudioCall";
+import { countingPercentAnswerRightAudioCall } from "./percent-of-correct-answers-audio-call";
 //import { pressKeyBoard } from './keybord';
 
 export const body = document.body;
@@ -88,6 +89,7 @@ export function nextPage() {
       showAnswer(); // показываем ответ
       playWrongSound(); // проигрываем неправильный звук
       resetLongestAnswerRightAudioCall();
+      countingPercentAnswerRightAudioCall();
 
       answers.forEach((el: any) => {
         if (el.innerText === wordsRusArray[pageNum]) {
