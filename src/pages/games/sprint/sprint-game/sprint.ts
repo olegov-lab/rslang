@@ -6,6 +6,9 @@ import { Results } from './sprint-page/results';
 import { sprintData } from './sprint-page/sprintData';
 import { PlaySound } from './PlaySound';
 import { defineGroupAndPage } from './sprint-page/getGroupAndPage';
+import { resultsSprint, giveSprintStatistics, startSprintStatistics, countingLongestAnswerRightSprint } from './returnStatidtics';
+
+let countCorrectAnswers = 0;
 
 export class SprintGame extends Component {
   main: HTMLElement;
@@ -39,16 +42,26 @@ export class SprintGame extends Component {
       const icon = new Component(this.main, 'div', ['answer-icon-true'], '');
       setInterval(() => icon.destroy(), 500);
       sprintData.currentWordsKit[sprintData.currentNumberWord].userAnswer = true;
+      resultsSprint.wordsCorrectAnswers.push(
+        sprintData.currentWordsKit[sprintData.currentNumberWord],
+      );
+      countCorrectAnswers += 1;
     } else {
       const sound = new PlaySound();
       sound.playWrongSound();
       const icon = new Component(this.main, 'div', ['answer-icon-false'], '');
       setInterval(() => icon.destroy(), 500);
       sprintData.currentWordsKit[sprintData.currentNumberWord].userAnswer = false;
+      resultsSprint.wordsWrongAnswers.push(
+        sprintData.currentWordsKit[sprintData.currentNumberWord],
+      );
+      countingLongestAnswerRightSprint(countCorrectAnswers);
+      countCorrectAnswers = 0;
     }
   }
 
   async renderGame() {
+    await startSprintStatistics();
     sprintData.currentWordsKit = [];
     await defineGroupAndPage();
     await generateWordsForGame();
@@ -61,9 +74,9 @@ export class SprintGame extends Component {
       this.checkAnswer(event);
       sprintData.currentNumberWord += 1;
       sprintPage.renderCard();
-      if ((sprintData.currentNumberWord % 20) === 19) {
-        sprintData.currentPage -= 1;
-        console.log('Новый набор данных', sprintData.currentPage);
+      if ((sprintData.currentNumberWord % 20) === 15) {
+        sprintData.currentPage -= 1; /* FIXME проверка на 0 страницу => завершить игру */
+        // console.log('Новый набор данных', sprintData.currentPage, sprintData.currentWordsKit);
         generateWordsForGame();
       }
     };
@@ -73,6 +86,7 @@ export class SprintGame extends Component {
     const root = document.querySelector('.main') as HTMLElement;
     const results = new Results(root);
     results.renderAnswers();
+    giveSprintStatistics();
   }
 
   showTimer() {

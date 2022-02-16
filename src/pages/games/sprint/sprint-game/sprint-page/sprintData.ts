@@ -1,4 +1,4 @@
-interface IGameData {
+export interface IGameData {
     id: string,
     word: string,
     translate: string,
