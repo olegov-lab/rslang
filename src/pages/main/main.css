@@ -1,5 +1,9 @@
 /*Блок приветствия*/
 
+a {
+  text-decoration: none;
+}
+
 .greeting {
   display: flex;
   align-items: center;
@@ -213,6 +217,12 @@ figcaption>p:last-child {
   font-size: 18px;
   text-align: center;
   color: #4b4456;
+}
+
+@media (max-width: 1440px) {
+  .team-members {
+    justify-content: center;
+  }
 }
 
 @media (max-width: 1100px) {

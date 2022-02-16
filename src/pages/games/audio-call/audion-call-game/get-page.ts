@@ -1,4 +1,4 @@
-/*выбор страницы слов*/
+/* рандомный выбор страницы слов*/
 export function choosePage(min: number, max: number) {
     min = Math.ceil(min);
     max = Math.floor(max);
