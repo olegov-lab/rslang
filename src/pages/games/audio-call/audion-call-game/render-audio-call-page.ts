@@ -16,7 +16,6 @@ export function renderGameAudioPage() {
 
     gameAudioDesc.style.display = "none";
     clearArraysRepeat();
-
     const section = document.createElement('section');
     section.className = 'game-audio';
 

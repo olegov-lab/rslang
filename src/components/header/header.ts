@@ -48,7 +48,7 @@ export class Header extends Component {
 
     this.nav = [this.linkForMain, this.linkForDictionary,
                 this.linkForGames, this.linkForStatistics];
-    
+
     // слушатель сохраняет источник для игр в local storage
     this.linkForGames.element.addEventListener('click', () => localStorage.setItem('gameSource', 'nav'));
 
@@ -56,12 +56,14 @@ export class Header extends Component {
 
     window.addEventListener('load', () => this.updateActiveOfLink(this.nav));
 
+
+
     contentBurger.element.innerHTML = `
     <a href="javascript:void(0)" class="closebtn" ">&times;</a>
-    <a href="#/">Главная</a>
-    <a href="#/textbook">Учебник</a>
-    <a href="#/games">Игры</a>
-    <a href="#/statistics">Статистика</a>
+    <a class="main-btn-burger" href="#/">Главная</a>
+    <a class="textbook-btn-burger" href="#/textbook">Учебник</a>
+    <a class="games-btn-burger" href="#/games">Игры</a>
+    <a class="statistics-btn-burger" href="#/statistics">Статистика</a>
     `;
 
     const changeBurger = document.querySelector('.openbtn');
@@ -77,6 +79,22 @@ export class Header extends Component {
       changeMenu.classList.remove('active-sidepanel');
     })
 
+    document.querySelector('.main-btn-burger').addEventListener('click', () => {
+      changeMenu.classList.remove('active-sidepanel');
+    })
+
+    document.querySelector('.textbook-btn-burger').addEventListener('click', () => {
+      changeMenu.classList.remove('active-sidepanel');
+    })
+
+    document.querySelector('.games-btn-burger').addEventListener('click', () => {
+      changeMenu.classList.remove('active-sidepanel');
+    })
+
+    document.querySelector('.statistics-btn-burger').addEventListener('click', () => {
+      changeMenu.classList.remove('active-sidepanel');
+    })
+
     exiteBtn.addEventListener('click', () => {
 
       document.querySelector('.nav-btn').classList.remove('hidden');
@@ -84,8 +102,6 @@ export class Header extends Component {
       window.location.hash = '#/';
       localStorage.clear();
       window.location.reload();
-
-
     })
 
   }

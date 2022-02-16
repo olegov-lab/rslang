@@ -2,6 +2,7 @@ import { App } from './app';
 import './normalize.css';
 import './index.css';
 import { createUserWord, getUserAggrWord } from './api/user-aggregated';
+import { getDate } from "./components/react/get-date";
 
 import {getWords} from "./api/api"
 
@@ -9,7 +10,13 @@ window.addEventListener('DOMContentLoaded', () => {
   const rootElement = document.body;
   const app = new App(rootElement);
 
+  getDate();
+
+  localStorage.setItem('startDate', getDate());
+
   app.init();
+
+
 
   // createUserWord({
   //   userId: "62052493f646b800162199af",
