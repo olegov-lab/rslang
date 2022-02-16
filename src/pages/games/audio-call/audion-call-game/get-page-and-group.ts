@@ -4,59 +4,75 @@ import {  getWords } from '../../../../api/api';
 import { getUserAggrWord } from "../../../../api/user-aggregated";
 
 /* получаем данные */
-export const getPageAndGroup = async (a = 0, b = 0) => {
+export const getPageAndGroup = async (group = 0, page = 0) => {
 
-/* сделано для перехода из учебника по мини играм */
-  let storageGroup = localStorage.getItem('group'); 
-  let storagePage = localStorage.getItem('page'); 
-  
-  /* для юзера */
+  /* данные из локала стоража */
+  let userId: string = localStorage.getItem('userId');
+  let storageGroup: string = localStorage.getItem('group');
+  let storagePage: string = localStorage.getItem('page');
+
+  /* локал стораж для авторизованного */
   let state = {
-    userId: 'string',
-    group:  1,// попробовал так, но тоже что то ничего
-    page: 2
+    userId: localStorage.getItem('userId'),
+    group:  localStorage.getItem('group'),
+    page: localStorage.getItem('page')
   }
 
-  /* для юзера */
-  if(true) {
-    const words = await getUserAggrWord(state) 
-    clearArrays();
-    for (let i = 0; i < 20; i++) {
-      arrWordsID.push(words[i].id);
-      audioArray.push(words[i].audio);
-      wordsEnArray.push(words[i].word);
-      wordsRusArray.push(words[i].wordTranslate);
-      wordsImgArray.push(words[i].image);
-    }
-    console.log(arrWordsID)
-    
-  }
-    /* для анонима */
+  /*если путь через словарь */
   if (localStorage.getItem('gameSource') === 'dictionary') {
-    const words = await getWords(+storageGroup, +storagePage);
-   clearArrays();
-    for (let i = 0; i < 20; i++) {
-      arrWordsID.push(words[i].id);
-      audioArray.push(words[i].audio);
-      wordsEnArray.push(words[i].word);
-      wordsRusArray.push(words[i].wordTranslate);
-      wordsImgArray.push(words[i].image);
-    }
-  }
-  else {
-    const words = await getWords(a, b);
-    clearArrays();
-    for (let i = 0; i < 20; i++) {
-      arrWordsID.push(words[i].id);
-      audioArray.push(words[i].audio);
-      wordsEnArray.push(words[i].word);
-      wordsRusArray.push(words[i].wordTranslate);
-      wordsImgArray.push(words[i].image);
-    }
-  }
-    
-  
-  
-};
-getPageAndGroup();
+    /* для юзера */
+    if (localStorage.getItem('token')) {
 
+      const words = await getUserAggrWord(state);
+      clearArrays();
+
+      for (let i = 0; i < 20; i++) {
+        arrWordsID.push(words[i]._id);
+        audioArray.push(words[i].audio);
+        wordsEnArray.push(words[i].word);
+        wordsRusArray.push(words[i].wordTranslate);
+        wordsImgArray.push(words[i].image);
+      }
+     // console.log("есть токена, дикт " + words)
+    } else { // для анонима
+
+      const words = await getWords(+storageGroup, +storagePage);
+      clearArrays();
+
+      for (let i = 0; i < 20; i++) {
+        audioArray.push(words[i].audio);
+        wordsEnArray.push(words[i].word);
+        wordsRusArray.push(words[i].wordTranslate);
+        wordsImgArray.push(words[i].image);
+      }
+     // console.log(`нет токена, дикт ${words}`)
+    }
+  } else { // не через словарь
+      /* для юзера */
+    if (localStorage.getItem('token')) {
+
+      const words = await getUserAggrWord({ userId, group, page });
+      clearArrays();
+
+      for (let i = 0; i < 20; i++) {
+        arrWordsID.push(words[i]._id);
+        audioArray.push(words[i].audio);
+        wordsEnArray.push(words[i].word);
+        wordsRusArray.push(words[i].wordTranslate);
+        wordsImgArray.push(words[i].image);
+      }
+      //console.log("есть токен, нав " + words)
+    }
+      else { // для анонима
+        const words = await getWords(group, page);
+        clearArrays();
+        for (let i = 0; i < 20; i++) {
+          audioArray.push(words[i].audio);
+          wordsEnArray.push(words[i].word);
+          wordsRusArray.push(words[i].wordTranslate);
+          wordsImgArray.push(words[i].image);
+        }
+       // console.log("нет токена, нав " + words)
+      }
+    }
+  };
