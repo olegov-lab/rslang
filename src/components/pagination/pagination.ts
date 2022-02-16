@@ -14,7 +14,6 @@ export class Pagination extends Component {
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', ['pagination']);
 
-
     if (localStorage.getItem('page')) {
       this.page = +localStorage.getItem('page');
 
