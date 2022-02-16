@@ -22,7 +22,7 @@ export class SprintGame extends Component {
   constructor(parentNode: HTMLElement) {
     super(parentNode);
     this.main = parentNode;
-    generateWordsForGame();
+    //generateWordsForGame();
   }
 
   renderDescription() {
@@ -49,6 +49,8 @@ export class SprintGame extends Component {
   }
 
   renderGame() {
+
+    generateWordsForGame();
     const sprintPage = new SprintPage(this.main);
     document.querySelector('.game-sprint-description').remove();
     sprintPage.renderCard();

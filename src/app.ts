@@ -23,6 +23,5 @@ export class App {
     this.router.initRouter();
   }
 
-
 }
 

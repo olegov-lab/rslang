@@ -34,7 +34,6 @@ export class TextbookHeader extends Component {
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', ['textbook-header', 'wrapper']);
 
-
     const containerPartOfHeader = new Component(this.element, 'div', ['nav-container-of-part']);
     const partOfHeader = new Component(containerPartOfHeader.element, 'div', ['nav-part-textbook']);
     this.linkForPart1 = new Component(partOfHeader.element, 'a', ['nav-link'], 'Раздел 1');
@@ -58,9 +57,9 @@ export class TextbookHeader extends Component {
     this.gamesBtn.element.addEventListener('click', () => localStorage.setItem('gameSource', 'dictionary'));
 
 
-    const burgerMenu = new Component(containerPartOfHeader.element, 'div', ['burger'], '');
-    const contentBurger = new Component(burgerMenu.element, 'div', ['sidepanel'], '');
-    const burgerBtn = new Component(burgerMenu.element, 'button', ['openbtn'], '☰');
+    //const burgerMenu = new Component(containerPartOfHeader.element, 'div', ['burger'], '');
+    //const contentBurger = new Component(burgerMenu.element, 'div', ['sidepanel'], '');
+    //const burgerBtn = new Component(burgerMenu.element, 'button', ['openbtn-textbook'], '☰');
 
 
     this.linkForPart1.element.setAttribute('href', '#/textbook/0');
@@ -81,36 +80,29 @@ export class TextbookHeader extends Component {
 
     window.addEventListener('load', () => this.updateActiveOfLink(this.nav));
 
-    window.addEventListener('load', removePaginat);
 
-    contentBurger.element.innerHTML = `
-    <a href="javascript:void(0)" class="closebtn" ">&times;</a>
-    <a href="#/">Главная</a>
-    <a href="#/textbook">Учебник</a>
-    <a href="#/games">Игры</a>
-    <a href="#/statistics">Статистика</a>
-    `;
 
-    const changeBurger = document.querySelector('.openbtn');
-    const changeMenu = document.querySelector('.sidepanel');
-    const closeBtn = document.querySelector('.closebtn');
-    const exiteBtn = document.querySelector('.nav-btnEx');
 
-    changeBurger.addEventListener('click' , (event) => {
-      changeMenu.classList.add('active-sidepanel');
-    })
+    //const changeBurger = document.querySelector('.openbtn-textbook');
+    // const changeMenu = document.querySelector('.sidepanel');
+    // const closeBtn = document.querySelector('.closebtn');
+    // const exiteBtn = document.querySelector('.nav-btnEx');
 
-    closeBtn.addEventListener('click' , (event) => {
-      changeMenu.classList.remove('active-sidepanel');
-    })
+    // changeBurger.addEventListener('click' , (event) => {
+    //   changeMenu.classList.add('active-sidepanel');
+    // })
 
-    exiteBtn.addEventListener('click', () => {
+    // closeBtn.addEventListener('click' , (event) => {
+    //   changeMenu.classList.remove('active-sidepanel');
+    // })
 
-      document.querySelector('.nav-btn').classList.remove('hidden');
-      document.querySelector('.nav-btnEx').classList.add('hidden');
-      window.location.hash = '#/signin';
-      localStorage.clear();
-    })
+    // exiteBtn.addEventListener('click', () => {
+
+    //   document.querySelector('.nav-btn').classList.remove('hidden');
+    //   document.querySelector('.nav-btnEx').classList.add('hidden');
+    //   window.location.hash = '#/signin';
+    //   localStorage.clear();
+    // })
 
   }
 
@@ -120,6 +112,10 @@ export class TextbookHeader extends Component {
 
       if (item.element.getAttribute('href') === window.location.hash) {
         item.element.classList.add('active-link');
+      } else
+      if (window.location.hash === '#/textbook') {
+        this.nav[localStorage.getItem('group')].element.classList.add('active-link');
+        item.element.classList.remove('active-link');
       }
 
       return item;

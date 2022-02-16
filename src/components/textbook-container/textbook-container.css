@@ -2,6 +2,12 @@
   padding: 20px;
 }
 
+.nav-part-textbook {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
 .textbook-container {
   display: flex;
   flex-direction: column;
@@ -133,4 +139,19 @@ a.disabled-link {
 .like img {
   width: 32px;
   height: 32px;
+}
+
+@media (max-width: 700px) {
+  .textbook-item {
+    flex-wrap: wrap;
+  }
+
+  .word-img {
+    width: 100%;
+  }
+
+  .word-options {
+    flex-wrap: wrap;
+    padding: 10px;
+  }
 }
