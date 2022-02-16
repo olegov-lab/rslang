@@ -8,7 +8,7 @@ import { SprintDescriptionPage }
 from '../pages/games/sprint/sprint-description/sprint-description';
 import { Form } from "../pages/form/form";
 import { Textbook } from "../pages/textbook/textbook";
-//import { Part7 } from "../pages/textbook/part7/part7";
+import { StaticsPage } from "../pages/statistics/statistics";
 
 
 export class Router {
@@ -22,7 +22,7 @@ export class Router {
 
   textbook: Component;
 
-  //part7: Component
+  staticsPage: Component
 
   constructor(private rootElement: HTMLElement) {
     this.mainPage = new MainPage(this.rootElement);
@@ -43,10 +43,7 @@ export class Router {
     // }
 
     this.textbook = new Textbook(this.rootElement);
-    //this.part7 = new Part7(this.rootElement);
-
-
-
+    this.staticsPage = new StaticsPage(this.rootElement);
 
     this.routs = [
       {
@@ -158,7 +155,7 @@ export class Router {
       {
         name: '/statistics',
         component: async () => {
-          this.rootElement.innerText = 'статистика';
+          this.rootElement.append(this.staticsPage.element);
         },
       },
       {
