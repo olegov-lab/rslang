@@ -5,6 +5,7 @@ import { SprintDescriptionPage } from '../sprint-description/sprint-description'
 import { Results } from './sprint-page/results';
 import { sprintData } from './sprint-page/sprintData';
 import { PlaySound } from './PlaySound';
+import { defineGroupAndPage } from './sprint-page/getGroupAndPage';
 
 export class SprintGame extends Component {
   main: HTMLElement;
@@ -22,7 +23,6 @@ export class SprintGame extends Component {
   constructor(parentNode: HTMLElement) {
     super(parentNode);
     this.main = parentNode;
-    // generateWordsForGame();
   }
 
   renderDescription() {
@@ -48,10 +48,13 @@ export class SprintGame extends Component {
     }
   }
 
-  renderSprintPage () {
+  async renderGame() {
+    sprintData.currentWordsKit = [];
+    await defineGroupAndPage();
+    await generateWordsForGame();
     const sprintPage = new SprintPage(this.main);
     document.querySelector('.game-sprint-description').remove();
-    sprintPage.renderCard();
+    await sprintPage.renderCard();
     this.showTimer();
 
     sprintPage.showNextWord = (event) => {
@@ -60,14 +63,10 @@ export class SprintGame extends Component {
       sprintPage.renderCard();
       if ((sprintData.currentNumberWord % 20) === 19) {
         sprintData.currentPage -= 1;
+        console.log('Новый набор данных', sprintData.currentPage);
         generateWordsForGame();
       }
     };
-  }
-
-  async renderGame() {
-    await generateWordsForGame();
-    await this.renderSprintPage();
   }
 
   static renderResults() {

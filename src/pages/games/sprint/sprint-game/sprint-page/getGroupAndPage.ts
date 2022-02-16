@@ -1,6 +1,6 @@
 import { sprintData } from './sprintData';
 
-export const defineGroupAndPage = ():void => {
+export const defineGroupAndPage = async () => {
   if (localStorage.getItem('gameSource') === 'dictionary') {
     sprintData.currentGroup = Number(localStorage.getItem('group'));
     sprintData.currentPage = Number(localStorage.getItem('page'));

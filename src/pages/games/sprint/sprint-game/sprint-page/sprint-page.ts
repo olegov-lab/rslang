@@ -77,7 +77,7 @@ export class SprintPage extends Component {
     });
   }
 
-  renderCard() {
+  async renderCard() {
     const wordFeld = this.element.querySelector('.game-word') as HTMLElement;
     const translateFeld = this.element.querySelector('.game-translate') as HTMLElement;
     wordFeld.innerText = sprintData.currentWordsKit[sprintData.currentNumberWord].word;
