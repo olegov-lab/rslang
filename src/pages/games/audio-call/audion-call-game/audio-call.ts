@@ -24,6 +24,12 @@ export let arrTrueAnswerAudio: string [] = []; // массив правильн�
 export let arrFalseAnswerAudio: string [] = [];  // массив неправильных ответов(звуки для статистики)
 export let arrCopy: string [] = []; // рандомный массив для замешки с ответами
 
+export let arrWordsID: string [] = []; // массив  ID слов
+export let arrTrueWordsID: string [] = []; // массив правильных ID слов
+export let arrFalseWordsID: string [] = [];  // массив неправильных ID слов
+
+
+
 
 export let pageNum: number = 0; // номер текущей страницы
 const lastPage: number = 19; // номер последней страницы
@@ -75,9 +81,11 @@ export function nextPage() {
       arrFalseAnswer.push(wordsRusArray[pageNum]);
       arrFalseAnswerEn.push(wordsEnArray[pageNum]);
       arrFalseAnswerAudio.push(audioArray[pageNum]);
+      arrFalseWordsID.push(arrWordsID[pageNum]);
+      console.log('ID неправильных слов ' + arrFalseWordsID)
 
-      showAnswer();
-      playWrongSound();
+      showAnswer(); // показываем ответ
+      playWrongSound(); // проигрываем неправильный звук
 
       answers.forEach((el: any) => {
         if (el.innerText === wordsRusArray[pageNum]) {
@@ -122,7 +130,6 @@ export function nextPage() {
 
   if (knowBtn.innerHTML === 'Не знаю' && keyPress === 13) {
     event.preventDefault();
-    console.log(knowBtn);
       arrFalseAnswer.push(wordsRusArray[pageNum]);
       showAnswer();
       playWrongSound();

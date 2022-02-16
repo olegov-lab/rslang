@@ -1,4 +1,6 @@
-import { wordsRusArray, wordsEnArray, pageNum, arrTrueAnswer, arrFalseAnswer, arrTrueAnswerEn, arrFalseAnswerEn, arrFalseAnswerAudio, audioArray, arrTrueAnswerAudio } from "./audio-call";
+import { wordsRusArray, wordsEnArray, pageNum, arrTrueAnswer, arrFalseAnswer, arrTrueAnswerEn, arrFalseAnswerEn,
+   arrFalseAnswerAudio, audioArray, arrTrueAnswerAudio, arrWordsID, arrFalseWordsID, arrTrueWordsID
+ } from "./audio-call";
 import { showAnswer } from "./show-answer";
 import { playCorrectSound, playWrongSound } from "./switch-sound";
 
@@ -10,10 +12,15 @@ export function checkAnswer(event: MouseEvent) {
 
     if ((target.closest('.answer') as HTMLElement).innerText === wordsRusArray[pageNum]) {
       target.classList.add('active');
+
       arrTrueAnswer.push(wordsRusArray[pageNum]);
       arrTrueAnswerEn.push(wordsEnArray[pageNum]);
       arrTrueAnswerAudio.push(audioArray[pageNum]);
+      arrTrueWordsID.push(arrWordsID[pageNum]);
+      console.log('ID правильных слов ' + arrTrueWordsID)
+
       playCorrectSound();
+
       answers.forEach((el: HTMLElement) => {
         if (el.innerText != wordsRusArray[pageNum]) {
           el.style.opacity = '0.4';
@@ -40,6 +47,8 @@ export function checkAnswer(event: MouseEvent) {
     arrFalseAnswer.push(wordsRusArray[pageNum]);
     arrFalseAnswerEn.push(wordsEnArray[pageNum]);
     arrFalseAnswerAudio.push(audioArray[pageNum]);
+    arrFalseWordsID.push(arrWordsID[pageNum]);
+    console.log('ID неправильных слов ' + arrFalseWordsID)
 }
 showAnswer();
 knowBtn.innerText = 'Далее';
