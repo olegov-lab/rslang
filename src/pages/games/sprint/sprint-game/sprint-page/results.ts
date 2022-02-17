@@ -30,13 +30,13 @@ export class Results extends Component {
         if (element.userAnswer === true) {
           const word = new Component(correctAnswerList.element, 'li', ['result-word-string']);
           const resultIconSound = new Component(word.element, 'span', ['result-word-icon']);
-          const resultWordText = new Component(word.element, 'span', ['result-word'], `${element.word} - ${element.translate}`);
+          const resultWordText = new Component(word.element, 'span', ['result-word'], `${element.word} - ${element.correctTranslate}`);
           resultIconSound.element.addEventListener('click', () => this.sayWord(element));
           countCorrectAnswers += 1;
         } else if (element.userAnswer === false) {
           const word = new Component(wrongAnswerList.element, 'li', ['result-word-string']);
           const resultIconSound = new Component(word.element, 'span', ['result-word-icon']);
-          const resultWordText = new Component(word.element, 'li', ['result-word'], `${element.word} - ${element.translate}`);
+          const resultWordText = new Component(word.element, 'li', ['result-word'], `${element.word} - ${element.correctTranslate}`);
           resultIconSound.element.addEventListener('click', () => this.sayWord(element));
           countWrongAnswers += 1;
         }

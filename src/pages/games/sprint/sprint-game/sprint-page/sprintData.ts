@@ -2,6 +2,7 @@ export interface IGameData {
     id: string,
     word: string,
     translate: string,
+    correctTranslate: string,
     audio: string,
     answer: boolean,
     userAnswer?: boolean,
