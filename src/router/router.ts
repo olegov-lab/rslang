@@ -10,7 +10,6 @@ import { Form } from "../pages/form/form";
 import { Textbook } from "../pages/textbook/textbook";
 import { StaticsPage } from "../pages/statistics/statistics";
 
-
 export class Router {
   mainPage: Component;
 
@@ -154,8 +153,9 @@ export class Router {
       },
       {
         name: '/statistics',
-        component: async () => {
+        component: () => {
           this.rootElement.append(this.staticsPage.element);
+
         },
       },
       {

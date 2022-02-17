@@ -1,5 +1,7 @@
 import { Component } from '../../utils/component';
 
+import { reloadPageStatistics } from "../../components/react/reload";
+
 import './header.css';
 
 export class Header extends Component {
@@ -57,7 +59,6 @@ export class Header extends Component {
     window.addEventListener('load', () => this.updateActiveOfLink(this.nav));
 
 
-
     contentBurger.element.innerHTML = `
     <a href="javascript:void(0)" class="closebtn" ">&times;</a>
     <a class="main-btn-burger" href="#/">Главная</a>
@@ -84,8 +85,15 @@ export class Header extends Component {
     })
 
     document.querySelector('.textbook-btn-burger').addEventListener('click', () => {
+      reloadPageStatistics();
       changeMenu.classList.remove('active-sidepanel');
     })
+
+    document.querySelector('.statistics-btn-burger').addEventListener('click', () => {
+    window.location.hash = '#/statistics';
+     window.location.reload();
+    })
+
 
     document.querySelector('.games-btn-burger').addEventListener('click', () => {
       changeMenu.classList.remove('active-sidepanel');

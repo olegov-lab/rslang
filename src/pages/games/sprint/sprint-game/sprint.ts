@@ -32,6 +32,7 @@ export class SprintGame extends Component {
     const sprintDescriptionPage = new SprintDescriptionPage(this.main);
     sprintDescriptionPage.startGame = () => {
       this.renderGame();
+
     };
   }
 
@@ -69,6 +70,8 @@ export class SprintGame extends Component {
     document.querySelector('.game-sprint-description').remove();
     await sprintPage.renderCard();
     this.showTimer();
+
+
 
     sprintPage.showNextWord = (event) => {
       this.checkAnswer(event);

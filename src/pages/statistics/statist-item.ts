@@ -1,4 +1,5 @@
-export const renderBlockStatist = (classItem, titleItem, countItem: Number | string = 0, classCountItem = "default-item-statist") => `
+
+export const renderBlockStatist = (classItem, titleItem, countItem: Number | string = 0, classCountItem = "default-item-statist") =>  `
 
 <div class="${classItem}">
   <p>${titleItem}</p>

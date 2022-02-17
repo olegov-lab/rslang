@@ -3,6 +3,7 @@ import './normalize.css';
 import './index.css';
 import { createUserWord, getUserAggrWord } from './api/user-aggregated';
 import { getDate } from "./components/react/get-date";
+import { checkDate } from "./components/react/check-date";
 
 import {getWords} from "./api/api"
 
@@ -10,9 +11,9 @@ window.addEventListener('DOMContentLoaded', () => {
   const rootElement = document.body;
   const app = new App(rootElement);
 
-  getDate();
+  //let startDate = getDate();
 
-  localStorage.setItem('startDate', getDate());
+  checkDate();
 
   app.init();
 
