@@ -50,7 +50,7 @@ export class SprintDescriptionPage extends Component {
     const select = document.querySelector('.select-sprint-difficulty') as HTMLInputElement;
     select.addEventListener('change', () => {
       sprintData.currentGroup = Number(select.value);
-      const newGame = new SprintGame(parentNode);
+      sprintData.inputActive = true;
     });
   }
 }

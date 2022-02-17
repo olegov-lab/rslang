@@ -14,12 +14,17 @@ export class Results extends Component {
 
   renderAnswers() {
     const wrapper = new Component(this.element, 'div', ['game-sprint-results-wrapper'], '');
-    const correctAnswerSection = new Component(wrapper.element, 'div', ['correct-answer-wrapper'], '');
-    const wrongAnswerSection = new Component(wrapper.element, 'div', ['wrong-answer-wrapper'], '');
+    const container = new Component(wrapper.element, 'div', ['game-sprint-answers'], '');
+    const correctAnswerSection = new Component(container.element, 'div', ['correct-answer-wrapper'], '');
+    const wrongAnswerSection = new Component(container.element, 'div', ['wrong-answer-wrapper'], '');
     const correctAnswerTitle = new Component(correctAnswerSection.element, 'div', ['correct-answer-title'], '');
     const wrongAnswerTitle = new Component(wrongAnswerSection.element, 'div', ['wrong-answer-title'], '');
     const correctAnswerList = new Component(correctAnswerSection.element, 'ul', ['correct-answer-list'], '');
     const wrongAnswerList = new Component(wrongAnswerSection.element, 'ul', ['wrong-answer-list'], '');
+    const nav = new Component(wrongAnswerSection.element, 'div', ['sprint-result-btn-container'], '');
+    const btnAgain = new Component(wrapper.element, 'button', ['sprint-result-btn'], 'Сыграть еще раз');
+
+
     let countCorrectAnswers = 0;
     let countWrongAnswers = 0;
 

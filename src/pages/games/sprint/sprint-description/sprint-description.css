@@ -1,5 +1,6 @@
 .game-sprint-description {
   height: calc(100vh - 115px);
+  margin: 0 auto;
   max-width: 1440px;
   display: flex;
   align-items: center;

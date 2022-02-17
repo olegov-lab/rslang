@@ -115,7 +115,7 @@ export class SprintGame extends Component {
     `;
     const circle = document.querySelector('.circle') as HTMLElement;
     const time = document.querySelector('.time') as HTMLElement;
-    const totalTime = 6000;
+    const totalTime = 60;
     let curentTime = totalTime;
     this.timerId = setInterval(() => {
       if (!sprintData.timerStatus) {
@@ -127,7 +127,6 @@ export class SprintGame extends Component {
           const ratio = (curentTime / totalTime);
           const rad = parseInt(circle.getAttribute('r'));
           const progress = Math.ceil(rad * (22 / 7) * 2 * (1 - ratio));
-          console.log(progress);
           curentTime -= 1;
           circle.style.strokeDashoffset = progress.toString();
         } else {
