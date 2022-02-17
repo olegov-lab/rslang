@@ -29,6 +29,8 @@ export class SprintGame extends Component {
 
   private timerId: NodeJS.Timer;
 
+  static renderGame: any;
+
   constructor(parentNode: HTMLElement) {
     super(parentNode);
     this.main = parentNode;
@@ -72,7 +74,9 @@ export class SprintGame extends Component {
     await defineGroupAndPage();
     await generateWordsForGame();
     const sprintPage = new SprintPage(this.main);
-    document.querySelector('.game-sprint-description').remove();
+    if (document.querySelector('.game-sprint-description')) {
+      document.querySelector('.game-sprint-description').remove();
+    }
     await sprintPage.renderCard();
     this.showTimer();
 

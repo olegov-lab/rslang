@@ -33,8 +33,6 @@ const sprintDescriptionSection = `
         </div>
     `;
 export class SprintDescriptionPage extends Component {
-  showFirstWord: (words)=>void;
-
   startGame: () => void;
 
   constructor(parentNode: HTMLElement) {

@@ -1,15 +1,19 @@
 import { Component } from '../../../../../utils/component';
 import { sprintData } from './sprintData';
 import './results.css';
+import { SprintGame } from '../sprint';
 
 export class Results extends Component {
   correctAnswerSection: HTMLElement;
 
   wrongAnswerSection: HTMLElement;
+  
+  main: HTMLElement;
 
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', ['game-sprint-results']);
     document.querySelector('.game-sprint').remove();
+    this.main = parentNode;
   }
 
   renderAnswers() {
@@ -24,6 +28,13 @@ export class Results extends Component {
     const nav = new Component(wrongAnswerSection.element, 'div', ['sprint-result-btn-container'], '');
     const btnAgain = new Component(wrapper.element, 'button', ['sprint-result-btn'], 'Сыграть еще раз');
 
+    btnAgain.element.addEventListener('click', () => {
+      document.querySelector('.game-sprint-results').remove();
+      const newGame = new SprintGame(this.main);
+      newGame.renderGame()
+      console.log('дальше');
+      
+    });
 
     let countCorrectAnswers = 0;
     let countWrongAnswers = 0;
