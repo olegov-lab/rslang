@@ -1,113 +1,128 @@
+.game-sprint-description {
+  height: calc(100vh - 115px);
+  margin: 0 auto;
+  max-width: 1440px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-sprint-description {
+  max-width: 750px;
+  width: 100%;
+}
+
 .sprint-title {
-    margin-bottom: 60px;
-    text-align: center;
-    font-size: 48px;
-    font-weight: 700;
-    color: #000;
+  margin-bottom: 60px;
+  text-align: center;
+  font-size: 48px;
+  font-weight: 700;
+  color: #000;
 }
 
 .sprint-decription {
-    border: 1px solid #4b4456;
-    padding: 30px;
-    margin: 0 auto;
-    max-width: 750px;
-    height: 250px;
-    background: linear-gradient(180deg, #feeeee 0%, #fffbfb 100%);
-    border-radius: 30px;
-    text-align: center;
+  padding: 30px;
+  margin: 0 auto;
+  height: 200px;
+  background: linear-gradient(180deg, #feeeee 0%, #fffbfb 100%);
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  border-radius: 30px;
+  text-align: center;
 }
 
 .sprint-main-text {
-    font-weight: bold;
-    font-size: 24px;
-    margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
 .sprint-sub-text {
-    margin: 0 auto;
-    text-align: left;
-    max-width: 450px;
-    font-size: 22px;
-    color: #4b4456;
+  margin: 0 auto;
+  text-align: left;
+  max-width: 450px;
+  font-size: 22px;
+  color: #4b4456;
 }
 
 .sprint-buttons {
-    margin-top: 60px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+  margin-top: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .sprint-difficulty,
 .sprint-start {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .sprint-start-btn {
-    font-size: 18px;
-    text-align: center;
-    color: #fff;
-    background-color: #29cfac;
-    width: 240px;
-    max-width: 100%;
-    padding: 18px 20px;
-    border-radius: 5px;
-    border: 0;
-    cursor: pointer;
-    box-shadow: 0px 0px 38px 0 hsla(41, 207, 172, 0.8);
-    transition: color 0.2s, background 0.2s, opacity 0.2s;
+  font-size: 18px;
+  text-align: center;
+  color: #fff;
+  background-color: #29cfac;
+  width: 240px;
+  max-width: 100%;
+  padding: 18px 20px;
+  border-radius: 5px;
+  border: 0;
+  cursor: pointer;
+  box-shadow: 0px 0px 38px 0 hsla(41, 207, 172, 0.8);
+  transition: color 0.2s, background 0.2s, opacity 0.2s;
 }
 
 .sprint-start-btn:hover {
-    background: #ff7e7e;
+  background: #ff7e7e;
 }
 
 .sprint-start-btn:active {
-    opacity: 0.9;
-    transform: scale(0.95);
+  opacity: 0.9;
+  transform: scale(0.95);
 }
 
 .select-sprint-difficulty {
-    appearance: none;
-    border: 0;
-    outline: 0;
-    width: 240px;
-    max-width: 100%;
-    padding: 18px 20px;
-    background-color: #29cfac;
-    border-radius: 5px;
-    font-size: 18px;
-    text-align: center;
-    color: #fff;
-    cursor: pointer;
+  appearance: none;
+  border: 0;
+  outline: 0;
+  width: 240px;
+  max-width: 100%;
+  padding: 18px 20px;
+  background-color: #29cfac;
+  border-radius: 5px;
+  font-size: 18px;
+  text-align: center;
+  color: #fff;
+  cursor: pointer;
 }
 
 .select-sprint-difficulty:hover {
-    background: #ff7e7e;
+  background: #ff7e7e;
 }
-
 
 /*медиа для описания игры вызов*/
 
 @media (max-width: 768px) {
-    .select-sprint-difficulty {
-        margin-bottom: 10px;
-    }
-    .sprint-main-text {
-        font-size: 22px;
-        margin-bottom: 10px;
-    }
-    .sprint-sub-text {
-        font-size: 18px;
-        margin-bottom: 10px;
-    }
+  .container-sprint-description {
+    margin: 0 20px;
+  }
+  .sprint-decription {
+    height: 230px;
+  }
+  .sprint-main-text {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+  .sprint-sub-text {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
 }
 
 @media (max-width: 420px) {
-    .sprint-main-text {
-        font-size: 18px;
-    }
-    .sprint-sub-text {
-        font-size: 16px;
-    }
+  .sprint-main-text {
+    font-size: 18px;
+  }
+  .sprint-sub-text {
+    font-size: 16px;
+  }
 }

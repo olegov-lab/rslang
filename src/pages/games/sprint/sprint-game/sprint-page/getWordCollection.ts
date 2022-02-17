@@ -23,6 +23,7 @@ function createSprintData(words) {
           id: words[currentIndex].id || words[currentIndex]._id,
           word: words[currentIndex].word,
           translate: words[currentIndex].wordTranslate,
+          correctTranslate: words[currentIndex].wordTranslate,
           audio: `https://raw.githubusercontent.com/irinainina/rslang/rslang-data/data/${words[currentIndex].audio}`,
           answer: true,
         });
@@ -32,6 +33,7 @@ function createSprintData(words) {
             id: words[currentIndex].id || words[currentIndex]._id,
             word: words[currentIndex].word,
             translate: words[currentIndex + 1].wordTranslate,
+            correctTranslate: words[currentIndex].wordTranslate,
             audio: `https://raw.githubusercontent.com/irinainina/rslang/rslang-data/data/${words[currentIndex].audio}`,
             answer: false,
           })
@@ -39,6 +41,7 @@ function createSprintData(words) {
             id: words[currentIndex].id || words[currentIndex]._id,
             word: words[currentIndex].word,
             translate: words[currentIndex].wordTranslate,
+            correctTranslate: words[currentIndex].wordTranslate,
             audio: `https://raw.githubusercontent.com/irinainina/rslang/rslang-data/data/${words[currentIndex].audio}`,
             answer: false,
           });
