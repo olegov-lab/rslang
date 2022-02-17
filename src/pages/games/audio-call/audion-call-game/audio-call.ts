@@ -9,8 +9,8 @@ import {getNewWords} from './get-new-words';
 import { chooseGroup} from './get-group';
 import { playWrongSound, playCorrectSound } from "./switch-sound";
 import { renderAudioCallResults} from "./audio-call-results";
-import { resetLongestAnswerRightAudioCall } from "./longest-answer-right-AudioCall";
-import { countingPercentAnswerRightAudioCall } from "./percent-of-correct-answers-audio-call";
+import { countingPercentAnswerRightAudioCall, resetLongestAnswerRightAudioCall } from "./audio-call-statistics";
+import { startAudioCallStatistics, giveAudioCallStatistics, resultsAudioCall, countingLongestAnswerRightAudioCall } from './audio-call-statistics';
 //import { pressKeyBoard } from './keybord';
 
 export const body = document.body;
@@ -84,12 +84,14 @@ export function nextPage() {
       arrFalseAnswerEn.push(wordsEnArray[pageNum]);
       arrFalseAnswerAudio.push(audioArray[pageNum]);
       arrFalseWordsID.push(arrWordsID[pageNum]);
-      console.log('ID неправильных слов ' + arrFalseWordsID)
+      resultsAudioCall.wordsWrongAnswers.push(arrWordsID[pageNum]);
 
       showAnswer(); // показываем ответ
       playWrongSound(); // проигрываем неправильный звук
-      resetLongestAnswerRightAudioCall();
+
       countingPercentAnswerRightAudioCall();
+      resetLongestAnswerRightAudioCall();
+      giveAudioCallStatistics();
 
       answers.forEach((el: any) => {
         if (el.innerText === wordsRusArray[pageNum]) {
@@ -178,3 +180,4 @@ export function spaceSound(event: KeyboardEvent) {
 body.addEventListener('keypress', keyPressCheck);
 body.addEventListener('change', chooseGroup);
 body.addEventListener('click', renderGameAudioPage);
+startAudioCallStatistics();

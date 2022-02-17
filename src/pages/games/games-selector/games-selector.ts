@@ -1,5 +1,5 @@
 import './games-selector.css';
-import { resetLongestAnswerRightAudioCall } from "../audio-call/audion-call-game/longest-answer-right-AudioCall";
+import { resetLongestAnswerRightAudioCall } from "../audio-call/audion-call-game/audio-call-statistics";
 
 export function renderGameChoice() {
 
