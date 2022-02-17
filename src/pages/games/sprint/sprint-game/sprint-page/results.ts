@@ -13,8 +13,9 @@ export class Results extends Component {
   }
 
   renderAnswers() {
-    const correctAnswerSection = new Component(this.element, 'div', ['correct-answer-wrapper'], '');
-    const wrongAnswerSection = new Component(this.element, 'div', ['wrong-answer-wrapper'], '');
+    const wrapper = new Component(this.element, 'div', ['game-sprint-results-wrapper'], '');
+    const correctAnswerSection = new Component(wrapper.element, 'div', ['correct-answer-wrapper'], '');
+    const wrongAnswerSection = new Component(wrapper.element, 'div', ['wrong-answer-wrapper'], '');
     const correctAnswerTitle = new Component(correctAnswerSection.element, 'div', ['correct-answer-title'], '');
     const wrongAnswerTitle = new Component(wrongAnswerSection.element, 'div', ['wrong-answer-title'], '');
     const correctAnswerList = new Component(correctAnswerSection.element, 'ul', ['correct-answer-list'], '');

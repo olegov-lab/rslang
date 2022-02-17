@@ -1,7 +1,11 @@
 .game-sprint-results {
+  min-height: calc(100vh - 155px);
+}
+
+.game-sprint-results-wrapper {
   position: relative;
   display: flex;
-  margin: 20px auto;
+  margin: 40px auto;
   width: 60%;
   border: 2px solid #29cfac;
   border-radius: 30px;
@@ -17,6 +21,7 @@
 
 .correct-answer-list,
 .wrong-answer-list {
+  margin: 0 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -68,4 +73,48 @@
 
 .result-word-icon:hover {
   transform: scale(1.2);
+}
+
+@media (max-width: 768px) {
+  .game-sprint-results-wrapper {
+    width: 92%;
+    flex-direction: column;
+  }
+
+  .wrong-answer-title,
+  .correct-answer-title {
+    font-size: 2.3rem;
+  }
+
+  .sprint-result-count-correct,
+  .sprint-result-count-wrong {
+    width: 20px;
+    height: auto;
+  }
+  .correct-answer-list,
+  .wrong-answer-list {
+    margin: 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .game-sprint-results-wrapper {
+    width: 92%;
+    flex-direction: column;
+  }
+
+  .wrong-answer-title,
+  .correct-answer-title {
+    font-size: 2rem;
+  }
+
+  .sprint-result-count-correct,
+  .sprint-result-count-wrong {
+    width: 20px;
+    height: auto;
+  }
+  .correct-answer-list,
+  .wrong-answer-list {
+    margin: 0;
+  }
 }

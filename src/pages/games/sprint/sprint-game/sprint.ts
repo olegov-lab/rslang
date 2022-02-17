@@ -6,7 +6,9 @@ import { Results } from './sprint-page/results';
 import { sprintData } from './sprint-page/sprintData';
 import { PlaySound } from './PlaySound';
 import { defineGroupAndPage } from './sprint-page/getGroupAndPage';
-import { resultsSprint, giveSprintStatistics, startSprintStatistics, countingLongestAnswerRightSprint } from './returnStatidtics';
+import {
+  resultsSprint, giveSprintStatistics, startSprintStatistics, countingLongestAnswerRightSprint,
+} from './returnStatidtics';
 
 let countCorrectAnswers = 0;
 
@@ -105,15 +107,29 @@ export class SprintGame extends Component {
 
   showTimer() {
     this.timer = new Component(this.main, 'div', ['sprint-timer']);
-    let timeLeft = 60;
+    this.timer.element.innerHTML = `
+    <span class="time"></span>
+    <svg width=120 height=120 class="countdown-timer">
+      <circle class="circle" cx=60 cy=60 r=42>
+    </svg>
+    `;
+    const circle = document.querySelector('.circle') as HTMLElement;
+    const time = document.querySelector('.time') as HTMLElement;
+    const totalTime = 6000;
+    let curentTime = totalTime;
     this.timerId = setInterval(() => {
       if (!sprintData.timerStatus) {
         this.stopGame();
       } else {
         // eslint-disable-next-line no-lonely-if
-        if (timeLeft > 0) {
-          this.timer.element.innerText = `${timeLeft}`;
-          timeLeft -= 1;
+        if (curentTime > 0) {
+          time.innerText = `${curentTime}`;
+          const ratio = (curentTime / totalTime);
+          const rad = parseInt(circle.getAttribute('r'));
+          const progress = Math.ceil(rad * (22 / 7) * 2 * (1 - ratio));
+          console.log(progress);
+          curentTime -= 1;
+          circle.style.strokeDashoffset = progress.toString();
         } else {
           this.stopGame();
         }

@@ -40,7 +40,7 @@ export class SprintDescriptionPage extends Component {
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'section', ['game-sprint-description']);
 
-    const sprintGuest = new Component(this.element, 'div', ['container'], '');
+    const sprintGuest = new Component(this.element, 'div', ['container-sprint-description'], '');
     sprintGuest.element.innerHTML = sprintDescriptionSection;
 
     const btnStartGame = sprintGuest.element.querySelector('.sprint-start-btn');
