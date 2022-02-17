@@ -1,6 +1,6 @@
 import './audio-call-results';
 import{ arrTrueAnswer , arrFalseAnswer, arrTrueAnswerEn, arrFalseAnswerEn, clearArraysRepeat, arrTrueAnswerAudio, arrFalseAnswerAudio } from './audio-call';
-import { resetLongestAnswerRightAudioCall } from "./longestAnswerRightAudioCall";
+import { resetLongestAnswerRightAudioCall } from "./longest-answer-right-AudioCall";
 
 export function renderAudioCallResults() {
     const fragment = document.createDocumentFragment();

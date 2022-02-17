@@ -3,7 +3,8 @@ import { wordsRusArray, wordsEnArray, pageNum, arrTrueAnswer, arrFalseAnswer, ar
  } from "./audio-call";
 import { showAnswer } from "./show-answer";
 import { playCorrectSound, playWrongSound } from "./switch-sound";
-import { isLongestAnswerRightAudioCall, resetLongestAnswerRightAudioCall } from "./longestAnswerRightAudioCall";
+import { countingLongestAnswerRightAudioCall, resetLongestAnswerRightAudioCall } from "./longest-answer-right-AudioCall";
+import { countingPercentAnswerRightAudioCall } from "./percent-of-correct-answers-audio-call";
 
 /*проверка ответа*/
 export function checkAnswer(event: MouseEvent) {
@@ -19,9 +20,9 @@ export function checkAnswer(event: MouseEvent) {
       arrTrueAnswerAudio.push(audioArray[pageNum]);
       arrTrueWordsID.push(arrWordsID[pageNum]);
 
-      //console.log('ID правильных слов ' + arrTrueWordsID)
+      console.log('ID правильных слов ' + arrTrueWordsID)
 
-      isLongestAnswerRightAudioCall();
+      countingLongestAnswerRightAudioCall();
       playCorrectSound();
 
       answers.forEach((el: HTMLElement) => {
@@ -58,5 +59,6 @@ export function checkAnswer(event: MouseEvent) {
     console.log('ID неправильных слов ' + arrFalseWordsID)
 }
 showAnswer();
+countingPercentAnswerRightAudioCall();
 knowBtn.innerText = 'Далее';
 };
