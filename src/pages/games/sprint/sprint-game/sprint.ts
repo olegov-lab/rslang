@@ -23,6 +23,10 @@ export class SprintGame extends Component {
 
   sound: PlaySound;
 
+  private timer: Component;
+
+  private timerId: NodeJS.Timer;
+
   constructor(parentNode: HTMLElement) {
     super(parentNode);
     this.main = parentNode;
@@ -74,12 +78,22 @@ export class SprintGame extends Component {
       this.checkAnswer(event);
       sprintData.currentNumberWord += 1;
       sprintPage.renderCard();
-      if ((sprintData.currentNumberWord % 20) === 15) {
-        sprintData.currentPage -= 1; /* FIXME проверка на 0 страницу => завершить игру */
-        // console.log('Новый набор данных', sprintData.currentPage, sprintData.currentWordsKit);
-        generateWordsForGame();
+      if ((sprintData.currentNumberWord % 20) === 0) {
+        if (sprintData.currentPage >= 1) {
+          sprintData.currentPage -= 1;
+          generateWordsForGame();
+        } else {
+          this.stopGame();
+        }
       }
     };
+  }
+
+  stopGame() {
+    SprintGame.renderResults();
+    this.timer.destroy();
+    clearInterval(this.timerId);
+    sprintData.timerStatus = true;
   }
 
   static renderResults() {
@@ -90,24 +104,18 @@ export class SprintGame extends Component {
   }
 
   showTimer() {
-    const timer = new Component(this.main, 'div', ['sprint-timer']);
+    this.timer = new Component(this.main, 'div', ['sprint-timer']);
     let timeLeft = 60;
-    const timerId = setInterval(() => {
+    this.timerId = setInterval(() => {
       if (!sprintData.timerStatus) {
-        SprintGame.renderResults();
-        timer.destroy();
-        clearInterval(timerId);
-        sprintData.timerStatus = true;
+        this.stopGame();
       } else {
         // eslint-disable-next-line no-lonely-if
         if (timeLeft > 0) {
-          timer.element.innerText = `${timeLeft}`;
+          this.timer.element.innerText = `${timeLeft}`;
           timeLeft -= 1;
         } else {
-          SprintGame.renderResults();
-          timer.destroy();
-          clearInterval(timerId);
-          sprintData.timerStatus = true;
+          this.stopGame();
         }
       }
     }, 1000);
