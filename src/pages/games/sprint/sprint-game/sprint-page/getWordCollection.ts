@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { getWords } from '../../../../../api/api';
 import { getUserAggrWord } from '../../../../../api/user-aggregated';
 import { sprintData } from './sprintData';
@@ -19,7 +20,7 @@ function createSprintData(words) {
       const randomBullean = Math.random() < 0.5;
       if (randomBullean) {
         sprintData.currentWordsKit.push({
-          id: words[currentIndex].id,
+          id: words[currentIndex].id || words[currentIndex]._id,
           word: words[currentIndex].word,
           translate: words[currentIndex].wordTranslate,
           audio: `https://raw.githubusercontent.com/irinainina/rslang/rslang-data/data/${words[currentIndex].audio}`,
@@ -28,14 +29,14 @@ function createSprintData(words) {
       } else {
         const res = currentIndex < 19
           ? sprintData.currentWordsKit.push({
-            id: words[currentIndex].id,
+            id: words[currentIndex].id || words[currentIndex]._id,
             word: words[currentIndex].word,
             translate: words[currentIndex + 1].wordTranslate,
             audio: `https://raw.githubusercontent.com/irinainina/rslang/rslang-data/data/${words[currentIndex].audio}`,
             answer: false,
           })
           : sprintData.currentWordsKit.push({
-            id: words[currentIndex].id,
+            id: words[currentIndex].id || words[currentIndex]._id,
             word: words[currentIndex].word,
             translate: words[currentIndex].wordTranslate,
             audio: `https://raw.githubusercontent.com/irinainina/rslang/rslang-data/data/${words[currentIndex].audio}`,
