@@ -7,7 +7,6 @@ import { sprintData } from './sprint-page/sprintData';
 import { PlaySound } from './PlaySound';
 import { defineGroupAndPage } from './sprint-page/getGroupAndPage';
 
-import { resultsSprint, giveSprintStatistics, startSprintStatistics, countingLongestAnswerRightSprint } from './returnStatidtics';
 import {getUserStatistics , updateUserStatistics} from "../../../../api/statistics";
 
 import { getDate } from '../../../../components/react/get-date';
@@ -142,11 +141,7 @@ export class SprintGame extends Component {
       if (!sprintData.timerStatus) {
 
         SprintGame.renderResults();
-        this.getUzas()
-        timer.destroy();
-        clearInterval(timerId);
-        sprintData.timerStatus = true;
-
+        this.getUzas();
         this.stopGame();
 
       } else {
@@ -162,12 +157,10 @@ export class SprintGame extends Component {
 
           SprintGame.renderResults();
           this.getUzas();
-          timer.destroy();
-          clearInterval(timerId);
+          this.timer.destroy();
+          clearInterval(this.timerId);
           sprintData.timerStatus = true;
-
           this.stopGame();
-
         }
       }
     }, 1000);
