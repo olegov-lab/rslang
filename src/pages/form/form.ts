@@ -6,6 +6,8 @@ import { validateFormEmptyPass, validateEmail } from "./validate-form"
 
 import "./form.css";
 
+import {getUserStatistics , updateUserStatistics} from "../../api/statistics"
+
 export class Form extends Component{
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'form', ['form', 'wrapper']);
@@ -77,8 +79,8 @@ export class Form extends Component{
 
       validateFormEmptyPass(user.password);
 
-      await loginUser(user);
 
+      await loginUser(user);
 
     })
 

@@ -10,7 +10,6 @@ import { Form } from "../pages/form/form";
 import { Textbook } from "../pages/textbook/textbook";
 import { StaticsPage } from "../pages/statistics/statistics";
 
-
 export class Router {
   mainPage: Component;
 
@@ -102,20 +101,20 @@ export class Router {
       },
       {
         name: '/games',
-        component: () => {
+        component: async () => {
           this.rootElement.append(renderGameChoice());
           getPageAndGroup();
         },
       },
       {
         name: '/games/sprint',
-        component: () => {
+        component: async () => {
           this.sprintGame.renderDescription();
         },
       },
       {
         name: '/games/audio',
-        component: () => {
+        component: async () => {
           this.rootElement.insertAdjacentHTML('afterbegin', `
           <section class="game-audio-description"">
           <div class="container">
@@ -156,6 +155,7 @@ export class Router {
         name: '/statistics',
         component: async () => {
           this.rootElement.append(this.staticsPage.element);
+
         },
       },
       {

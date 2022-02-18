@@ -7,8 +7,6 @@ import { Pagination } from '../pagination/pagination';
 
 import './textbook-container.css';
 
-
-
 export class TextbookContainer extends Component {
 
   updatePage: (page: number) => void = () => {};

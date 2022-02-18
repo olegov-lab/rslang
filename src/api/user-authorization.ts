@@ -1,6 +1,8 @@
 import { IUserID, IUser, IUserToken } from "../interfaces/interface";
 import { baseUrl } from "./api";
 
+import {getUserStatistics , updateUserStatistics} from "./statistics"
+
 export let token: string;
 export let message: string;
 export let refreshToken: string;
@@ -31,8 +33,6 @@ export const createUser = async (user: {}): Promise<IUser> => {
     document.querySelector('.errors-status').textContent = 'Ошибка ввода данных';
   }
 
-
-
   return await rawResponse.json();
 
 } catch (err) {
@@ -53,7 +53,6 @@ export const loginUser = async (user: {}): Promise<IUserToken> => {
     },
     body: JSON.stringify(user)
   });
-
 
   if (rawResponse.status === 200) {
     //document.querySelector('.errors-status').textContent = 'Вход выполнен успешно';
@@ -78,6 +77,9 @@ export const loginUser = async (user: {}): Promise<IUserToken> => {
   refreshToken = content.refreshToken;
   userId = content.userId;
 
+  getUserStatistics(userId);
+  updateUserStatistics({userId, statistics:"default"});
+
  //Сохранение токена, данных пользователя
    localStorage.setItem('token', token);
 
@@ -85,7 +87,12 @@ export const loginUser = async (user: {}): Promise<IUserToken> => {
    localStorage.setItem('refreshToken', refreshToken);
    localStorage.setItem('userId', userId);
 
+
+
+
   return await rawResponse.json();
+
+  window.location.reload();
 
 } catch (err) {
   if (err instanceof Error) {
