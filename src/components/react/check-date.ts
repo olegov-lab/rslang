@@ -1,8 +1,9 @@
 import { updateUserStatistics, getUserStatistics } from "../../api/statistics";
 import { getDate } from "./get-date";
+import { reloadPageStatistics } from "../../components/react/reload";
 
-export function checkDate() {
-
+export const checkDate = () => {
+ // reloadPageStatistics();
   if(!localStorage.getItem('token')) {
 
      if(localStorage.getItem('startDate')) {
@@ -16,21 +17,27 @@ export function checkDate() {
 
     if(localStorage.getItem('startDate')) {
 
-    //   let state = {
-    //     userId: localStorage.getItem('userId'),
-    //     statistics: {
-    //       "optional": {
-    //         startDate: localStorage.getItem('startDate') ,
-    //         percentAnswerRightSprint: JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || 0,
-    //         longestAnswerRightSprint: +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || 0,
-    //         percentRightAudioCall: +localStorage.getItem('percentRightAudioCall') || 0,
-    //         LongestAnswerRightAudioCall: localStorage.getItem('LongestAnswerRightAudioCall') || 0,
-    //         percentAnswerForDay: localStorage.percentAnswerForDay
-    //     }
-    //   }
-    // };
+    const getStata = async () => {
 
-      //updateUserStatistics(state);
+    let data = await getUserStatistics(localStorage.getItem('userId'));
+
+    let state = {
+        userId: localStorage.getItem('userId'),
+        statistics: {
+          "optional": {
+            startDate: localStorage.getItem('startDate') ,
+            percentAnswerRightSprint: data?.optional.percentAnswerRightSprint || JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || 0,
+            longestAnswerRightSprint: data?.optional.longestAnswerRightSprint || +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || 0,
+            percentRightAudioCall: data?.optional.percentRightAudioCall || +localStorage.getItem('percentRightAudioCall') || 0,
+            LongestAnswerRightAudioCall:  data?.optional.LongestAnswerRightAudioCall || localStorage.getItem('LongestAnswerRightAudioCall') || 0,
+            percentAnswerForDay: data?.optional.percentAnswerForDay || localStorage.percentAnswerForDay || 0
+        }
+      }
+    };
+
+    updateUserStatistics(state);
+    }
+    getStata();
     }
 
     return getUserStatistics(localStorage.getItem('userId'));

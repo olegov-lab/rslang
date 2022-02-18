@@ -101,20 +101,20 @@ export class Router {
       },
       {
         name: '/games',
-        component: () => {
+        component: async () => {
           this.rootElement.append(renderGameChoice());
           getPageAndGroup();
         },
       },
       {
         name: '/games/sprint',
-        component: () => {
+        component: async () => {
           this.sprintGame.renderDescription();
         },
       },
       {
         name: '/games/audio',
-        component: () => {
+        component: async () => {
           this.rootElement.insertAdjacentHTML('afterbegin', `
           <section class="game-audio-description"">
           <div class="container">
@@ -153,7 +153,7 @@ export class Router {
       },
       {
         name: '/statistics',
-        component: () => {
+        component: async () => {
           this.rootElement.append(this.staticsPage.element);
 
         },

@@ -12,27 +12,27 @@ export const getUserStatistics = async (userId) => {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Accept': 'application/json',
+
       }
     });
 
     const content = await rawResponse.json();
 
     if (rawResponse.status === 200) {
-
-     //console.log(content);
      return content;
     }
 
     return null;
   } catch (err) {
-    if (err instanceof Error) {
-      throw new Error(err.message);
-    }
+    if (err.status === 404) {
+      return ;
+     }
   }
 };
 
 
 export const updateUserStatistics = async ({ userId, statistics }) => {
+  try{
   const rawResponse = await fetch(`${baseUrl}/users/${userId}/statistics`, {
     method: 'PUT',
     //withCredentials: true,
@@ -46,5 +46,9 @@ export const updateUserStatistics = async ({ userId, statistics }) => {
   const content = await rawResponse.json();
 
   return content;
-
+  } catch(err) {
+    if (err.status === 404) {
+      return ;
+     }
+  }
 };

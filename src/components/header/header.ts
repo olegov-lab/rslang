@@ -85,14 +85,14 @@ export class Header extends Component {
     })
 
     document.querySelector('.textbook-btn-burger').addEventListener('click', () => {
-      reloadPageStatistics();
+      //reloadPageStatistics();
       changeMenu.classList.remove('active-sidepanel');
     })
 
-    document.querySelector('.statistics-btn-burger').addEventListener('click', () => {
-    window.location.hash = '#/statistics';
-     window.location.reload();
-    })
+    // document.querySelector('.statistics-btn-burger').addEventListener('click', () => {
+    // window.location.hash = '#/statistics';
+    //  window.location.reload();
+    // })
 
 
     document.querySelector('.games-btn-burger').addEventListener('click', () => {
