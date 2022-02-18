@@ -73,7 +73,7 @@ export const getUserAggrWord = async ({userId, group, page}): Promise<IWords> =>
     if (rawResponse.status === 200) {
      //console.log(content[0].paginatedResults);
 
-     console.log(content);
+     //console.log(content);
      return content[0].paginatedResults;
     }
 
