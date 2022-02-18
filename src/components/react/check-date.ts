@@ -26,10 +26,14 @@ export const checkDate = () => {
         statistics: {
           "optional": {
             startDate: localStorage.getItem('startDate') ,
-            percentAnswerRightSprint: data?.optional.percentAnswerRightSprint || JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || 0,
-            longestAnswerRightSprint: data?.optional.longestAnswerRightSprint || +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || 0,
-            percentRightAudioCall: data?.optional.percentRightAudioCall || +localStorage.getItem('percentRightAudioCall') || 0,
-            LongestAnswerRightAudioCall:  data?.optional.LongestAnswerRightAudioCall || localStorage.getItem('LongestAnswerRightAudioCall') || 0,
+            percentAnswerRightSprint: data?.optional.percentAnswerRightSprint
+            || JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || 0,
+            longestAnswerRightSprint: data?.optional.longestAnswerRightSprint
+            || +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || 0,
+            percentRightAudioCall: data?.optional.percentRightAudioCall
+            || JSON.parse(localStorage.getItem('audioCallStatistics'))?.percentAnswerRightAudioCall || 0,
+            LongestAnswerRightAudioCall:  data?.optional.LongestAnswerRightAudioCall
+            || +JSON.parse(localStorage.getItem('audioCallStatistics'))?.longestAnswerRightAudioCall || 0,
             percentAnswerForDay: data?.optional.percentAnswerForDay || localStorage.percentAnswerForDay || 0
         }
       }
