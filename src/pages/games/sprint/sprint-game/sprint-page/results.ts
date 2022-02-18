@@ -1,24 +1,41 @@
 import { Component } from '../../../../../utils/component';
 import { sprintData } from './sprintData';
 import './results.css';
+import { SprintGame } from '../sprint';
 
 export class Results extends Component {
   correctAnswerSection: HTMLElement;
 
   wrongAnswerSection: HTMLElement;
+  
+  main: HTMLElement;
 
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', ['game-sprint-results']);
     document.querySelector('.game-sprint').remove();
+    this.main = parentNode;
   }
 
   renderAnswers() {
-    const correctAnswerSection = new Component(this.element, 'div', ['correct-answer-wrapper'], '');
-    const wrongAnswerSection = new Component(this.element, 'div', ['wrong-answer-wrapper'], '');
+    const wrapper = new Component(this.element, 'div', ['game-sprint-results-wrapper'], '');
+    const container = new Component(wrapper.element, 'div', ['game-sprint-answers'], '');
+    const correctAnswerSection = new Component(container.element, 'div', ['correct-answer-wrapper'], '');
+    const wrongAnswerSection = new Component(container.element, 'div', ['wrong-answer-wrapper'], '');
     const correctAnswerTitle = new Component(correctAnswerSection.element, 'div', ['correct-answer-title'], '');
     const wrongAnswerTitle = new Component(wrongAnswerSection.element, 'div', ['wrong-answer-title'], '');
     const correctAnswerList = new Component(correctAnswerSection.element, 'ul', ['correct-answer-list'], '');
     const wrongAnswerList = new Component(wrongAnswerSection.element, 'ul', ['wrong-answer-list'], '');
+    const nav = new Component(wrongAnswerSection.element, 'div', ['sprint-result-btn-container'], '');
+    const btnAgain = new Component(wrapper.element, 'button', ['sprint-result-btn'], 'Сыграть еще раз');
+
+    btnAgain.element.addEventListener('click', () => {
+      document.querySelector('.game-sprint-results').remove();
+      const newGame = new SprintGame(this.main);
+      newGame.renderGame()
+      console.log('дальше');
+      
+    });
+
     let countCorrectAnswers = 0;
     let countWrongAnswers = 0;
 
@@ -30,13 +47,13 @@ export class Results extends Component {
         if (element.userAnswer === true) {
           const word = new Component(correctAnswerList.element, 'li', ['result-word-string']);
           const resultIconSound = new Component(word.element, 'span', ['result-word-icon']);
-          const resultWordText = new Component(word.element, 'span', ['result-word'], `${element.word} - ${element.translate}`);
+          const resultWordText = new Component(word.element, 'span', ['result-word'], `${element.word} - ${element.correctTranslate}`);
           resultIconSound.element.addEventListener('click', () => this.sayWord(element));
           countCorrectAnswers += 1;
         } else if (element.userAnswer === false) {
           const word = new Component(wrongAnswerList.element, 'li', ['result-word-string']);
           const resultIconSound = new Component(word.element, 'span', ['result-word-icon']);
-          const resultWordText = new Component(word.element, 'li', ['result-word'], `${element.word} - ${element.translate}`);
+          const resultWordText = new Component(word.element, 'li', ['result-word'], `${element.word} - ${element.correctTranslate}`);
           resultIconSound.element.addEventListener('click', () => this.sayWord(element));
           countWrongAnswers += 1;
         }

@@ -27,7 +27,7 @@ export const getPageAndGroup = async (group = 0, page = 0) => {
       clearArrays();
 
       for (let i = 0; i < 20; i++) {
-        arrWordsID.push(words[i]._id);
+        arrWordsID.push(words[i].id);
         audioArray.push(words[i].audio);
         wordsEnArray.push(words[i].word);
         wordsRusArray.push(words[i].wordTranslate);
@@ -40,7 +40,7 @@ export const getPageAndGroup = async (group = 0, page = 0) => {
       clearArrays();
 
       for (let i = 0; i < 20; i++) {
-        arrWordsID.push(words[i]._id);
+        arrWordsID.push(words[i].id);
         audioArray.push(words[i].audio);
         wordsEnArray.push(words[i].word);
         wordsRusArray.push(words[i].wordTranslate);
@@ -56,7 +56,7 @@ export const getPageAndGroup = async (group = 0, page = 0) => {
       clearArrays();
 
       for (let i = 0; i < 20; i++) {
-        arrWordsID.push(words[i]._id);
+        arrWordsID.push(words[i].id);
         audioArray.push(words[i].audio);
         wordsEnArray.push(words[i].word);
         wordsRusArray.push(words[i].wordTranslate);
@@ -68,13 +68,13 @@ export const getPageAndGroup = async (group = 0, page = 0) => {
         const words = await getWords(group, page);
         clearArrays();
         for (let i = 0; i < 20; i++) {
-          arrWordsID.push(words[i]._id);
+          arrWordsID.push(words[i].id);
           audioArray.push(words[i].audio);
           wordsEnArray.push(words[i].word);
           wordsRusArray.push(words[i].wordTranslate);
           wordsImgArray.push(words[i].image);
         }
-       // console.log("нет токена, нав " + words)
+        //console.log("нет токена, нав " + arrWordsID)
       }
     }
   };

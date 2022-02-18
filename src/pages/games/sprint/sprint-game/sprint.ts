@@ -6,6 +6,7 @@ import { Results } from './sprint-page/results';
 import { sprintData } from './sprint-page/sprintData';
 import { PlaySound } from './PlaySound';
 import { defineGroupAndPage } from './sprint-page/getGroupAndPage';
+
 import { resultsSprint, giveSprintStatistics, startSprintStatistics, countingLongestAnswerRightSprint } from './returnStatidtics';
 import {getUserStatistics , updateUserStatistics} from "../../../../api/statistics";
 
@@ -15,6 +16,11 @@ import { checkDate } from '../../../../components/react/check-date';
 import { getUserAggrWord, createUserWord, getUserAggrWordHard,
   getUserAggrWordHardAll, updateUserWord }
 from "../../../../api/user-aggregated";
+
+
+import {
+  resultsSprint, giveSprintStatistics, startSprintStatistics, countingLongestAnswerRightSprint,
+} from './returnStatidtics';
 
 
 let countCorrectAnswers = 0;
@@ -31,6 +37,12 @@ export class SprintGame extends Component {
   translateFeld: HTMLElement;
 
   sound: PlaySound;
+
+  private timer: Component;
+
+  private timerId: NodeJS.Timer;
+
+  static renderGame: any;
 
   constructor(parentNode: HTMLElement) {
     super(parentNode);
@@ -76,7 +88,9 @@ export class SprintGame extends Component {
     await defineGroupAndPage();
     await generateWordsForGame();
     const sprintPage = new SprintPage(this.main);
-    document.querySelector('.game-sprint-description').remove();
+    if (document.querySelector('.game-sprint-description')) {
+      document.querySelector('.game-sprint-description').remove();
+    }
     await sprintPage.renderCard();
     this.showTimer();
 
@@ -86,12 +100,22 @@ export class SprintGame extends Component {
       this.checkAnswer(event);
       sprintData.currentNumberWord += 1;
       sprintPage.renderCard();
-      if ((sprintData.currentNumberWord % 20) === 15) {
-        sprintData.currentPage -= 1; /* FIXME проверка на 0 страницу => завершить игру */
-        // console.log('Новый набор данных', sprintData.currentPage, sprintData.currentWordsKit);
-        generateWordsForGame();
+      if ((sprintData.currentNumberWord % 20) === 0) {
+        if (sprintData.currentPage >= 1) {
+          sprintData.currentPage -= 1;
+          generateWordsForGame();
+        } else {
+          this.stopGame();
+        }
       }
     };
+  }
+
+  stopGame() {
+    SprintGame.renderResults();
+    this.timer.destroy();
+    clearInterval(this.timerId);
+    sprintData.timerStatus = true;
   }
 
   static renderResults() {
@@ -103,26 +127,47 @@ export class SprintGame extends Component {
 
 
   showTimer() {
-    const timer = new Component(this.main, 'div', ['sprint-timer']);
-    let timeLeft = 60;
-    const timerId = setInterval(() => {
+    this.timer = new Component(this.main, 'div', ['sprint-timer']);
+    this.timer.element.innerHTML = `
+    <span class="time"></span>
+    <svg width=120 height=120 class="countdown-timer">
+      <circle class="circle" cx=60 cy=60 r=42>
+    </svg>
+    `;
+    const circle = document.querySelector('.circle') as HTMLElement;
+    const time = document.querySelector('.time') as HTMLElement;
+    const totalTime = 60;
+    let curentTime = totalTime;
+    this.timerId = setInterval(() => {
       if (!sprintData.timerStatus) {
+
         SprintGame.renderResults();
         this.getUzas()
         timer.destroy();
         clearInterval(timerId);
         sprintData.timerStatus = true;
+
+        this.stopGame();
+
       } else {
         // eslint-disable-next-line no-lonely-if
-        if (timeLeft > 0) {
-          timer.element.innerText = `${timeLeft}`;
-          timeLeft -= 1;
+        if (curentTime > 0) {
+          time.innerText = `${curentTime}`;
+          const ratio = (curentTime / totalTime);
+          const rad = parseInt(circle.getAttribute('r'));
+          const progress = Math.ceil(rad * (22 / 7) * 2 * (1 - ratio));
+          curentTime -= 1;
+          circle.style.strokeDashoffset = progress.toString();
         } else {
+
           SprintGame.renderResults();
           this.getUzas();
           timer.destroy();
           clearInterval(timerId);
           sprintData.timerStatus = true;
+
+          this.stopGame();
+
         }
       }
     }, 1000);

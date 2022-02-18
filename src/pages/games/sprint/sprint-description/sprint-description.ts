@@ -33,14 +33,12 @@ const sprintDescriptionSection = `
         </div>
     `;
 export class SprintDescriptionPage extends Component {
-  showFirstWord: (words)=>void;
-
   startGame: () => void;
 
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'section', ['game-sprint-description']);
 
-    const sprintGuest = new Component(this.element, 'div', ['container'], '');
+    const sprintGuest = new Component(this.element, 'div', ['container-sprint-description'], '');
     sprintGuest.element.innerHTML = sprintDescriptionSection;
 
     const btnStartGame = sprintGuest.element.querySelector('.sprint-start-btn');
@@ -50,7 +48,7 @@ export class SprintDescriptionPage extends Component {
     const select = document.querySelector('.select-sprint-difficulty') as HTMLInputElement;
     select.addEventListener('change', () => {
       sprintData.currentGroup = Number(select.value);
-      const newGame = new SprintGame(parentNode);
+      sprintData.inputActive = true;
     });
   }
 }

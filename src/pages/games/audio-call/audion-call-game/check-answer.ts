@@ -3,8 +3,8 @@ import { wordsRusArray, wordsEnArray, pageNum, arrTrueAnswer, arrFalseAnswer, ar
  } from "./audio-call";
 import { showAnswer } from "./show-answer";
 import { playCorrectSound, playWrongSound } from "./switch-sound";
-import { countingLongestAnswerRightAudioCall, resetLongestAnswerRightAudioCall } from "./longest-answer-right-AudioCall";
-import { countingPercentAnswerRightAudioCall } from "./percent-of-correct-answers-audio-call";
+import { countingLongestAnswerRightAudioCall, giveAudioCallStatistics, resetLongestAnswerRightAudioCall, countingPercentAnswerRightAudioCall, resultsAudioCall } from "./audio-call-statistics";
+
 
 /*проверка ответа*/
 export function checkAnswer(event: MouseEvent) {
@@ -20,11 +20,10 @@ export function checkAnswer(event: MouseEvent) {
       arrTrueAnswerAudio.push(audioArray[pageNum]);
       arrTrueWordsID.push(arrWordsID[pageNum]);
 
-      console.log('ID правильных слов ' + arrTrueWordsID)
-
+      resultsAudioCall.wordsCorrectAnswers.push(arrWordsID[pageNum]);
       countingLongestAnswerRightAudioCall();
-      playCorrectSound();
 
+      playCorrectSound();
       answers.forEach((el: HTMLElement) => {
         if (el.innerText != wordsRusArray[pageNum]) {
           el.style.opacity = '0.4';
@@ -55,10 +54,11 @@ export function checkAnswer(event: MouseEvent) {
     arrFalseAnswerEn.push(wordsEnArray[pageNum]);
     arrFalseAnswerAudio.push(audioArray[pageNum]);
     arrFalseWordsID.push(arrWordsID[pageNum]);
+    resultsAudioCall.wordsWrongAnswers.push(arrWordsID[pageNum]);
 
-    console.log('ID неправильных слов ' + arrFalseWordsID)
 }
 showAnswer();
 countingPercentAnswerRightAudioCall();
+giveAudioCallStatistics();
 knowBtn.innerText = 'Далее';
 };
