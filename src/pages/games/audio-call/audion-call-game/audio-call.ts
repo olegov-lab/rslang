@@ -107,7 +107,6 @@ export function nextPage() {
       arrFalseAnswerEn.push(wordsEnArray[pageNum]);
       arrFalseAnswerAudio.push(audioArray[pageNum]);
       arrFalseWordsID.push(arrWordsID[pageNum]);
-      console.log(arrFalseWordsID)
       resultsAudioCall.wordsWrongAnswers.push(arrWordsID[pageNum]);
 
       showAnswer(); // показываем ответ

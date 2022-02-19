@@ -27,26 +27,26 @@ export const getPageAndGroup = async (group = 0, page = 0) => {
       clearArrays();
 
       for (let i = 0; i < 20; i++) {
-        arrWordsID.push(words[i]._id);
+        arrWordsID.push(words[i]);
         audioArray.push(words[i].audio);
         wordsEnArray.push(words[i].word);
         wordsRusArray.push(words[i].wordTranslate);
         wordsImgArray.push(words[i].image);
       }
-     console.log("есть токена, дикт " + arrWordsID)
+     console.log("есть токена, дикт " + words)
     } else { // для анонима
 
       const words = await getWords(+storageGroup, +storagePage);
       clearArrays();
 
       for (let i = 0; i < 20; i++) {
-        arrWordsID.push(words[i].id);
+        arrWordsID.push(words[i]);
         audioArray.push(words[i].audio);
         wordsEnArray.push(words[i].word);
         wordsRusArray.push(words[i].wordTranslate);
         wordsImgArray.push(words[i].image);
       }
-      console.log(`нет токена, дикт ${arrWordsID}`)
+      //console.log(`нет токена, дикт ${arrWordsID}`)
     }
   } else { // не через словарь
       /* для юзера */
@@ -56,7 +56,7 @@ export const getPageAndGroup = async (group = 0, page = 0) => {
       clearArrays();
 
       for (let i = 0; i < 20; i++) {
-        arrWordsID.push(words[i]._id);
+        arrWordsID.push(words[i]);
         audioArray.push(words[i].audio);
         wordsEnArray.push(words[i].word);
         wordsRusArray.push(words[i].wordTranslate);
@@ -66,9 +66,10 @@ export const getPageAndGroup = async (group = 0, page = 0) => {
     }
       else { // для анонима
         const words = await getWords(group, page);
+        console.log(words)
         clearArrays();
         for (let i = 0; i < 20; i++) {
-          arrWordsID.push(words[i].id);
+          arrWordsID.push(words[i]);
           audioArray.push(words[i].audio);
           wordsEnArray.push(words[i].word);
           wordsRusArray.push(words[i].wordTranslate);
@@ -78,4 +79,3 @@ export const getPageAndGroup = async (group = 0, page = 0) => {
       }
     }
   };
-  getPageAndGroup();
