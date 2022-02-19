@@ -51,13 +51,11 @@ export const startSprintStatistics = async () => {
 };
 
 export const saveStat = (index: number): void => {
-  console.log(typeof sprintData.currentWordsKit[index].userWord);
-  
-  if (typeof sprintData.currentWordsKit[index].userWord !== 'undefined') {
+  if (typeof sprintData.currentWordsKit[index].userWord === 'undefined') {
     resultsSprint.isUserWord += 1;
-    if (sprintData.currentWordsKit[index].userWord.optional.testFieldBoolean === false) {
-      resultsSprint.isTestFieldBoolean += 1;
-    };
+    resultsSprint.isTestFieldBoolean += 1;
+  } else if (sprintData.currentWordsKit[index].userWord.optional.testFieldBoolean === false) {
+    resultsSprint.isTestFieldBoolean += 1;
   }
 };
 
