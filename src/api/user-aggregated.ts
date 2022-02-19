@@ -26,16 +26,12 @@ export const createUserWord = async ({ userId, wordId, word }) => {
 
   const content = await rawResponse.json();
 
-
-
   }  catch(err) {
     if (err.status === 417) {
       return;
      }
   }
 };
-
-
 
 
 
@@ -56,6 +52,34 @@ export const updateUserWord = async ({ userId, wordId, word }) => {
 
 
 
+export const getUserWordById = async ({ userId, wordId}) => {
+  try {
+    const rawResponse = await fetch(`${baseUrl}/users/${userId}/words/${wordId}`, {
+      method: 'GET',
+      //withCredentials: true,
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/json',
+      }
+    });
+
+    const content = await rawResponse.json();
+
+    if (rawResponse.status === 200) {
+     //console.log(content[0].paginatedResults);
+
+     //console.log(content);
+     return content;
+    }
+
+    return null;
+  } catch (err) {
+    if (err.status === 417) {
+      return;
+     }
+  }
+};
+
 
 export const getUserAggrWord = async ({userId, group, page}): Promise<IWords> => {
   try {
@@ -73,7 +97,7 @@ export const getUserAggrWord = async ({userId, group, page}): Promise<IWords> =>
     if (rawResponse.status === 200) {
      //console.log(content[0].paginatedResults);
 
-     console.log(content);
+     //console.log(content);
      return content[0].paginatedResults;
     }
 
@@ -197,6 +221,36 @@ export const getUserWordAll = async (userId) => {
   } catch (err) {
     if (err.status === 417) {
       return;
+     }
+  }
+};
+
+
+export const getUserAggrWordById = async ({userId, wordId}) => {
+  try {
+    const rawResponse = await fetch(`${baseUrl}/users/${userId}/aggregatedWords/${wordId}`, {
+      method: 'GET',
+      //withCredentials: true,
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/json',
+      }
+    });
+
+    const content = await rawResponse.json();
+
+    if (rawResponse.status === 200) {
+     //console.log(content[0].paginatedResults);
+
+     //console.log(content);
+     //return content[0].paginatedResults;
+     return content;
+    }
+
+    return null;
+  } catch (err) {
+    if (err.status === 417) {
+      return ;
      }
   }
 };

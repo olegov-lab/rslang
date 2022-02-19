@@ -5,16 +5,16 @@ import { TextbookContainer } from '../../components/textbook-container/textbook-
 import { TextbookHeader } from "../../components/textbook-container/textbook-header";
 import { StaticsPage } from "../../pages/statistics/statistics";
 import {
-  getWords
+  getWords, getWordById
 } from '../../api/api';
 import { getUserAggrWord, createUserWord, getUserAggrWordHard,
-         getUserAggrWordHardAll, updateUserWord }
+         getUserAggrWordHardAll, updateUserWord, getUserWordById, getUserAggrWordById}
 from "../../api/user-aggregated";
 import { checkWrong } from "../../components/react/check-wrong";
 import { getPaginat } from "../../components/react/get-paginat";
 import { removePaginat } from "../../components/react/get-paginat";
 import { getWordOptions, removeWordOptions } from "../../components/react/get-word-options";
-import { reloadPageStatistics } from "../../components/react/reload";
+import { reloadPageStatistics, reloadPageStatisticsTextbook } from "../../components/react/reload";
 
 import {getUserStatistics , updateUserStatistics} from "../../api/statistics";
 
@@ -37,6 +37,9 @@ export class Textbook extends Component {
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', ['textbook', 'wrapper']);
 
+
+
+    reloadPageStatisticsTextbook();
 
     if (localStorage.getItem('group')) {
       this.group = +localStorage.getItem('group');
@@ -61,9 +64,7 @@ export class Textbook extends Component {
 
 
 
-
-
-    const navPartTextbook = document.querySelector('.nav-part-textbook');
+const navPartTextbook = document.querySelector('.nav-part-textbook');
 
 const btnT = document.querySelector('.textbook-container-block');
 
@@ -96,7 +97,7 @@ let newArr = arr.join('');
   setTimeout(((target) => {
     const audio = new Audio(`https://raw.githubusercontent.com/irinainina/rslang/rslang-data/data/${newArr}_example.mp3`);
     audio.play();
-    console.log(audio)
+
     }), 7500);
 
 };
@@ -109,6 +110,7 @@ let newArr = arr.join('');
 
   let wordId = target.dataset.id;
 
+  let nameId = target.dataset.name;
 
   if(target.classList.contains('btn-dif')) {
 
@@ -132,28 +134,76 @@ let newArr = arr.join('');
       page: localStorage.getItem('page'),
     }
 
-    let userId = localStorage.getItem('userId');
-
-    if (createUserWord(state).then(reject => reject)) {
-      updateUserWord(state);
-    } else {
-      createUserWord(state);
-      updateUserWord(state);
+    let stateUser = {
+      userId: localStorage.getItem('userId'),
+      wordId: wordId,
     }
 
-    // createUserWord(state);
-    // updateUserWord(state);
+
+    //const wordPageId = await getWordById(wordId);
+
+    //console.log(wordPageId)
+
+    const wordById = await getUserWordById(stateUser) || null;
+
+    // const wordByIdAggr = await getUserAggrWordById(stateUser) || null;
+
+    // console.log(wordByIdAggr[0]._id)
+
+    // console.log(wordById)
+
+
+
+    if(wordById) {
+      if(wordId === wordById.wordId) {
+        updateUserWord(state);
+      } else {
+        createUserWord(state)
+      }
+    } else {
+      createUserWord(state)
+    }
+
+
+    // }  else if(wordByIdAggr) {
+    //       if(wordId === wordByIdAggr[0]._id) {
+    //         updateUserWord(state);
+    //       } else {
+    //         createUserWord(state)
+    //       }
+    //     } else {
+    //       createUserWord(state)
+    //     }
+
+
+
+
+    // else {
+    //   createUserWord(state)
+    // }
+
+
+    // if(wordByIdAggr) {
+    //     if(wordId === wordByIdAggr[0]._id) {
+    //       updateUserWord(state);
+    //     } else {
+    //       createUserWord(state)
+    //     }
+    //   } else {
+    //     createUserWord(state)
+    //   }
+
+
+
+    let userId = localStorage.getItem('userId');
 
     getUserAggrWordHard(state2);
     checkWrong();
 
-    // this.arrHard = await getUserAggrWordHardAll(userId);
-
-    // console.log(this.arrHard);
 
   } else if(target.classList.contains('btn-rem')) {
 
-    console.log(wordId);
+
 
     const itemChange = document.getElementById(`${wordId}`);
     itemChange.classList.remove('hard-word');
@@ -166,15 +216,30 @@ let newArr = arr.join('');
       word: { "difficulty": "easy", "optional": {testFieldString: 'test', testFieldBoolean: false} }
     }
 
-    if (createUserWord(state).then(reject => reject)) {
-      updateUserWord(state);
+
+
+    const wordById = await getUserWordById(state);
+
+
+    if(wordById) {
+      if(wordId === wordById.wordId) {
+        updateUserWord(state);
+      } else {
+        createUserWord(state)
+      }
     } else {
-      createUserWord(state);
-      updateUserWord(state);
+      createUserWord(state)
     }
 
-    // createUserWord(state);
-    // updateUserWord(state);
+
+
+
+    // if(wordId === wordById.wordId) {
+    //   updateUserWord(state);
+    // } else {
+    //   createUserWord(state)
+    // }
+
     checkWrong();
   }
 
@@ -219,15 +284,6 @@ set toLinkHref(value) {
 }
 
 private async getAllWords(group: number, page: number): Promise<void> {
-
-// document.querySelector('.nav-part').addEventListener('click', (rvent) => {
-//   const target = event.target as HTMLElement;
-
-//   if(target.getAttribute('href') === "#/textbook") {
-//     getUzas();
-//   }
-
-// })
 
   let data;
 
@@ -289,107 +345,107 @@ private async getAllWords(group: number, page: number): Promise<void> {
 
 //!
 
-function getUzas() {
+// function getUzas() {
 
-if(localStorage.getItem('token')) {
+// if(localStorage.getItem('token')) {
 
-  let startDate = checkDate();
+//   let startDate = checkDate();
 
-  let userId = localStorage.getItem('userId');
+//   let userId = localStorage.getItem('userId');
 
-  const getDateAsyncCompare = async () => {
+//   const getDateAsyncCompare = async () => {
 
-    let data = await checkDate();
+//     let data = await checkDate();
 
-    let percentAnswerRightSprint = data.optional.percentAnswerRightSprint || JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || 0;
+//     let percentAnswerRightSprint = data.optional.percentAnswerRightSprint || JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || 0;
 
-    let longestAnswerRightSprint = data.optional.longestAnswerRightSprint || +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || 0;
+//     let longestAnswerRightSprint = data.optional.longestAnswerRightSprint || +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || 0;
 
-    let percentRightAudioCall = data.optional.percentRightAudioCall || +localStorage.getItem('percentRightAudioCall') || 0;
+//     let percentRightAudioCall = data.optional.percentRightAudioCall || +localStorage.getItem('percentRightAudioCall') || 0;
 
-    let LongestAnswerRightAudioCall = data.optional.LongestAnswerRightAudioCall || localStorage.getItem('LongestAnswerRightAudioCall') || 0;
+//     let LongestAnswerRightAudioCall = data.optional.LongestAnswerRightAudioCall || localStorage.getItem('LongestAnswerRightAudioCall') || 0;
 
-    let percentAnswerForDay: Number = data.optional.percentAnswerForDay || percentAnswerRightSprint || percentRightAudioCall ||  (percentAnswerRightSprint + percentRightAudioCall) / 2 || 0;
+//     let percentAnswerForDay: Number = data.optional.percentAnswerForDay || percentAnswerRightSprint || percentRightAudioCall ||  (percentAnswerRightSprint + percentRightAudioCall) / 2 || 0;
 
-    localStorage.percentAnswerForDay = percentAnswerForDay;
-
-
-    let currentDate = getDate();
-
-    let state = {
-      userId: localStorage.getItem('userId'),
-      statistics: {
-        "optional": {
-          startDate: data.optional.startDate,
-          percentAnswerRightSprint: JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || data.optional.percentAnswerRightSprint,
-          longestAnswerRightSprint: +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || data.optional.longestAnswerRightSprint,
-          percentRightAudioCall: +localStorage.getItem('percentRightAudioCall') || data.optional.percentRightAudioCall,
-          LongestAnswerRightAudioCall: localStorage.getItem('LongestAnswerRightAudioCall') || data.optional.LongestAnswerRightAudioCall,
-          percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
-          }
-      }
-    };
-
-    updateUserStatistics(state);
-
-    data = await getUserStatistics(userId);
-
-    if(currentDate != data.optional.startDate) {
-      percentAnswerForDay = 0 ;
-      localStorage.percentAnswerForDay = percentAnswerForDay;
-      localStorage.startDate = currentDate;
-      data.optional.startDate = localStorage.startDate;
-    }
-
-    updateUserStatistics(state);
-
-    data = await getUserStatistics(userId);
-
-    let wordsCorrectAnswers = JSON.parse(localStorage.getItem('SprintStatistics'))?.wordsCorrectAnswers || [];
-    let wordsWrongAnswers = JSON.parse(localStorage.getItem('SprintStatistics'))?.wordsWrongAnswers || [];
-
-    let currentCorrectWordUser = wordsCorrectAnswers.map(item => {
-
-      let state = {
-        userId: localStorage.getItem('userId'),
-        wordId: item.id,
-        word: { "difficulty": "easy", "optional": {testFieldString: 'test', testFieldBoolean: true} }
-      }
-
-      if (createUserWord(state).then(reject => reject)) {
-        updateUserWord(state);
-      } else {
-        createUserWord(state);
-        updateUserWord(state);
-      }
-
-    })
+//     localStorage.percentAnswerForDay = percentAnswerForDay;
 
 
-    let currentWrongWordUser = wordsWrongAnswers.map(item => {
+//     let currentDate = getDate();
 
-      let state = {
-        userId: localStorage.getItem('userId'),
-        wordId: item.id,
-        word: { "difficulty": "hard", "optional": {testFieldString: 'test', testFieldBoolean: true} }
-      }
+//     let state = {
+//       userId: localStorage.getItem('userId'),
+//       statistics: {
+//         "optional": {
+//           startDate: data.optional.startDate,
+//           percentAnswerRightSprint: JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || data.optional.percentAnswerRightSprint,
+//           longestAnswerRightSprint: +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || data.optional.longestAnswerRightSprint,
+//           percentRightAudioCall: +localStorage.getItem('percentRightAudioCall') || data.optional.percentRightAudioCall,
+//           LongestAnswerRightAudioCall: localStorage.getItem('LongestAnswerRightAudioCall') || data.optional.LongestAnswerRightAudioCall,
+//           percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
+//           }
+//       }
+//     };
+
+//     updateUserStatistics(state);
+
+//     data = await getUserStatistics(userId);
+
+//     if(currentDate != data.optional.startDate) {
+//       percentAnswerForDay = 0 ;
+//       localStorage.percentAnswerForDay = percentAnswerForDay;
+//       localStorage.startDate = currentDate;
+//       data.optional.startDate = localStorage.startDate;
+//     }
+
+//     updateUserStatistics(state);
+
+//     data = await getUserStatistics(userId);
+
+//     let wordsCorrectAnswers = JSON.parse(localStorage.getItem('SprintStatistics'))?.wordsCorrectAnswers || [];
+//     let wordsWrongAnswers = JSON.parse(localStorage.getItem('SprintStatistics'))?.wordsWrongAnswers || [];
+
+//     let currentCorrectWordUser = wordsCorrectAnswers.map(item => {
+
+//       let state = {
+//         userId: localStorage.getItem('userId'),
+//         wordId: item.id,
+//         word: { "difficulty": "easy", "optional": {testFieldString: 'test', testFieldBoolean: true} }
+//       }
+
+//       if (createUserWord(state).then(reject => reject)) {
+//         updateUserWord(state);
+//       } else {
+//         createUserWord(state);
+//         updateUserWord(state);
+//       }
+
+//     })
 
 
-      if (createUserWord(state).then(reject => reject)) {
-        updateUserWord(state);
-      } else {
-        createUserWord(state);
-        updateUserWord(state);
-      }
-    })
+//     let currentWrongWordUser = wordsWrongAnswers.map(item => {
 
-console.log("uzas");
+//       let state = {
+//         userId: localStorage.getItem('userId'),
+//         wordId: item.id,
+//         word: { "difficulty": "hard", "optional": {testFieldString: 'test', testFieldBoolean: true} }
+//       }
 
-}
 
-getDateAsyncCompare();
+//       if (createUserWord(state).then(reject => reject)) {
+//         updateUserWord(state);
+//       } else {
+//         createUserWord(state);
+//         updateUserWord(state);
+//       }
+//     })
 
-}
+// console.log("uzas");
+
+// }
+
+// getDateAsyncCompare();
+
+// }
 
 }
 
@@ -402,4 +458,3 @@ getDateAsyncCompare();
 //!
 
 
-}

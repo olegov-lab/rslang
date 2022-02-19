@@ -37,9 +37,9 @@ export class StaticsPage extends Component {
 
       let longestAnswerRightSprint = +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || 0;
 
-      let percentRightAudioCall = +localStorage.getItem('percentRightAudioCall') || 0;
+      let percentRightAudioCall = JSON.parse(localStorage.getItem('audioCallStatistics'))?.percentAnswerRightAudioCall || 0;
 
-      let LongestAnswerRightAudioCall = localStorage.getItem('LongestAnswerRightAudioCall') || 0;
+      let LongestAnswerRightAudioCall = +JSON.parse(localStorage.getItem('audioCallStatistics'))?.longestAnswerRightAudioCall  || 0;
 
       let percentAnswerForDay: Number = (percentAnswerRightSprint + percentRightAudioCall) / 2 || percentAnswerRightSprint || percentRightAudioCall || 0;
 
@@ -67,19 +67,27 @@ export class StaticsPage extends Component {
 
     // let userId = localStorage.getItem('userId');
 
+//console.log(userId)
 
+    const getDateAsyncCompare = async () => {
 
-    // const getDateAsyncCompare = async () => {
+      let userId = localStorage.getItem('userId');
 
-    //   let data = await checkDate();
+    console.log(userId)
 
-    let percentAnswerRightSprint = JSON.parse(localStorage.getItem('data'))?.optional.percentAnswerRightSprint || 0;
+    let dataWordsServer = await getUserStatistics(userId);
 
-    let longestAnswerRightSprint = JSON.parse(localStorage.getItem('data'))?.optional.longestAnswerRightSprint || 0;
+    let percentAnswerRightSprint = JSON.parse(localStorage.getItem('data'))?.optional.percentAnswerRightSprint
+                                   || dataWordsServer?.optional?.percentAnswerRightSprint || 0;
 
-    let percentRightAudioCall = JSON.parse(localStorage.getItem('data'))?.optional.percentRightAudioCall || 0;
+    let longestAnswerRightSprint = JSON.parse(localStorage.getItem('data'))?.optional.longestAnswerRightSprint
+                                   || dataWordsServer.optional.longestAnswerRightSprint || 0;
 
-    let LongestAnswerRightAudioCall = JSON.parse(localStorage.getItem('data'))?.optional.LongestAnswerRightAudioCall || 0;
+    let percentRightAudioCall = JSON.parse(localStorage.getItem('data'))?.optional.percentRightAudioCall
+                                || dataWordsServer.optional.percentRightAudioCall || 0;
+
+    let LongestAnswerRightAudioCall = JSON.parse(localStorage.getItem('data'))?.optional.LongestAnswerRightAudioCall
+                                      || dataWordsServer.optional.LongestAnswerRightAudioCall || 0;
 
     let percentAnswerForDay: Number = JSON.parse(localStorage.getItem('data'))?.optional.percentAnswerForDay || percentAnswerRightSprint || percentRightAudioCall ||  (percentAnswerRightSprint + percentRightAudioCall) / 2 || 0;
 
@@ -169,21 +177,12 @@ export class StaticsPage extends Component {
       ${renderBlockStatist('statist-item','Процент правильных ответов за день', percentAnswerForDay)}
   `
 
-//   contantStatist.element.innerHTML = `
-
-//   <div class="">
-//   <p>${data.optional.percentAnswerRightSprint}</p>
-//   <div class = "count-statist-item">
-//     <span class="${data.optional.percentAnswerRightSprint}">${data.optional.percentAnswerRightSprint}</span>
-//   </div>
-// </div>
-
-//   `
 
 
   }
+  getDateAsyncCompare();
+  }
 
-  //getDateAsyncCompare();
   //renderStatistics();
 }
 

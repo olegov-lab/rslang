@@ -20,6 +20,24 @@ export const getWords = async ( group = 0, page = 0): Promise<IWords> => {
   }
 };
 
+export const getWordById = async ( wordId ): Promise<IWords> => {
+  try {
+    const rawResponse = await fetch(`${baseUrl}/words/${wordId}`);
+    const content = await rawResponse.json();
+
+    if (rawResponse.status === 200) {
+      return content;
+    }
+
+    return null;
+  } catch (err) {
+    if (err instanceof Error) {
+      throw new Error(err.message);
+    }
+  }
+};
+
+
 
 
 

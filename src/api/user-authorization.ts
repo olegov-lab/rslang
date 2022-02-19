@@ -77,8 +77,8 @@ export const loginUser = async (user: {}): Promise<IUserToken> => {
   refreshToken = content.refreshToken;
   userId = content.userId;
 
-  getUserStatistics(userId);
-  updateUserStatistics({userId, statistics:"default"});
+  // getUserStatistics(userId);
+  // updateUserStatistics({userId, statistics:"default"});
 
  //Сохранение токена, данных пользователя
    localStorage.setItem('token', token);
@@ -92,7 +92,7 @@ export const loginUser = async (user: {}): Promise<IUserToken> => {
 
   return await rawResponse.json();
 
-  window.location.reload();
+
 
 } catch (err) {
   if (err instanceof Error) {
