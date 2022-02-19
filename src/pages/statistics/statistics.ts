@@ -49,7 +49,7 @@ export class StaticsPage extends Component {
 
 
 
-      reloadPageStatistics();
+      //reloadPageStatistics();
 
     contantStatist.element.innerHTML =   `
     ${renderBlockStatist('statist-item','Количество новых слов по игре “Спринт”', "нужна авторизация", "alarm-item-statist")}
@@ -114,7 +114,7 @@ export class StaticsPage extends Component {
 
 
 
-      reloadPageStatistics();
+      //reloadPageStatistics();
 
       contantStatist.element.innerHTML = `
       ${renderBlockStatist('statist-item','Количество новых слов по игре “Спринт”', newWordSprint)}
