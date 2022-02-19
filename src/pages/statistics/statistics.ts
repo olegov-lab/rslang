@@ -82,21 +82,21 @@ export class StaticsPage extends Component {
     let dataWordsServer = await getUserStatistics(userId);
 
     let percentAnswerRightSprint = JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring
-                                   || dataWordsServer?.optional?.percentAnswerRightSprint || 0;
+                                   ?? dataWordsServer?.optional?.percentAnswerRightSprint ?? 0;
 
 
     let longestAnswerRightSprint = JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint
-                                   || dataWordsServer.optional.longestAnswerRightSprint || 0;
+                                   ?? dataWordsServer.optional.longestAnswerRightSprint ?? 0;
 
     let percentRightAudioCall = JSON.parse(localStorage.getItem('audioCallStatistics'))?.percentRightAudioCall
-                                || dataWordsServer.optional.percentRightAudioCall || 0;
+                                ?? dataWordsServer.optional.percentRightAudioCall ?? 0;
 
     let LongestAnswerRightAudioCall = JSON.parse(localStorage.getItem('audioCallStatistics'))?.LongestAnswerRightAudioCall
-                                      || dataWordsServer.optional.LongestAnswerRightAudioCall || 0;
+                                      ?? dataWordsServer.optional.LongestAnswerRightAudioCall ?? 0;
 
-    let percentAnswerForDay: Number = JSON.parse(localStorage.getItem('data'))?.optional.percentAnswerForDay || percentAnswerRightSprint || percentRightAudioCall ||  (percentAnswerRightSprint + percentRightAudioCall) / 2 || 0;
+    let percentAnswerForDay: Number = JSON.parse(localStorage.getItem('data'))?.optional.percentAnswerForDay ?? percentAnswerRightSprint ?? percentRightAudioCall ??  (percentAnswerRightSprint + percentRightAudioCall) / 2 ?? 0;
 
-    let newWordSprint = +JSON.parse(localStorage.getItem('data'))?.optional.newWordSprintSum || 0;
+    let newWordSprint = +JSON.parse(localStorage.getItem('data'))?.optional.newWordSprintSum ?? 0;
 
 
 

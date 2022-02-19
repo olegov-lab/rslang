@@ -257,7 +257,9 @@ document.addEventListener('keypress', answersKeybord)
 */
 body.addEventListener('change', chooseGroup);
 body.addEventListener('click', renderGameAudioPage);
+body.addEventListener('click', getUzas);
 startAudioCallStatistics();
+
 
 
 
@@ -329,8 +331,8 @@ function getUzas() {
 
 
 
-      let wordsCorrectAnswers = JSON.parse(localStorage.getItem('SprintStatistics'))?.wordsCorrectAnswers || [];
-      let wordsWrongAnswers = JSON.parse(localStorage.getItem('SprintStatistics'))?.wordsWrongAnswers || [];
+      let wordsCorrectAnswers = JSON.parse(localStorage.getItem('audioCallStatistics'))?.wordsCorrectAnswers || [];
+      let wordsWrongAnswers = JSON.parse(localStorage.getItem('audioCallStatistics'))?.wordsWrongAnswers || [];
 
       localStorage.flagTry = 0;
 
@@ -343,31 +345,15 @@ function getUzas() {
 
       let currentCorrectWordUser = wordsCorrectAnswers.map(async item => {
 
-
-        // if(JSON.parse(localStorage.getItem('arrCountRight'))) {
-        //   for(let i = 0; i < JSON.parse(localStorage.getItem('arrCountRight')).length -1; i++) {
-        //     if(item.id == JSON.parse(localStorage.getItem('arrCountRight'))[i].userId) {
-        //      rightCount = JSON.parse(localStorage.getItem('arrCountRight'))[i].word.optional.rightCount;
-        //      //flagTry = JSON.parse(localStorage.getItem('arrCountRight'))[i].word.optional.flagTry;
-        //     }
-        //   }
-        // }
-
-
         let stateUser = {
           userId: localStorage.getItem('userId'),
-          wordId: item.id,
+          wordId: item,
         }
-
-        //const wordUserCount = await getUserAggrWordById(stateUser);
-
-        //let rightCount = wordUserCount?.userWord?.optional?.rightCount ?? 0;
 
         const wordUserCount = await getUserWordById(stateUser);
 
         let wrongCount = localStorage.getItem('wrongCount') || wordUserCount?.optional?.wrongCount;
 
-        //let rightCount = localStorage.getItem('rightCount') ?? wordUserCount?.optional?.rightCount ?? 0;
 
         let rightCount = wordUserCount?.optional?.rightCount ?? 0;
 
@@ -389,13 +375,13 @@ function getUzas() {
           }
         };
 
-        //  localStorage.rightCount = rightCount;
+
 
         let state;
 
             state = {
             userId: localStorage.getItem('userId'),
-            wordId: item.id,
+            wordId: item,
             word: { "difficulty": "easy", "optional": {testFieldString: 'test', testFieldBoolean: true, rightCount: ++rightCount, wrongCount: wrongCount} }
            }
 
@@ -428,7 +414,7 @@ function getUzas() {
 
          let stateUser = {
           userId: localStorage.getItem('userId'),
-          wordId: item.id,
+          wordId: item,
         }
 
         //const wordUserCount = await getUserAggrWordById(stateUser);
@@ -461,17 +447,9 @@ function getUzas() {
 
 
 
-        // if(JSON.parse(localStorage.getItem('arrCountWrong'))) {
-        //   for(let i = 0; i < JSON.parse(localStorage.getItem('arrCountWrong')).length -1; i++) {
-        //     if(item.id == JSON.parse(localStorage.getItem('arrCountWrong'))[i].userId) {
-        //       wrongCount = JSON.parse(localStorage.getItem('arrCountWrong'))[i].word.optional.wrongCount;
-        //     }
-        //   }
-        // }
-
             let state = {
             userId: localStorage.getItem('userId'),
-            wordId: item.id,
+            wordId: item,
             word: { "difficulty": "hard", "optional": {testFieldString: 'test', testFieldBoolean: true, wrongCount: ++wrongCount , rightCount: rightCount} }
           }
 
