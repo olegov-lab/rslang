@@ -12,6 +12,21 @@ import { renderAudioCallResults} from "./audio-call-results";
 import { countingPercentAnswerRightAudioCall, resetLongestAnswerRightAudioCall } from "./audio-call-statistics";
 import { startAudioCallStatistics, giveAudioCallStatistics, resultsAudioCall, countingLongestAnswerRightAudioCall } from './audio-call-statistics';
 import { progressBar } from './progress-bar';
+
+
+import { getUserStatistics, updateUserStatistics } from '../../../../api/statistics';
+
+import { getDate } from '../../../../components/react/get-date';
+import { checkDate } from '../../../../components/react/check-date';
+
+
+import { getUserAggrWord, createUserWord, getUserAggrWordHard,
+  getUserAggrWordHardAll, updateUserWord, getUserWordAll, getUserWordById, getUserAggrWordById}
+from "../../../../api/user-aggregated";
+
+import { reloadPageStatistics } from "../../../../components/react/reload"
+
+
 //import { pressKeyBoard } from './keybord';
 
 export const body = document.body;
@@ -134,6 +149,7 @@ export function nextPage() {
     else {
       resetProgressBar();
       renderAudioCallResults();
+      getUzas();
     }
   }
 };
@@ -241,3 +257,257 @@ document.addEventListener('keypress', answersKeybord)
 body.addEventListener('change', chooseGroup);
 body.addEventListener('click', renderGameAudioPage);
 startAudioCallStatistics();
+
+
+
+
+function getUzas() {
+
+  if(!localStorage.getItem('token')){
+
+  let percentAnswerRightSprint = JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || 0;
+
+  let longestAnswerRightSprint = +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || 0;
+
+  let percentRightAudioCall = JSON.parse(localStorage.getItem('audioCallStatistics'))?.percentAnswerRightAudioCall || 0;
+
+  let LongestAnswerRightAudioCall = +JSON.parse(localStorage.getItem('audioCallStatistics'))?.longestAnswerRightAudioCall || 0;
+
+  let percentAnswerForDay: Number = (percentAnswerRightSprint + percentRightAudioCall) / 2 || percentAnswerRightSprint || percentRightAudioCall || 0;
+
+
+    let currentDate = getDate();
+
+    let startDate = checkDate();
+
+    if(currentDate != startDate) {
+      percentAnswerForDay = 0 ;
+    }
+
+   } if(localStorage.getItem('token')) {
+
+    let startDate = checkDate();
+
+    let userId = localStorage.getItem('userId');
+
+    const getDateAsyncCompare = async () => {
+
+      let data = await checkDate();
+
+      let percentAnswerRightSprint = data.optional.percentAnswerRightSprint || JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || 0;
+
+      let longestAnswerRightSprint = data.optional.longestAnswerRightSprint || +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || 0;
+
+      let percentRightAudioCall = data.optional.percentRightAudioCall || +localStorage.getItem('percentRightAudioCall') || 0;
+
+      let LongestAnswerRightAudioCall = data.optional.LongestAnswerRightAudioCall || localStorage.getItem('LongestAnswerRightAudioCall') || 0;
+
+      let percentAnswerForDay: Number = data.optional.percentAnswerForDay || percentAnswerRightSprint || percentRightAudioCall ||  (percentAnswerRightSprint + percentRightAudioCall) / 2 || 0;
+
+      localStorage.percentAnswerForDay = percentAnswerForDay;
+
+
+      let currentDate = getDate();
+
+      let stateStatist;
+
+      //console.log(currentDate)
+
+
+
+      data = await getUserStatistics(userId);
+
+      //console.log(data.optional.startDate)
+
+      if(currentDate != data.optional.startDate) {
+        percentAnswerForDay = 0 ;
+        localStorage.percentAnswerForDay = percentAnswerForDay;
+        localStorage.startDate = currentDate;
+        data.optional.startDate = localStorage.startDate;
+      }
+
+
+
+      let wordsCorrectAnswers = JSON.parse(localStorage.getItem('SprintStatistics'))?.wordsCorrectAnswers || [];
+      let wordsWrongAnswers = JSON.parse(localStorage.getItem('SprintStatistics'))?.wordsWrongAnswers || [];
+
+      localStorage.flagTry = 0;
+
+      // let rightCount = 0;
+      // let wrongCount = 0;
+
+       let arrCountRight = [];
+
+       let arrCountWrong = [];
+
+      let currentCorrectWordUser = wordsCorrectAnswers.map(async item => {
+
+
+        // if(JSON.parse(localStorage.getItem('arrCountRight'))) {
+        //   for(let i = 0; i < JSON.parse(localStorage.getItem('arrCountRight')).length -1; i++) {
+        //     if(item.id == JSON.parse(localStorage.getItem('arrCountRight'))[i].userId) {
+        //      rightCount = JSON.parse(localStorage.getItem('arrCountRight'))[i].word.optional.rightCount;
+        //      //flagTry = JSON.parse(localStorage.getItem('arrCountRight'))[i].word.optional.flagTry;
+        //     }
+        //   }
+        // }
+
+
+        let stateUser = {
+          userId: localStorage.getItem('userId'),
+          wordId: item.id,
+        }
+
+        //const wordUserCount = await getUserAggrWordById(stateUser);
+
+        //let rightCount = wordUserCount?.userWord?.optional?.rightCount ?? 0;
+
+        const wordUserCount = await getUserWordById(stateUser);
+
+        let wrongCount = localStorage.getItem('wrongCount') || wordUserCount?.optional?.wrongCount;
+
+        //let rightCount = localStorage.getItem('rightCount') ?? wordUserCount?.optional?.rightCount ?? 0;
+
+        let rightCount = wordUserCount?.optional?.rightCount ?? 0;
+
+        console.log(rightCount);
+
+         stateStatist = {
+          userId: localStorage.getItem('userId'),
+          statistics: {
+            "optional": {
+              startDate: data.optional.startDate || startDate,
+              percentAnswerRightSprint: JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || data.optional.percentAnswerRightSprint,
+              longestAnswerRightSprint: +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || data.optional.longestAnswerRightSprint,
+              percentRightAudioCall: +localStorage.getItem('percentRightAudioCall') || data.optional.percentRightAudioCall,
+              LongestAnswerRightAudioCall: localStorage.getItem('LongestAnswerRightAudioCall') || data.optional.LongestAnswerRightAudioCall,
+              percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
+              // rightCount: rightCount,
+              // wrongCount: wrongCount,
+            }
+          }
+        };
+
+        //  localStorage.rightCount = rightCount;
+
+        let state;
+
+            state = {
+            userId: localStorage.getItem('userId'),
+            wordId: item.id,
+            word: { "difficulty": "easy", "optional": {testFieldString: 'test', testFieldBoolean: true, rightCount: ++rightCount, wrongCount: wrongCount} }
+           }
+
+           localStorage.rightCount = state.word.optional.rightCount;
+
+          localStorage.state = JSON.stringify(state);
+
+          arrCountRight.push(state);
+
+
+
+        if (createUserWord(state).then(reject => reject)) {
+          updateUserWord(state);
+        } else {
+          createUserWord(state);
+          updateUserWord(state);
+        }
+        updateUserStatistics(stateStatist);
+
+        data = await getUserStatistics(userId);
+      })
+
+
+      localStorage.arrCountRight = JSON.stringify(arrCountRight);
+
+
+
+      let currentWrongWordUser = wordsWrongAnswers.map(async item => {
+
+
+         let stateUser = {
+          userId: localStorage.getItem('userId'),
+          wordId: item.id,
+        }
+
+        //const wordUserCount = await getUserAggrWordById(stateUser);
+
+        const wordUserCount = await getUserWordById(stateUser);
+
+        let rightCount = localStorage.getItem('rightCount') || wordUserCount?.optional?.rightCount;
+
+
+
+        let wrongCount = wordUserCount?.optional?.wrongCount ?? 0;
+
+        console.log(wrongCount);
+
+        stateStatist = {
+          userId: localStorage.getItem('userId'),
+          statistics: {
+            "optional": {
+              startDate: data.optional.startDate || startDate,
+              percentAnswerRightSprint: JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || data.optional.percentAnswerRightSprint,
+              longestAnswerRightSprint: +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || data.optional.longestAnswerRightSprint,
+              percentRightAudioCall: +localStorage.getItem('percentRightAudioCall') || data.optional.percentRightAudioCall,
+              LongestAnswerRightAudioCall: localStorage.getItem('LongestAnswerRightAudioCall') || data.optional.LongestAnswerRightAudioCall,
+              percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
+              // rightCount: rightCount,
+              // wrongCount: wrongCount,
+            }
+          }
+        };
+
+
+
+        // if(JSON.parse(localStorage.getItem('arrCountWrong'))) {
+        //   for(let i = 0; i < JSON.parse(localStorage.getItem('arrCountWrong')).length -1; i++) {
+        //     if(item.id == JSON.parse(localStorage.getItem('arrCountWrong'))[i].userId) {
+        //       wrongCount = JSON.parse(localStorage.getItem('arrCountWrong'))[i].word.optional.wrongCount;
+        //     }
+        //   }
+        // }
+
+            let state = {
+            userId: localStorage.getItem('userId'),
+            wordId: item.id,
+            word: { "difficulty": "hard", "optional": {testFieldString: 'test', testFieldBoolean: true, wrongCount: ++wrongCount , rightCount: rightCount} }
+          }
+
+          localStorage.wrongCount = state.word.optional.wrongCount;
+
+
+           arrCountWrong.push(state);
+
+
+        if (createUserWord(state).then(reject => reject)) {
+          updateUserWord(state);
+        } else {
+          createUserWord(state);
+          updateUserWord(state);
+        }
+
+
+        updateUserStatistics(stateStatist);
+        data = await getUserStatistics(userId);
+      });
+
+      localStorage.arrCountWrong = JSON.stringify(arrCountWrong);
+
+     data = await getUserStatistics(userId);
+
+     localStorage.data = JSON.stringify(data);
+
+     console.log(data)
+
+  console.log("uzas");
+
+  }
+
+
+  reloadPageStatistics();
+  getDateAsyncCompare();
+
+  }
+
+  }
