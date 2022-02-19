@@ -71,6 +71,8 @@ export class TextbookItem extends Component {
 
     this.element.setAttribute('id', `${word._id}`);
 
+    this.element.setAttribute('data-name', `${word.word}`);
+
     if(localStorage.getItem('token')) {
 
       difficultWordBtn.setDisabled(false);

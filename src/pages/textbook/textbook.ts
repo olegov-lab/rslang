@@ -5,16 +5,16 @@ import { TextbookContainer } from '../../components/textbook-container/textbook-
 import { TextbookHeader } from "../../components/textbook-container/textbook-header";
 import { StaticsPage } from "../../pages/statistics/statistics";
 import {
-  getWords
+  getWords, getWordById
 } from '../../api/api';
 import { getUserAggrWord, createUserWord, getUserAggrWordHard,
-         getUserAggrWordHardAll, updateUserWord }
+         getUserAggrWordHardAll, updateUserWord, getUserWordById, getUserAggrWordById}
 from "../../api/user-aggregated";
 import { checkWrong } from "../../components/react/check-wrong";
 import { getPaginat } from "../../components/react/get-paginat";
 import { removePaginat } from "../../components/react/get-paginat";
 import { getWordOptions, removeWordOptions } from "../../components/react/get-word-options";
-import { reloadPageStatistics } from "../../components/react/reload";
+import { reloadPageStatistics, reloadPageStatisticsTextbook } from "../../components/react/reload";
 
 import {getUserStatistics , updateUserStatistics} from "../../api/statistics";
 
@@ -37,6 +37,9 @@ export class Textbook extends Component {
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', ['textbook', 'wrapper']);
 
+
+
+    reloadPageStatisticsTextbook();
 
     if (localStorage.getItem('group')) {
       this.group = +localStorage.getItem('group');
@@ -94,7 +97,7 @@ let newArr = arr.join('');
   setTimeout(((target) => {
     const audio = new Audio(`https://raw.githubusercontent.com/irinainina/rslang/rslang-data/data/${newArr}_example.mp3`);
     audio.play();
-    console.log(audio)
+
     }), 7500);
 
 };
@@ -107,6 +110,7 @@ let newArr = arr.join('');
 
   let wordId = target.dataset.id;
 
+  let nameId = target.dataset.name;
 
   if(target.classList.contains('btn-dif')) {
 
@@ -130,28 +134,76 @@ let newArr = arr.join('');
       page: localStorage.getItem('page'),
     }
 
-    let userId = localStorage.getItem('userId');
-
-    if (createUserWord(state).then(reject => reject)) {
-      updateUserWord(state);
-    } else {
-      createUserWord(state);
-      updateUserWord(state);
+    let stateUser = {
+      userId: localStorage.getItem('userId'),
+      wordId: wordId,
     }
 
-    // createUserWord(state);
-    // updateUserWord(state);
+
+    //const wordPageId = await getWordById(wordId);
+
+    //console.log(wordPageId)
+
+    const wordById = await getUserWordById(stateUser) || null;
+
+    // const wordByIdAggr = await getUserAggrWordById(stateUser) || null;
+
+    // console.log(wordByIdAggr[0]._id)
+
+    // console.log(wordById)
+
+
+
+    if(wordById) {
+      if(wordId === wordById.wordId) {
+        updateUserWord(state);
+      } else {
+        createUserWord(state)
+      }
+    } else {
+      createUserWord(state)
+    }
+
+
+    // }  else if(wordByIdAggr) {
+    //       if(wordId === wordByIdAggr[0]._id) {
+    //         updateUserWord(state);
+    //       } else {
+    //         createUserWord(state)
+    //       }
+    //     } else {
+    //       createUserWord(state)
+    //     }
+
+
+
+
+    // else {
+    //   createUserWord(state)
+    // }
+
+
+    // if(wordByIdAggr) {
+    //     if(wordId === wordByIdAggr[0]._id) {
+    //       updateUserWord(state);
+    //     } else {
+    //       createUserWord(state)
+    //     }
+    //   } else {
+    //     createUserWord(state)
+    //   }
+
+
+
+    let userId = localStorage.getItem('userId');
 
     getUserAggrWordHard(state2);
     checkWrong();
 
-    // this.arrHard = await getUserAggrWordHardAll(userId);
-
-    // console.log(this.arrHard);
 
   } else if(target.classList.contains('btn-rem')) {
 
-    console.log(wordId);
+
 
     const itemChange = document.getElementById(`${wordId}`);
     itemChange.classList.remove('hard-word');
@@ -164,15 +216,30 @@ let newArr = arr.join('');
       word: { "difficulty": "easy", "optional": {testFieldString: 'test', testFieldBoolean: false} }
     }
 
-    if (createUserWord(state).then(reject => reject)) {
-      updateUserWord(state);
+
+
+    const wordById = await getUserWordById(state);
+
+
+    if(wordById) {
+      if(wordId === wordById.wordId) {
+        updateUserWord(state);
+      } else {
+        createUserWord(state)
+      }
     } else {
-      createUserWord(state);
-      updateUserWord(state);
+      createUserWord(state)
     }
 
-    // createUserWord(state);
-    // updateUserWord(state);
+
+
+
+    // if(wordId === wordById.wordId) {
+    //   updateUserWord(state);
+    // } else {
+    //   createUserWord(state)
+    // }
+
     checkWrong();
   }
 

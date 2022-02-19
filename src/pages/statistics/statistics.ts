@@ -77,10 +77,8 @@ export class StaticsPage extends Component {
 
     let dataWordsServer = await getUserStatistics(userId);
 
-    console.log(dataWordsServer)
-
     let percentAnswerRightSprint = JSON.parse(localStorage.getItem('data'))?.optional.percentAnswerRightSprint
-                                   || dataWordsServer.optional.percentAnswerRightSprint || 0;
+                                   || dataWordsServer?.optional?.percentAnswerRightSprint || 0;
 
     let longestAnswerRightSprint = JSON.parse(localStorage.getItem('data'))?.optional.longestAnswerRightSprint
                                    || dataWordsServer.optional.longestAnswerRightSprint || 0;
