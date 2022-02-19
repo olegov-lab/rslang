@@ -218,7 +218,7 @@ export class SprintGame extends Component {
         let percentAnswerForDay: Number = +data.optional.percentAnswerForDay || +percentAnswerRightSprint || +percentRightAudioCall ||  (percentAnswerRightSprint + percentRightAudioCall) / 2 || 0;
 
         //localStorage.percentAnswerForDay = percentAnswerForDay;
-
+//start answer
 
 
         let currentDate = getDate();
