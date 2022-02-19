@@ -248,6 +248,8 @@ export class SprintGame extends Component {
 
         let currentCorrectWordUser = wordsCorrectAnswers.map(async item => {
 
+
+
           // if(JSON.parse(localStorage.getItem('arrCountRight'))) {
           //   for(let i = 0; i < JSON.parse(localStorage.getItem('arrCountRight')).length -1; i++) {
           //     if(item.id == JSON.parse(localStorage.getItem('arrCountRight'))[i].userId) {
@@ -271,6 +273,10 @@ export class SprintGame extends Component {
 
           const wordUserCount = await getUserWordById(stateUser);
 
+          let wrongCount = localStorage.getItem('wrongCount') || wordUserCount?.optional?.wrongCount;
+
+          //let rightCount = localStorage.getItem('rightCount') ?? wordUserCount?.optional?.rightCount ?? 0;
+
           let rightCount = wordUserCount?.optional?.rightCount ?? 0;
 
           console.log(rightCount);
@@ -293,14 +299,17 @@ export class SprintGame extends Component {
 
 
 
+          //  localStorage.rightCount = rightCount;
+
           let state;
 
               state = {
               userId: localStorage.getItem('userId'),
               wordId: item.id,
-              word: { "difficulty": "easy", "optional": {testFieldString: 'test', testFieldBoolean: true, rightCount: ++rightCount} }
+              word: { "difficulty": "easy", "optional": {testFieldString: 'test', testFieldBoolean: true, rightCount: ++rightCount, wrongCount: wrongCount} }
              }
 
+             localStorage.rightCount = state.word.optional.rightCount;
 
             localStorage.state = JSON.stringify(state);
 
@@ -315,6 +324,8 @@ export class SprintGame extends Component {
             updateUserWord(state);
           }
           updateUserStatistics(stateStatist);
+
+          data = await getUserStatistics(userId);
         })
 
 
@@ -333,6 +344,8 @@ export class SprintGame extends Component {
           //const wordUserCount = await getUserAggrWordById(stateUser);
 
           const wordUserCount = await getUserWordById(stateUser);
+
+          let rightCount = localStorage.getItem('rightCount') || wordUserCount?.optional?.rightCount;
 
 
 
@@ -357,6 +370,7 @@ export class SprintGame extends Component {
           };
 
 
+
           // if(JSON.parse(localStorage.getItem('arrCountWrong'))) {
           //   for(let i = 0; i < JSON.parse(localStorage.getItem('arrCountWrong')).length -1; i++) {
           //     if(item.id == JSON.parse(localStorage.getItem('arrCountWrong'))[i].userId) {
@@ -368,8 +382,10 @@ export class SprintGame extends Component {
               let state = {
               userId: localStorage.getItem('userId'),
               wordId: item.id,
-              word: { "difficulty": "hard", "optional": {testFieldString: 'test', testFieldBoolean: true, wrongCount: ++wrongCount} }
+              word: { "difficulty": "hard", "optional": {testFieldString: 'test', testFieldBoolean: true, wrongCount: ++wrongCount , rightCount: rightCount} }
             }
+
+            localStorage.wrongCount = state.word.optional.wrongCount;
 
 
              arrCountWrong.push(state);
@@ -384,12 +400,12 @@ export class SprintGame extends Component {
 
 
           updateUserStatistics(stateStatist);
-
+          data = await getUserStatistics(userId);
         });
 
         localStorage.arrCountWrong = JSON.stringify(arrCountWrong);
 
-        data = await getUserStatistics(userId);
+       data = await getUserStatistics(userId);
 
        localStorage.data = JSON.stringify(data);
 
