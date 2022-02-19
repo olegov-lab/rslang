@@ -92,6 +92,7 @@ export function nextPage() {
       arrFalseAnswerEn.push(wordsEnArray[pageNum]);
       arrFalseAnswerAudio.push(audioArray[pageNum]);
       arrFalseWordsID.push(arrWordsID[pageNum]);
+      console.log(arrFalseWordsID)
       resultsAudioCall.wordsWrongAnswers.push(arrWordsID[pageNum]);
 
       showAnswer(); // показываем ответ
@@ -181,7 +182,7 @@ export function nextPage() {
 /*проигрывание звука при нажатии на пробел*/
 export function spaceSound(event: KeyboardEvent) {
   const keyPress = event.keyCode;
-  if( keyPress === 32) {
+  if (keyPress === 32) {
     event.preventDefault();
     playSound();
   }
