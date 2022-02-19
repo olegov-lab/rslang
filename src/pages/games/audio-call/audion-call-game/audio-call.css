@@ -1,10 +1,20 @@
 .game-audio {
-    min-height: 95vh;
+    height: calc(100vh - 115px);
     background: linear-gradient(to bottom, #fff, #ffcce0);
 }
 
 .game-audio-page {
-    padding-top: 100px;
+    padding-top: 80px;
+}
+
+.progress-bar {
+    position: absolute;
+    right: 0;
+    left: 0;
+    width: 0;
+    background: #29CFAC;
+    height: 3px;
+    transition: all .3s;
 }
 
 .audio-game-img {
@@ -96,7 +106,7 @@
 }
 
 .answer {
-    display: block;
+    display: flex;
     cursor: pointer;
     padding: 15px;
     transition: all .2s;
@@ -146,6 +156,11 @@
     width: 32px;
     height: 32px;
     cursor: pointer;
+    transition: all .3s;
+}
+
+.switch-sound:hover {
+    transform: scale(1.05);
 }
 
 .switch-sound.active {
@@ -240,9 +255,11 @@
     width: 20px;
     margin: 5px 10px;
     background-image: url('../../../../assets/sound.png');
+    background-position: bottom;
     background-size: contain;
     background-repeat: no-repeat;
     cursor: pointer;
+    transition: all .3s;
 }
 
 .return-btn-container {
@@ -284,6 +301,17 @@
 
 .game-image {
     min-height: 8rem;
+}
+
+@media (max-width: 768px) {
+    .game-audio-page {
+        padding: 30px;
+    }
+
+    .audio-game-answers {
+        flex-direction: column;
+        margin-top: 50px;
+    }
 }
 
 @media (max-width: 420px) {

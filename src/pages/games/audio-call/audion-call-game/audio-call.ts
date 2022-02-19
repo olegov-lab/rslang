@@ -11,6 +11,7 @@ import { playWrongSound, playCorrectSound } from "./switch-sound";
 import { renderAudioCallResults} from "./audio-call-results";
 import { countingPercentAnswerRightAudioCall, resetLongestAnswerRightAudioCall } from "./audio-call-statistics";
 import { startAudioCallStatistics, giveAudioCallStatistics, resultsAudioCall, countingLongestAnswerRightAudioCall } from './audio-call-statistics';
+import { progressBar } from './progress-bar';
 //import { pressKeyBoard } from './keybord';
 
 export const body = document.body;
@@ -35,6 +36,7 @@ export let arrFalseWordsID: string [] = [];  // массив неправиль�
 
 export let pageNum: number = 0; // номер текущей страницы
 const lastPage: number = 19; // номер последней страницы
+export let progressWidth  = 0
 
 /* получаем данные из другой группы для еще одного массива */
 const getRandomAnswers = async () => {
@@ -72,6 +74,12 @@ export function clearArraysRepeat() {
   arrFalseAnswerAudio = [];
 }
 
+export function resetProgressBar() {
+  const progressBar = document.querySelector('.progress-bar') as HTMLElement;
+  progressWidth = 0;
+  return progressBar.style.width = `${progressWidth}%`;
+}
+
 /* нажатие на не знаю */
 export function nextPage() {
   const target = event.target as HTMLElement;
@@ -107,6 +115,7 @@ export function nextPage() {
 
     } else if (pageNum < lastPage) {
       pageNum++;
+      progressWidth += 5;
       target.innerText = 'Не знаю';
       answers.forEach((el: any) => {
         el.style.color = 'black';
@@ -116,19 +125,20 @@ export function nextPage() {
         el.classList.remove('event');
         el.style["pointer-events"] = "auto";
       });
-
       playSound();
+      progressBar(progressWidth);
       hideAnswer();
       getNewWords();
     }
 
     else {
+      resetProgressBar();
       renderAudioCallResults();
     }
   }
 };
 
-/*нажатие на клавиши*/
+/*нажатие на клавиши
  export function keyPressCheck(event: KeyboardEvent) {
   const keyPress = event.keyCode;
   const answers = document.querySelectorAll('.answer') as NodeList;
@@ -166,6 +176,7 @@ export function nextPage() {
     renderAudioCallResults();
   }
 }
+*/
 
 /*проигрывание звука при нажатии на пробел*/
 export function spaceSound(event: KeyboardEvent) {
@@ -176,8 +187,57 @@ export function spaceSound(event: KeyboardEvent) {
   }
 }
 
+/*
+export function answersKeybord(event: KeyboardEvent) {
+  const keyPress:any = event.key;
+  const answers = document.querySelectorAll('.answer') as NodeList;
+  const knowBtn = document.querySelector('.audion-btn') as HTMLElement;
 
-body.addEventListener('keypress', keyPressCheck);
+ if (keyPress == 1) {
+
+  if (answers[0].textContent === wordsRusArray[pageNum] ) {
+
+    (answers[0] as HTMLElement).style.color = 'green';
+    console.log(answers[0]);
+    console.log('true')
+
+    arrTrueAnswer.push(wordsRusArray[pageNum]);
+
+    playCorrectSound();
+
+    answers.forEach((el: HTMLElement) => {
+      if (el.innerText != wordsRusArray[pageNum]) {
+        el.style.opacity = '0.4';
+        el.classList.add('event');
+      }
+  });
+}
+else {
+  (answers[0] as HTMLElement).style.color = 'red';
+  //target.style.textDecoration = 'line-through';
+  playWrongSound();
+
+  answers.forEach((el: HTMLElement) => {
+  if (el.innerText === wordsRusArray[pageNum]) {
+    el.classList.add('active');
+  }
+  else if (el.innerText != wordsRusArray[pageNum]) {
+    el.style.opacity = '0.4';
+    el.classList.add('event');
+  }
+})
+arrFalseAnswer.push(wordsRusArray[pageNum]);
+}
+ }
+showAnswer();
+knowBtn.innerText = 'Далее';
+}
+
+document.addEventListener('keypress', answersKeybord)
+
+
+//body.addEventListener('keypress', keyPressCheck);
+*/
 body.addEventListener('change', chooseGroup);
 body.addEventListener('click', renderGameAudioPage);
 startAudioCallStatistics();

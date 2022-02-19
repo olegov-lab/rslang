@@ -5,6 +5,7 @@ import { checkAnswer } from './check-answer';
 import { choosePage } from './get-page';
 import { nextPage } from './audio-call';
 import { switchSound } from './switch-sound';
+import { progressBar } from './progress-bar';
 
 /*рендер страницы игры*/
 export function renderGameAudioPage() {
@@ -16,8 +17,12 @@ export function renderGameAudioPage() {
 
     gameAudioDesc.style.display = "none";
     clearArraysRepeat();
+
     const section = document.createElement('section');
     section.className = 'game-audio';
+
+    const progressBar =  document.createElement('div');
+    progressBar.className = 'progress-bar';
 
     const container = document.createElement('div');
     container.className = 'container';
@@ -70,6 +75,7 @@ export function renderGameAudioPage() {
 
     document.addEventListener('keydown', spaceSound);
 
+    section.appendChild(progressBar);
     section.appendChild(container);
     container.appendChild(gameAudioPage);
     gameAudioPage.appendChild(soundSwitcher);

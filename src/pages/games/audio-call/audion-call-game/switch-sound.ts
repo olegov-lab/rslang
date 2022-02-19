@@ -1,4 +1,4 @@
-let isPlay = true;
+ let isPlay = true;
 
 export function playCorrectSound() {
   const audio = new Audio("../../../../assets/correct-sound.mp3");
