@@ -14,6 +14,7 @@ const getWordsCollectionUser = async (userId: string, group = 0, page = 0) => {
 };
 
 function createSprintData(words) {
+  console.log(words);
   for (const variable in words) {
     if ({}.hasOwnProperty.call(words, variable)) {
       const currentIndex = Number(variable);
@@ -26,6 +27,7 @@ function createSprintData(words) {
           correctTranslate: words[currentIndex].wordTranslate,
           audio: `https://raw.githubusercontent.com/irinainina/rslang/rslang-data/data/${words[currentIndex].audio}`,
           answer: true,
+          userWord: words[currentIndex].userWord,
         });
       } else {
         const res = currentIndex < 19
@@ -36,6 +38,7 @@ function createSprintData(words) {
             correctTranslate: words[currentIndex].wordTranslate,
             audio: `https://raw.githubusercontent.com/irinainina/rslang/rslang-data/data/${words[currentIndex].audio}`,
             answer: false,
+            userWord: words[currentIndex].userWord,
           })
           : sprintData.currentWordsKit.push({
             id: words[currentIndex].id || words[currentIndex]._id,
@@ -44,9 +47,13 @@ function createSprintData(words) {
             correctTranslate: words[currentIndex].wordTranslate,
             audio: `https://raw.githubusercontent.com/irinainina/rslang/rslang-data/data/${words[currentIndex].audio}`,
             answer: false,
+            userWord: words[currentIndex].userWord,
           });
+      };
+/*       if (Object.prototype.hasOwnProperty.call(words[currentIndex], 'userWord')) {
+        sprintData.currentWordsKit.userWord = words[currentIndex].userWord;
       }
-    }
+ */    }
   }
 }
 

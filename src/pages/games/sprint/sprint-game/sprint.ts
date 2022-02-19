@@ -7,20 +7,24 @@ import { sprintData } from './sprint-page/sprintData';
 import { PlaySound } from './PlaySound';
 import { defineGroupAndPage } from './sprint-page/getGroupAndPage';
 
-import {getUserStatistics , updateUserStatistics} from "../../../../api/statistics";
+import { getUserStatistics, updateUserStatistics } from '../../../../api/statistics';
 
 import { getDate } from '../../../../components/react/get-date';
 import { checkDate } from '../../../../components/react/check-date';
 
-import { getUserAggrWord, createUserWord, getUserAggrWordHard,
-  getUserAggrWordHardAll, updateUserWord }
-from "../../../../api/user-aggregated";
-
+import {
+  getUserAggrWord, createUserWord, getUserAggrWordHard,
+  getUserAggrWordHardAll, updateUserWord,
+}
+  from '../../../../api/user-aggregated';
 
 import {
-  resultsSprint, giveSprintStatistics, startSprintStatistics, countingLongestAnswerRightSprint,
+  resultsSprint,
+  giveSprintStatistics,
+  startSprintStatistics,
+  countingLongestAnswerRightSprint,
+  saveStat,
 } from './returnStatidtics';
-
 
 let countCorrectAnswers = 0;
 
@@ -52,11 +56,11 @@ export class SprintGame extends Component {
     const sprintDescriptionPage = new SprintDescriptionPage(this.main);
     sprintDescriptionPage.startGame = () => {
       this.renderGame();
-
     };
   }
 
   checkAnswer(curentAnswer) {
+    saveStat(sprintData.currentNumberWord);
     if (sprintData.currentWordsKit[sprintData.currentNumberWord].answer === curentAnswer) {
       const sound = new PlaySound();
       sound.playCorrectSound();
@@ -86,14 +90,14 @@ export class SprintGame extends Component {
     sprintData.currentWordsKit = [];
     await defineGroupAndPage();
     await generateWordsForGame();
+    console.log(sprintData.currentWordsKit);
+
     const sprintPage = new SprintPage(this.main);
     if (document.querySelector('.game-sprint-description')) {
       document.querySelector('.game-sprint-description').remove();
     }
     await sprintPage.renderCard();
     this.showTimer();
-
-
 
     sprintPage.showNextWord = (event) => {
       this.checkAnswer(event);
@@ -119,11 +123,11 @@ export class SprintGame extends Component {
 
   static renderResults() {
     const root = document.querySelector('.main') as HTMLElement;
+    console.log(document.querySelector('.game-sprint'));
     const results = new Results(root);
     results.renderAnswers();
     giveSprintStatistics();
   }
-
 
   showTimer() {
     this.timer = new Component(this.main, 'div', ['sprint-timer']);
@@ -139,11 +143,9 @@ export class SprintGame extends Component {
     let curentTime = totalTime;
     this.timerId = setInterval(() => {
       if (!sprintData.timerStatus) {
-
-        SprintGame.renderResults();
+        // SprintGame.renderResults();
         this.getUzas();
         this.stopGame();
-
       } else {
         // eslint-disable-next-line no-lonely-if
         if (curentTime > 0) {
@@ -154,7 +156,6 @@ export class SprintGame extends Component {
           curentTime -= 1;
           circle.style.strokeDashoffset = progress.toString();
         } else {
-
           SprintGame.renderResults();
           this.getUzas();
           this.timer.destroy();
@@ -167,73 +168,66 @@ export class SprintGame extends Component {
   }
 
   getUzas() {
+    if (!localStorage.getItem('token')) {
+      const percentAnswerRightSprint = JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || 0;
 
-    if(!localStorage.getItem('token')){
+      const longestAnswerRightSprint = +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || 0;
 
-    let percentAnswerRightSprint = JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || 0;
+      const percentRightAudioCall = +localStorage.getItem('percentRightAudioCall') || 0;
 
-    let longestAnswerRightSprint = +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || 0;
+      const LongestAnswerRightAudioCall = localStorage.getItem('LongestAnswerRightAudioCall') || 0;
 
-    let percentRightAudioCall = +localStorage.getItem('percentRightAudioCall') || 0;
+      let percentAnswerForDay: number = (percentAnswerRightSprint + percentRightAudioCall) / 2 || percentAnswerRightSprint || percentRightAudioCall || 0;
 
-    let LongestAnswerRightAudioCall = localStorage.getItem('LongestAnswerRightAudioCall') || 0;
+      const currentDate = getDate();
 
-    let percentAnswerForDay: Number = (percentAnswerRightSprint + percentRightAudioCall) / 2 || percentAnswerRightSprint || percentRightAudioCall || 0;
+      const startDate = checkDate();
 
-
-      let currentDate = getDate();
-
-      let startDate = checkDate();
-
-      if(currentDate != startDate) {
-        percentAnswerForDay = 0 ;
+      if (currentDate != startDate) {
+        percentAnswerForDay = 0;
       }
+    } if (localStorage.getItem('token')) {
+      const startDate = checkDate();
 
-     } if(localStorage.getItem('token')) {
-
-      let startDate = checkDate();
-
-      let userId = localStorage.getItem('userId');
+      const userId = localStorage.getItem('userId');
 
       const getDateAsyncCompare = async () => {
-
         let data = await checkDate();
 
-        let percentAnswerRightSprint = data.optional.percentAnswerRightSprint || JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || 0;
+        const percentAnswerRightSprint = data.optional.percentAnswerRightSprint || JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || 0;
 
-        let longestAnswerRightSprint = data.optional.longestAnswerRightSprint || +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || 0;
+        const longestAnswerRightSprint = data.optional.longestAnswerRightSprint || +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || 0;
 
-        let percentRightAudioCall = data.optional.percentRightAudioCall || +localStorage.getItem('percentRightAudioCall') || 0;
+        const percentRightAudioCall = data.optional.percentRightAudioCall || +localStorage.getItem('percentRightAudioCall') || 0;
 
-        let LongestAnswerRightAudioCall = data.optional.LongestAnswerRightAudioCall || localStorage.getItem('LongestAnswerRightAudioCall') || 0;
+        const LongestAnswerRightAudioCall = data.optional.LongestAnswerRightAudioCall || localStorage.getItem('LongestAnswerRightAudioCall') || 0;
 
-        let percentAnswerForDay: Number = data.optional.percentAnswerForDay || percentAnswerRightSprint || percentRightAudioCall ||  (percentAnswerRightSprint + percentRightAudioCall) / 2 || 0;
+        let percentAnswerForDay: number = data.optional.percentAnswerForDay || percentAnswerRightSprint || percentRightAudioCall || (percentAnswerRightSprint + percentRightAudioCall) / 2 || 0;
 
         localStorage.percentAnswerForDay = percentAnswerForDay;
 
+        const currentDate = getDate();
 
-        let currentDate = getDate();
-
-        let state = {
+        const state = {
           userId: localStorage.getItem('userId'),
           statistics: {
-            "optional": {
+            optional: {
               startDate: data.optional.startDate,
               percentAnswerRightSprint: JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || data.optional.percentAnswerRightSprint,
               longestAnswerRightSprint: +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || data.optional.longestAnswerRightSprint,
               percentRightAudioCall: +localStorage.getItem('percentRightAudioCall') || data.optional.percentRightAudioCall,
               LongestAnswerRightAudioCall: localStorage.getItem('LongestAnswerRightAudioCall') || data.optional.LongestAnswerRightAudioCall,
               percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
-              }
-          }
+            },
+          },
         };
 
         updateUserStatistics(state);
 
         data = await getUserStatistics(userId);
 
-        if(currentDate != data.optional.startDate) {
-          percentAnswerForDay = 0 ;
+        if (currentDate != data.optional.startDate) {
+          percentAnswerForDay = 0;
           localStorage.percentAnswerForDay = percentAnswerForDay;
           localStorage.startDate = currentDate;
           data.optional.startDate = localStorage.startDate;
@@ -243,67 +237,47 @@ export class SprintGame extends Component {
 
         data = await getUserStatistics(userId);
 
-        let wordsCorrectAnswers = JSON.parse(localStorage.getItem('SprintStatistics'))?.wordsCorrectAnswers || [];
-        let wordsWrongAnswers = JSON.parse(localStorage.getItem('SprintStatistics'))?.wordsWrongAnswers || [];
+        const wordsCorrectAnswers = JSON.parse(localStorage.getItem('SprintStatistics'))?.wordsCorrectAnswers || [];
+        const wordsWrongAnswers = JSON.parse(localStorage.getItem('SprintStatistics'))?.wordsWrongAnswers || [];
 
-        let currentCorrectWordUser = wordsCorrectAnswers.map(item => {
-
-          let state = {
+        const currentCorrectWordUser = wordsCorrectAnswers.map((item) => {
+          const state = {
             userId: localStorage.getItem('userId'),
             wordId: item.id,
-            word: { "difficulty": "easy", "optional": {testFieldString: 'test', testFieldBoolean: true} }
-          }
+            word: { difficulty: 'easy', optional: { testFieldString: 'test', testFieldBoolean: true } },
+          };
 
-          if (createUserWord(state).then(reject => reject)) {
+          if (createUserWord(state).then((reject) => reject)) {
             updateUserWord(state);
           } else {
             createUserWord(state);
             updateUserWord(state);
           }
+        });
 
-        })
-
-
-        let currentWrongWordUser = wordsWrongAnswers.map(item => {
-
-          let state = {
+        const currentWrongWordUser = wordsWrongAnswers.map((item) => {
+          const state = {
             userId: localStorage.getItem('userId'),
             wordId: item.id,
-            word: { "difficulty": "hard", "optional": {testFieldString: 'test', testFieldBoolean: true} }
-          }
+            word: { difficulty: 'hard', optional: { testFieldString: 'test', testFieldBoolean: true } },
+          };
 
-
-          if (createUserWord(state).then(reject => reject)) {
+          if (createUserWord(state).then((reject) => reject)) {
             updateUserWord(state);
           } else {
             createUserWord(state);
             updateUserWord(state);
           }
-        })
+        });
 
-       localStorage.data = JSON.stringify(data);
+        localStorage.data = JSON.stringify(data);
 
-    console.log("uzas");
+        console.log('uzas');
+      };
 
+      getDateAsyncCompare();
     }
+  }
 
-    getDateAsyncCompare();
-
-    }
-
-    }
-
-
-//!
-
-
+  //!
 }
-
-
-
-
-
-
-
-
-

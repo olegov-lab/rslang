@@ -1,3 +1,10 @@
+type UserWord = {
+  difficulty?: string,
+  optional?: {
+    testFieldBoolean?: boolean,
+    testFieldString?: string,
+  }
+}
 export interface IGameData {
     id: string,
     word: string,
@@ -6,6 +13,7 @@ export interface IGameData {
     audio: string,
     answer: boolean,
     userAnswer?: boolean,
+    userWord?: UserWord,
 }
 
 export const sprintData: {
