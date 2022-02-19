@@ -28,7 +28,11 @@ export class StaticsPage extends Component {
 
     let count: number | string;
 
+    // let newWordSprintSum = 0 || +localStorage.getItem('newWordSprintSum');
+    // let newWordForDaySum = 0 || +localStorage.getItem('newWordForDaySum');
 
+    // +newWordSprintSum;
+    // +newWordForDaySum;
 
     if(!localStorage.getItem('token')){
 
@@ -77,102 +81,49 @@ export class StaticsPage extends Component {
 
     let dataWordsServer = await getUserStatistics(userId);
 
-    let percentAnswerRightSprint = JSON.parse(localStorage.getItem('data'))?.optional.percentAnswerRightSprint
+    let percentAnswerRightSprint = JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring
                                    || dataWordsServer?.optional?.percentAnswerRightSprint || 0;
 
-    let longestAnswerRightSprint = JSON.parse(localStorage.getItem('data'))?.optional.longestAnswerRightSprint
+
+    let longestAnswerRightSprint = JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint
                                    || dataWordsServer.optional.longestAnswerRightSprint || 0;
 
-    let percentRightAudioCall = JSON.parse(localStorage.getItem('data'))?.optional.percentRightAudioCall
+    let percentRightAudioCall = JSON.parse(localStorage.getItem('audioCallStatistics'))?.percentRightAudioCall
                                 || dataWordsServer.optional.percentRightAudioCall || 0;
 
-    let LongestAnswerRightAudioCall = JSON.parse(localStorage.getItem('data'))?.optional.LongestAnswerRightAudioCall
+    let LongestAnswerRightAudioCall = JSON.parse(localStorage.getItem('audioCallStatistics'))?.LongestAnswerRightAudioCall
                                       || dataWordsServer.optional.LongestAnswerRightAudioCall || 0;
 
     let percentAnswerForDay: Number = JSON.parse(localStorage.getItem('data'))?.optional.percentAnswerForDay || percentAnswerRightSprint || percentRightAudioCall ||  (percentAnswerRightSprint + percentRightAudioCall) / 2 || 0;
 
-    //localStorage.percentAnswerForDay = percentAnswerForDay;
+    let newWordSprint = +JSON.parse(localStorage.getItem('data'))?.optional.newWordSprintSum || 0;
 
 
-    //   currentDate = getDate();
 
-    //   let state = {
-    //     userId: localStorage.getItem('userId'),
-    //     statistics: {
-    //       "optional": {
-    //         startDate: data.optional.startDate,
-    //         percentAnswerRightSprint: JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || data.optional.percentAnswerRightSprint,
-    //         longestAnswerRightSprint: +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || data.optional.longestAnswerRightSprint,
-    //         percentRightAudioCall: +localStorage.getItem('percentRightAudioCall') || data.optional.percentRightAudioCall,
-    //         LongestAnswerRightAudioCall: localStorage.getItem('LongestAnswerRightAudioCall') || data.optional.LongestAnswerRightAudioCall,
-    //         percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
-    //         }
-    //     }
-    //   };
+    // newWordSprintSum += +newWordSprint;
 
-    //   updateUserStatistics(state);
+    // localStorage.newWordSprintSum = newWordSprintSum;
 
-    //   data = await getUserStatistics(userId);
+    // let newWordForDay = +newWordSprintSum;
 
-    //   if(currentDate != data.optional.startDate) {
-    //     percentAnswerForDay = 0 ;
-    //     localStorage.percentAnswerForDay = percentAnswerForDay;
-    //     localStorage.startDate = currentDate;
-    //     data.optional.startDate = localStorage.startDate;
-    //   }
+    // newWordForDaySum += newWordForDay;
 
-    //   updateUserStatistics(state);
-
-    //   data = await getUserStatistics(userId);
-
-    //   let wordsCorrectAnswers = JSON.parse(localStorage.getItem('SprintStatistics'))?.wordsCorrectAnswers || [];
-    //   let wordsWrongAnswers = JSON.parse(localStorage.getItem('SprintStatistics'))?.wordsWrongAnswers || [];
-
-    //   let currentCorrectWordUser = wordsCorrectAnswers.map(item => {
-
-    //     let state = {
-    //       userId: localStorage.getItem('userId'),
-    //       wordId: item.id,
-    //       word: { "difficulty": "easy", "optional": {testFieldString: 'test', testFieldBoolean: true} }
-    //     }
-
-    //     if (createUserWord(state).then(reject => reject)) {
-    //       updateUserWord(state);
-    //     } else {
-    //       createUserWord(state);
-    //       updateUserWord(state);
-    //     }
-
-    //   })
+    // localStorage.newWordForDaySum = +newWordForDaySum;
 
 
-    //   let currentWrongWordUser = wordsWrongAnswers.map(item => {
-
-    //     let state = {
-    //       userId: localStorage.getItem('userId'),
-    //       wordId: item.id,
-    //       word: { "difficulty": "hard", "optional": {testFieldString: 'test', testFieldBoolean: true} }
-    //     }
 
 
-    //     if (createUserWord(state).then(reject => reject)) {
-    //       updateUserWord(state);
-    //     } else {
-    //       createUserWord(state);
-    //       updateUserWord(state);
-    //     }
-    //   })
 
       reloadPageStatistics();
 
       contantStatist.element.innerHTML = `
-      ${renderBlockStatist('statist-item','Количество новых слов по игре “Спринт”', count)}
+      ${renderBlockStatist('statist-item','Количество новых слов по игре “Спринт”', newWordSprint)}
       ${renderBlockStatist('statist-item','Процент правильных ответов по игре “Спринт”', percentAnswerRightSprint)}
       ${renderBlockStatist('statist-item','Самая длинная серия правильных ответов по игре “Спринт”', longestAnswerRightSprint)}
       ${renderBlockStatist('statist-item','Количество новых слов по игре “Аудиовызов”', count)}
       ${renderBlockStatist('statist-item','Процент правильных ответов по игре “Аудиовызов”', percentRightAudioCall)}
       ${renderBlockStatist('statist-item','Самая длинная серия правильных ответов по игре “Аудиовызов”', LongestAnswerRightAudioCall)}
-      ${renderBlockStatist('statist-item','Количество новых слов за день', count)}
+      ${renderBlockStatist('statist-item','Количество новых слов за день', newWordSprint)}
       ${renderBlockStatist('statist-item','Количество изученных слов за день', count)}
       ${renderBlockStatist('statist-item','Процент правильных ответов за день', percentAnswerForDay)}
   `

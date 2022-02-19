@@ -35,13 +35,20 @@ export const checkDate = () => {
             LongestAnswerRightAudioCall: data?.optional?.LongestAnswerRightAudioCall
             || +JSON.parse(localStorage.getItem('audioCallStatistics'))?.longestAnswerRightAudioCall || 0,
             percentAnswerForDay: data?.optional?.percentAnswerForDay || localStorage.percentAnswerForDay || 0,
+            newWordSprintSum: data?.optional?.newWordSprintSum || +JSON.parse(localStorage.getItem('SprintStatistics'))?.isUserWord || 0,
+
             // rightCount: data?.optional.rightCount || 0,
             // wrongCount: data?.optional.wrongCount || 0,
           }
+
       }
+
     };
 
     updateUserStatistics(state);
+
+
+console.log(data?.optional?.newWordSprintSum)
     }
     getStata();
     }
