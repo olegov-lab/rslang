@@ -1,5 +1,6 @@
 import './games-selector.css';
 import { resetLongestAnswerRightAudioCall } from "../audio-call/audion-call-game/audio-call-statistics";
+import { resetProgressBar } from '../audio-call/audion-call-game/audio-call';
 
 export function renderGameChoice() {
 
@@ -22,6 +23,7 @@ export function renderGameChoice() {
     const gameAudioCallSelect = document.createElement('div');
     gameAudioCallSelect.classList.add('game-audio-call-select');
     gameAudioCallSelect.addEventListener('click', resetLongestAnswerRightAudioCall);
+    gameAudioCallSelect.addEventListener('click', resetProgressBar);
 
     const gameAudioCallTitle = document.createElement('div');
     gameAudioCallTitle.classList.add('game-audio-call-title');

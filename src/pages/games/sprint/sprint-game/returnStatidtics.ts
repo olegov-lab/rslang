@@ -1,11 +1,13 @@
 /* eslint-disable max-len */
-import { IGameData } from './sprint-page/sprintData';
+import { IGameData, sprintData } from './sprint-page/sprintData';
 
 interface ISprintResults {
   wordsCorrectAnswers: Array<IGameData>,
   wordsWrongAnswers: Array<IGameData>,
   percentAnswerRightSpring: number,
   longestAnswerRightSprint: number,
+  isUserWord: number,
+  isTestFieldBoolean: number,
 }
 
 export const resultsSprint: ISprintResults = {
@@ -13,6 +15,8 @@ export const resultsSprint: ISprintResults = {
   wordsWrongAnswers: [],
   percentAnswerRightSpring: 0,
   longestAnswerRightSprint: 0,
+  isUserWord: 0,
+  isTestFieldBoolean: 0,
 };
 
 // подсчет процента правильных ответов
@@ -29,22 +33,35 @@ export const countingLongestAnswerRightSprint = (countAnswers) => {
   }
 };
 
-// отдать статистику в виде
+// сбор статистики в виде
 export const startSprintStatistics = async () => {
-  /* если игра первая и статистики в локале нет - отдаем туда пустой объект */
+  /*
   if (localStorage.getItem('SprintStatistics') === null) {
     const sprintStatistics = JSON.stringify(resultsSprint);
     localStorage.setItem('SprintStatistics', sprintStatistics);
-  } else { // если есть, подтягиваем данные из локала в приложение
+  } else {
     const localResultsSprint = await JSON.parse(localStorage.getItem('SprintStatistics'));
     resultsSprint.wordsCorrectAnswers = localResultsSprint.wordsCorrectAnswers;
     resultsSprint.wordsWrongAnswers = localResultsSprint.wordsWrongAnswers;
     resultsSprint.longestAnswerRightSprint = localResultsSprint.longestAnswerRightSprint;
     resultsSprint.percentAnswerRightSpring = localResultsSprint.percentAnswerRightSpring;
+  } */
+  const localResultsSprint = await JSON.parse(localStorage.getItem('SprintStatistics'));
+  resultsSprint.isUserWord = localResultsSprint.isUserWord;
+};
+
+export const saveStat = (index: number): void => {
+  console.log(typeof sprintData.currentWordsKit[index].userWord);
+  
+  if (typeof sprintData.currentWordsKit[index].userWord !== 'undefined') {
+    resultsSprint.isUserWord += 1;
+    if (sprintData.currentWordsKit[index].userWord.optional.testFieldBoolean === false) {
+      resultsSprint.isTestFieldBoolean += 1;
+    };
   }
 };
 
-export const giveSprintStatistics = async () => {
+export const giveSprintStatistics = async (): Promise<void> => {
   await countingPercentAnswerRightSpring();
   const sprintStatistics = JSON.stringify(resultsSprint);
   localStorage.setItem('SprintStatistics', sprintStatistics);

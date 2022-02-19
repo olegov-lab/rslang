@@ -113,6 +113,10 @@ figcaption>p:last-child {
   margin-bottom: 30px;
 }
 
+.member-actions-block li {
+  list-style-type: initial;
+}
+
 .team-info-title {
   max-width: 430px;
   position: relative;
@@ -148,7 +152,7 @@ figcaption>p:last-child {
   margin: 10px;
   width: 400px;
   max-width: 100%;
-  max-height: 600px;
+  max-height: 700px;
   padding: 20px;
   background: linear-gradient(180deg, #feeeee 0%, #fffbfb 100%);
   border-radius: 30px;

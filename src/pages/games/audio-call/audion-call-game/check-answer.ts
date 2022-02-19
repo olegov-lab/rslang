@@ -4,6 +4,8 @@ import { wordsRusArray, wordsEnArray, pageNum, arrTrueAnswer, arrFalseAnswer, ar
 import { showAnswer } from "./show-answer";
 import { playCorrectSound, playWrongSound } from "./switch-sound";
 import { countingLongestAnswerRightAudioCall, giveAudioCallStatistics, resetLongestAnswerRightAudioCall, countingPercentAnswerRightAudioCall, resultsAudioCall } from "./audio-call-statistics";
+import { progressWidth } from "./audio-call";
+import { progressBar } from "./progress-bar";
 
 
 /*проверка ответа*/
@@ -58,6 +60,7 @@ export function checkAnswer(event: MouseEvent) {
 
 }
 showAnswer();
+progressBar(progressWidth);
 countingPercentAnswerRightAudioCall();
 giveAudioCallStatistics();
 knowBtn.innerText = 'Далее';

@@ -7,10 +7,11 @@ import { sprintData } from './sprint-page/sprintData';
 import { PlaySound } from './PlaySound';
 import { defineGroupAndPage } from './sprint-page/getGroupAndPage';
 
-import {getUserStatistics , updateUserStatistics} from "../../../../api/statistics";
+import { getUserStatistics, updateUserStatistics } from '../../../../api/statistics';
 
 import { getDate } from '../../../../components/react/get-date';
 import { checkDate } from '../../../../components/react/check-date';
+
 
 import { getUserAggrWord, createUserWord, getUserAggrWordHard,
   getUserAggrWordHardAll, updateUserWord, getUserWordAll, getUserWordById, getUserAggrWordById}
@@ -19,10 +20,15 @@ from "../../../../api/user-aggregated";
 import { reloadPageStatistics } from "../../../../components/react/reload"
 
 
-import {
-  resultsSprint, giveSprintStatistics, startSprintStatistics, countingLongestAnswerRightSprint,
-} from './returnStatidtics';
 
+
+import {
+  resultsSprint,
+  giveSprintStatistics,
+  startSprintStatistics,
+  countingLongestAnswerRightSprint,
+  saveStat,
+} from './returnStatidtics';
 
 let countCorrectAnswers = 0;
 
@@ -54,11 +60,11 @@ export class SprintGame extends Component {
     const sprintDescriptionPage = new SprintDescriptionPage(this.main);
     sprintDescriptionPage.startGame = () => {
       this.renderGame();
-
     };
   }
 
   checkAnswer(curentAnswer) {
+    saveStat(sprintData.currentNumberWord);
     if (sprintData.currentWordsKit[sprintData.currentNumberWord].answer === curentAnswer) {
       const sound = new PlaySound();
       sound.playCorrectSound();
@@ -88,14 +94,14 @@ export class SprintGame extends Component {
     sprintData.currentWordsKit = [];
     await defineGroupAndPage();
     await generateWordsForGame();
+    console.log(sprintData.currentWordsKit);
+
     const sprintPage = new SprintPage(this.main);
     if (document.querySelector('.game-sprint-description')) {
       document.querySelector('.game-sprint-description').remove();
     }
     await sprintPage.renderCard();
     this.showTimer();
-
-
 
     sprintPage.showNextWord = (event) => {
       this.checkAnswer(event);
@@ -122,11 +128,11 @@ export class SprintGame extends Component {
 
   static renderResults() {
     const root = document.querySelector('.main') as HTMLElement;
+    console.log(document.querySelector('.game-sprint'));
     const results = new Results(root);
     results.renderAnswers();
     giveSprintStatistics();
   }
-
 
   showTimer() {
     this.timer = new Component(this.main, 'div', ['sprint-timer']);
@@ -142,10 +148,11 @@ export class SprintGame extends Component {
     let curentTime = totalTime;
     this.timerId = setInterval(() => {
       if (!sprintData.timerStatus) {
-        //SprintGame.renderResults();
+
+        // SprintGame.renderResults();
+
         this.getUzas();
         this.stopGame();
-
       } else {
         // eslint-disable-next-line no-lonely-if
         if (curentTime > 0) {
@@ -428,7 +435,10 @@ export class SprintGame extends Component {
 
 
 
+
+
 //!
+
 
 
 
