@@ -39,7 +39,7 @@ export const renderAboutCommand = () => `
         <div class="member-item">
             <img src="../../assets/ivan.jpg" alt="ivan" class="member-photo">
             <div class="member-description">
-              <div class="member-name">Иван Лащук</div>
+              <div class="member-name">Иван Лашук</div>
               <a class="member-github" href="https://github.com/britva1910" target="_blank">britva1910</a>
               <div class="member-position">Developer</div>
               <ul class="member-actions-block">
