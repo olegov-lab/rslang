@@ -1,6 +1,7 @@
 import './audio-call-results';
 import{ arrTrueAnswer , arrFalseAnswer, arrTrueAnswerEn, arrFalseAnswerEn, clearArraysRepeat, arrTrueAnswerAudio, arrFalseAnswerAudio } from './audio-call';
 import { resetLongestAnswerRightAudioCall } from "./audio-call-statistics";
+import { resetProgressBar } from './audio-call';
 
 export function renderAudioCallResults() {
     const fragment = document.createDocumentFragment();
@@ -99,6 +100,7 @@ export function renderAudioCallResults() {
     returnBtn.className = 'return-btn';
     returnBtn.addEventListener('click', clearArraysRepeat);
     returnBtn.addEventListener('click', resetLongestAnswerRightAudioCall);
+    returnBtn.addEventListener('click', resetProgressBar);
 
     const returnGame = document.createElement('div');
     returnGame.className = 'return';
