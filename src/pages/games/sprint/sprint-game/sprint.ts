@@ -213,11 +213,11 @@ export class SprintGame extends Component {
 
         let percentRightAudioCall = data.optional.percentRightAudioCall || +localStorage.getItem('percentRightAudioCall') || 0;
 
-        let LongestAnswerRightAudioCall = data.optional.LongestAnswerRightAudioCall || localStorage.getItem('LongestAnswerRightAudioCall') || 0;
+        let LongestAnswerRightAudioCall = data.optional.LongestAnswerRightAudioCall || +localStorage.getItem('LongestAnswerRightAudioCall') || 0;
 
-        let percentAnswerForDay: Number = data.optional.percentAnswerForDay || percentAnswerRightSprint || percentRightAudioCall ||  (percentAnswerRightSprint + percentRightAudioCall) / 2 || 0;
+        let percentAnswerForDay: Number = +data.optional.percentAnswerForDay || +percentAnswerRightSprint || +percentRightAudioCall ||  (percentAnswerRightSprint + percentRightAudioCall) / 2 || 0;
 
-        localStorage.percentAnswerForDay = percentAnswerForDay;
+        //localStorage.percentAnswerForDay = percentAnswerForDay;
 
 
 
@@ -235,12 +235,12 @@ export class SprintGame extends Component {
 
         //console.log(data.optional.startDate)
 
-        if(currentDate != data.optional.startDate) {
-          percentAnswerForDay = 0 ;
-          localStorage.percentAnswerForDay = percentAnswerForDay;
-          localStorage.startDate = currentDate;
-          data.optional.startDate = localStorage.startDate;
-        }
+        // if(currentDate != data.optional.startDate) {
+        //   percentAnswerForDay = 0 ;
+        //   localStorage.percentAnswerForDay = percentAnswerForDay;
+        //   localStorage.startDate = currentDate;
+        //   data.optional.startDate = localStorage.startDate;
+        // }
 
 
 
