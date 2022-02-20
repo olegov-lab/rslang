@@ -47,7 +47,9 @@ export class StaticsPage extends Component {
 
       let LongestAnswerRightAudioCall = +JSON.parse(localStorage.getItem('audioCallStatistics'))?.longestAnswerRightAudioCall  || 0;
 
-      let percentAnswerForDay: Number = (percentAnswerRightSprint + percentRightAudioCall) / 2 || percentAnswerRightSprint || percentRightAudioCall || 0;
+      let midleAnswer = (percentAnswerRightSprint + percentRightAudioCall) / 2;
+
+      let percentAnswerForDay: Number = ((midleAnswer > percentAnswerRightSprint) || (midleAnswer > percentRightAudioCall)) ? midleAnswer : percentAnswerRightSprint || percentRightAudioCall || 0;
 
 
 
@@ -99,7 +101,9 @@ export class StaticsPage extends Component {
                                       ?? dataWordsServer.optional.LongestAnswerRightAudioCall ?? 0;
 
     //let percentAnswerForDay = +JSON.parse(localStorage.getItem('percentAnswerForDay')) || percentAnswerRightSprint || percentRightAudioCall ||  (percentAnswerRightSprint + percentRightAudioCall) / 2 || 0;
-    let percentAnswerForDay = dataWordsServer.optional.percentAnswerForDay || percentAnswerRightSprint || percentRightAudioCall ||  (percentAnswerRightSprint + percentRightAudioCall) / 2 || 0;
+    let midleAnswer = (percentAnswerRightSprint + percentRightAudioCall) / 2;
+
+    let percentAnswerForDay = dataWordsServer.optional.percentAnswerForDay || ((midleAnswer > percentAnswerRightSprint) || (midleAnswer > percentRightAudioCall)) ? midleAnswer : percentAnswerRightSprint || percentRightAudioCall ||  (percentAnswerRightSprint + percentRightAudioCall) / 2 || 0;
 
     let newWordSprint = +JSON.parse(localStorage.getItem('data'))?.optional?.newWordSprintSum || 0;
 
