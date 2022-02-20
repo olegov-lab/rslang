@@ -14,7 +14,7 @@ import { checkDate } from '../../../../components/react/check-date';
 
 
 import { getUserAggrWord, createUserWord, getUserAggrWordHard,
-  getUserAggrWordHardAll, updateUserWord, getUserWordAll, getUserWordById, getUserAggrWordById}
+  getUserAggrWordHardAll, updateUserWord, getUserWordAll, getUserWordById, getUserAggrWordById, getUserAggrWordLearnAll}
 from "../../../../api/user-aggregated";
 
 import { reloadPageStatistics } from "../../../../components/react/reload"
@@ -200,9 +200,17 @@ export class SprintGame extends Component {
 
       let startDate = checkDate();
 
+      checkDate();
+
       let userId = localStorage.getItem('userId');
 
       const getDateAsyncCompare = async () => {
+
+       let LearnWord = await getUserAggrWordLearnAll(userId);
+
+       console.log(LearnWord.length);
+
+
 
         let data = await checkDate();
 
@@ -255,6 +263,8 @@ export class SprintGame extends Component {
 
          let arrCountWrong = [];
 
+
+         localStorage.data = JSON.stringify(data);
         let currentCorrectWordUser = wordsCorrectAnswers.map(async item => {
 
 
@@ -284,7 +294,7 @@ export class SprintGame extends Component {
                 LongestAnswerRightAudioCall: localStorage.getItem('LongestAnswerRightAudioCall') || data.optional.LongestAnswerRightAudioCall,
                 percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
                 newWordSprintSum: newWordSprintSum,
-
+                LearnWord: LearnWord.length,
                 // rightCount: rightCount,
                 // wrongCount: wrongCount,
               }
@@ -317,6 +327,7 @@ export class SprintGame extends Component {
           updateUserStatistics(stateStatist);
 
           data = await getUserStatistics(userId);
+          localStorage.data = JSON.stringify(data);
         })
 
 
@@ -355,6 +366,7 @@ export class SprintGame extends Component {
                 LongestAnswerRightAudioCall: localStorage.getItem('LongestAnswerRightAudioCall') || data.optional.LongestAnswerRightAudioCall,
                 percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
                 newWordSprintSum: newWordSprintSum,
+                LearnWord: LearnWord.length,
 
                 // rightCount: rightCount,
                 // wrongCount: wrongCount,
@@ -386,6 +398,7 @@ export class SprintGame extends Component {
 
 
           updateUserStatistics(stateStatist);
+          localStorage.data = JSON.stringify(data);
 
         });
 

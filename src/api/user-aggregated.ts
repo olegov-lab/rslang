@@ -254,3 +254,32 @@ export const getUserAggrWordById = async ({userId, wordId}) => {
      }
   }
 };
+
+
+export const getUserAggrWordLearnAll = async (userId) => {
+  try {
+    const rawResponse = await fetch(`${baseUrl}/users/${userId}/aggregatedWords?wordsPerPage=6000&filter={"$and":[{"userWord.difficulty":"easy"}]}`, {
+      method: 'GET',
+      //withCredentials: true,
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/json',
+      }
+    });
+
+    const content = await rawResponse.json();
+
+    if (rawResponse.status === 200) {
+     //console.log(content[0].paginatedResults);
+
+     //console.log(content);
+     return content[0].paginatedResults;
+    }
+
+    return null;
+  } catch (err) {
+    if (err.status === 417) {
+      return ;
+     }
+  }
+};
