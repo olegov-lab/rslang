@@ -175,20 +175,20 @@ event.preventDefault();
   if (keyPress === '1') {
 
     if (answers[0].textContent === wordsRusArray[pageNum] ) {
-  
+
       (answers[0] as HTMLElement).className = 'answer active';
       (answers[0] as HTMLElement).style["pointer-events"] = "none";
-      
+
       arrTrueAnswer.push(wordsRusArray[pageNum]);
       arrTrueAnswerEn.push(wordsEnArray[pageNum]);
       arrTrueAnswerAudio.push(audioArray[pageNum]);
       arrTrueWordsID.push(arrWordsID[pageNum]);
-  
+
       resultsAudioCall.wordsCorrectAnswers.push(arrWordsID[pageNum]);
       countingLongestAnswerRightAudioCall();
-  
+
       playCorrectSound();
-  
+
       answers.forEach((el: HTMLElement) => {
         if (el.innerText != wordsRusArray[pageNum]) {
           el.style.opacity = '0.4';
@@ -200,10 +200,10 @@ event.preventDefault();
   else {
     (answers[0] as HTMLElement).style.color = 'red';
     (answers[0] as HTMLElement).style.textDecoration = 'line-through';
-  
+
     playWrongSound();
     resetLongestAnswerRightAudioCall();
-  
+
     answers.forEach((el: HTMLElement) => {
     if (el.innerText === wordsRusArray[pageNum]) {
       el.classList.add('active');
@@ -221,24 +221,24 @@ event.preventDefault();
   arrFalseWordsID.push(arrWordsID[pageNum]);
   resultsAudioCall.wordsWrongAnswers.push(arrWordsID[pageNum]);
       }
-   
+
   }
-  
+
   if (keyPress === '2') {
-  
+
     if (answers[1].textContent === wordsRusArray[pageNum] ) {
-  
+
       (answers[1] as HTMLElement).className = 'answer active';
       (answers[1] as HTMLElement).style["pointer-events"] = "none";
-  
+
       arrTrueAnswer.push(wordsRusArray[pageNum]);
       arrTrueAnswerEn.push(wordsEnArray[pageNum]);
       arrTrueAnswerAudio.push(audioArray[pageNum]);
       arrTrueWordsID.push(arrWordsID[pageNum]);
-  
+
       resultsAudioCall.wordsCorrectAnswers.push(arrWordsID[pageNum]);
       countingLongestAnswerRightAudioCall();
-  
+
       playCorrectSound();
       answers.forEach((el: HTMLElement) => {
         if (el.innerText != wordsRusArray[pageNum]) {
@@ -251,10 +251,10 @@ event.preventDefault();
   else {
     (answers[1] as HTMLElement).style.color = 'red';
     (answers[1] as HTMLElement).style.textDecoration = 'line-through';
-  
+
     playWrongSound();
     resetLongestAnswerRightAudioCall();
-  
+
     answers.forEach((el: HTMLElement) => {
     if (el.innerText === wordsRusArray[pageNum]) {
       el.classList.add('active');
@@ -273,22 +273,22 @@ event.preventDefault();
   resultsAudioCall.wordsWrongAnswers.push(arrWordsID[pageNum]);
     }
   }
-  
+
   if (keyPress === '3') {
-  
+
     if (answers[2].textContent === wordsRusArray[pageNum] ) {
-  
+
       (answers[2] as HTMLElement).className = 'answer active';
       (answers[2] as HTMLElement).style["pointer-events"] = "none";
-  
+
       arrTrueAnswer.push(wordsRusArray[pageNum]);
       arrTrueAnswerEn.push(wordsEnArray[pageNum]);
       arrTrueAnswerAudio.push(audioArray[pageNum]);
       arrTrueWordsID.push(arrWordsID[pageNum]);
-  
+
       resultsAudioCall.wordsCorrectAnswers.push(arrWordsID[pageNum]);
       countingLongestAnswerRightAudioCall();
-  
+
       playCorrectSound();
       answers.forEach((el: HTMLElement) => {
         if (el.innerText != wordsRusArray[pageNum]) {
@@ -301,10 +301,10 @@ event.preventDefault();
   else {
     (answers[2] as HTMLElement).style.color = 'red';
     (answers[2] as HTMLElement).style.textDecoration = 'line-through';
-  
+
     playWrongSound();
     resetLongestAnswerRightAudioCall();
-  
+
     answers.forEach((el: HTMLElement) => {
     if (el.innerText === wordsRusArray[pageNum]) {
       el.classList.add('active');
@@ -323,22 +323,22 @@ event.preventDefault();
   resultsAudioCall.wordsWrongAnswers.push(arrWordsID[pageNum]);
     }
   }
-  
+
   if (keyPress == '4') {
-  
+
     if (answers[3].textContent === wordsRusArray[pageNum] ) {
-  
+
       (answers[3] as HTMLElement).className = 'answer active';
       (answers[3] as HTMLElement).style["pointer-events"] = "none";
-  
+
       arrTrueAnswer.push(wordsRusArray[pageNum]);
       arrTrueAnswerEn.push(wordsEnArray[pageNum]);
       arrTrueAnswerAudio.push(audioArray[pageNum]);
       arrTrueWordsID.push(arrWordsID[pageNum]);
-  
+
       resultsAudioCall.wordsCorrectAnswers.push(arrWordsID[pageNum]);
       countingLongestAnswerRightAudioCall();
-  
+
       playCorrectSound();
       answers.forEach((el: HTMLElement) => {
         if (el.innerText != wordsRusArray[pageNum]) {
@@ -351,10 +351,10 @@ event.preventDefault();
   else {
     (answers[3] as HTMLElement).style.color = 'red';
     (answers[3] as HTMLElement).style.textDecoration = 'line-through';
-  
+
     playWrongSound();
     resetLongestAnswerRightAudioCall();
-  
+
     answers.forEach((el: HTMLElement) => {
     if (el.innerText === wordsRusArray[pageNum]) {
       el.classList.add('active');
@@ -374,20 +374,20 @@ event.preventDefault();
     }
   }
   if (keyPress == '5') {
-  
+
     if (answers[4].textContent === wordsRusArray[pageNum] ) {
-  
+
       (answers[4] as HTMLElement).className = 'answer active';
       (answers[4] as HTMLElement).style["pointer-events"] = "none";
-  
+
       arrTrueAnswer.push(wordsRusArray[pageNum]);
       arrTrueAnswerEn.push(wordsEnArray[pageNum]);
       arrTrueAnswerAudio.push(audioArray[pageNum]);
       arrTrueWordsID.push(arrWordsID[pageNum]);
-  
+
       resultsAudioCall.wordsCorrectAnswers.push(arrWordsID[pageNum]);
       countingLongestAnswerRightAudioCall();
-  
+
       playCorrectSound();
       answers.forEach((el: HTMLElement) => {
         if (el.innerText != wordsRusArray[pageNum]) {
@@ -400,10 +400,10 @@ event.preventDefault();
   else {
     (answers[4] as HTMLElement).style.color = 'red';
     (answers[4] as HTMLElement).style.textDecoration = 'line-through';
-  
+
     playWrongSound();
     resetLongestAnswerRightAudioCall();
-  
+
     answers.forEach((el: HTMLElement) => {
     if (el.innerText === wordsRusArray[pageNum]) {
       el.classList.add('active');
@@ -660,6 +660,7 @@ function getUzas() {
   }
 
   getDateAsyncCompare();
+  console.log('games')
 
   }
 
