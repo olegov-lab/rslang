@@ -49,8 +49,7 @@ export class StaticsPage extends Component {
 
       let midleAnswer = (percentAnswerRightSprint + percentRightAudioCall) / 2;
 
-      let percentAnswerForDay: Number = ((midleAnswer > percentAnswerRightSprint) || (midleAnswer > percentRightAudioCall)) ? midleAnswer : percentAnswerRightSprint || percentRightAudioCall || 0;
-
+      let percentAnswerForDay: Number = (( percentAnswerRightSprint == 0) || (percentRightAudioCall == 0)) ? percentAnswerRightSprint || percentRightAudioCall : midleAnswer || 0;
 
 
       reloadPageStatistics();
@@ -103,9 +102,9 @@ export class StaticsPage extends Component {
     //let percentAnswerForDay = +JSON.parse(localStorage.getItem('percentAnswerForDay')) || percentAnswerRightSprint || percentRightAudioCall ||  (percentAnswerRightSprint + percentRightAudioCall) / 2 || 0;
     let midleAnswer = (percentAnswerRightSprint + percentRightAudioCall) / 2;
 
-    let percentAnswerForDay = dataWordsServer.optional.percentAnswerForDay || ((midleAnswer > percentAnswerRightSprint) || (midleAnswer > percentRightAudioCall)) ? midleAnswer : percentAnswerRightSprint || percentRightAudioCall ||  (percentAnswerRightSprint + percentRightAudioCall) / 2 || 0;
+    let percentAnswerForDay = dataWordsServer.optional.percentAnswerForDay || ((percentAnswerRightSprint == 0) || (percentRightAudioCall == 0)) ? percentAnswerRightSprint || percentRightAudioCall : midleAnswer || 0;
 
-    let newWordSprint = +JSON.parse(localStorage.getItem('data'))?.optional?.newWordSprintSum || 0;
+    let newWordSprint = +JSON.parse(localStorage.getItem('data'))?.optional?.newWordSprintSum ?? 0;
 
     percentAnswerForDay =+ percentAnswerForDay;
 
