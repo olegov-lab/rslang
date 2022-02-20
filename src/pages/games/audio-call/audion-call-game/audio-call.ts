@@ -475,9 +475,9 @@ function getUzas() {
 
       let longestAnswerRightSprint = data.optional.longestAnswerRightSprint || +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || 0;
 
-      let percentRightAudioCall = data.optional.percentRightAudioCall || +localStorage.getItem('percentRightAudioCall') || 0;
+      let percentRightAudioCall = data.optional.percentRightAudioCall || +JSON.parse(localStorage.getItem('percentRightAudioCall'))?.percentRightAudioCall || 0;
 
-      let LongestAnswerRightAudioCall = data.optional.LongestAnswerRightAudioCall || localStorage.getItem('LongestAnswerRightAudioCall') || 0;
+      let LongestAnswerRightAudioCall = data.optional.LongestAnswerRightAudioCall || +JSON.parse(localStorage.getItem('LongestAnswerRightAudioCall'))?.LongestAnswerRightAudioCall || 0;
 
       let percentAnswerForDay: Number = +data.optional.percentAnswerForDay || (( percentAnswerRightSprint == 0) || (percentRightAudioCall == 0)) ? +percentAnswerRightSprint ||  +percentRightAudioCall : ((percentAnswerRightSprint + percentRightAudioCall) / 2) || 0;
 
@@ -548,8 +548,8 @@ function getUzas() {
               startDate: data.optional.startDate || startDate,
               percentAnswerRightSprint: JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || data.optional.percentAnswerRightSprint,
               longestAnswerRightSprint: +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || data.optional.longestAnswerRightSprint,
-              percentRightAudioCall: +localStorage.getItem('percentRightAudioCall') || data.optional.percentRightAudioCall,
-              LongestAnswerRightAudioCall: localStorage.getItem('LongestAnswerRightAudioCall') || data.optional.LongestAnswerRightAudioCall,
+              percentRightAudioCall: +JSON.parse(localStorage.getItem('percentRightAudioCall'))?.percentRightAudioCall || data.optional.percentRightAudioCall,
+              LongestAnswerRightAudioCall: +JSON.parse(localStorage.getItem('LongestAnswerRightAudioCall'))?.LongestAnswerRightAudioCall || data.optional.LongestAnswerRightAudioCall,
               percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
               newWordSprintSum: newWordSprintSum || 1,
               LearnWord: LearnWord.length,
@@ -612,8 +612,8 @@ function getUzas() {
               startDate: data.optional.startDate || startDate,
               percentAnswerRightSprint: JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || data.optional.percentAnswerRightSprint,
               longestAnswerRightSprint: +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || data.optional.longestAnswerRightSprint,
-              percentRightAudioCall: +localStorage.getItem('percentRightAudioCall') || data.optional.percentRightAudioCall,
-              LongestAnswerRightAudioCall: localStorage.getItem('LongestAnswerRightAudioCall') || data.optional.LongestAnswerRightAudioCall,
+              percentRightAudioCall: +JSON.parse(localStorage.getItem('percentRightAudioCall'))?.percentRightAudioCall || data.optional.percentRightAudioCall,
+              LongestAnswerRightAudioCall: +JSON.parse(localStorage.getItem('LongestAnswerRightAudioCall'))?.LongestAnswerRightAudioCall || data.optional.LongestAnswerRightAudioCall,
               percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
               newWordSprintSum: newWordSprintSum || 1,
               LearnWord: LearnWord.length,
@@ -660,7 +660,7 @@ function getUzas() {
   }
 
   getDateAsyncCompare();
-  console.log('games')
+
 
   }
 
