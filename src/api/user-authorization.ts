@@ -86,7 +86,7 @@ export const loginUser = async (user: {}): Promise<IUserToken> => {
    localStorage.setItem('message', message);
    localStorage.setItem('refreshToken', refreshToken);
    localStorage.setItem('userId', userId);
-
+   localStorage.removeItem('audioCallStatistics');// удаляем анонимную стату аудиоколла после получения токена
 
 
 

@@ -1,11 +1,20 @@
-.games-page {
+/*.games-page {
     height: 74.5vh;
     overflow-x: hidden;
 }
 
 .games-page {
-    margin: 80px 0 30px;
     height: calc(100vh - 225px);
+    overflow-x: hidden;
+}
+*/
+
+.games-page {
+    height: 76.7vh;
+    display: flex;
+    margin: 80px auto 30px;
+    justify-content: center;
+    overflow-x: hidden;
 }
 
 .game-audio-description {
@@ -96,6 +105,10 @@
 }
 
 @media (max-width: 768px) {
+
+    .games-page {
+        height: auto;
+    }
 
     .games-page-title {
         font-size: 40px;

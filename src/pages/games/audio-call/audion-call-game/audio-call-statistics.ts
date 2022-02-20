@@ -1,6 +1,8 @@
 import {arrTrueWordsID, arrFalseWordsID} from "./audio-call";
 let  longestAnswerRightAudioCall: number = 0;
 
+let a = 0;
+let b = 0;
 interface IAudioCallResults {
     wordsCorrectAnswers: string [],
     wordsWrongAnswers: string [],
@@ -15,11 +17,18 @@ interface IAudioCallResults {
     longestAnswerRightAudioCall: 0,
   };
 
+  export function resetResultsAudioCall() {
+    resultsAudioCall.wordsCorrectAnswers = [];
+    resultsAudioCall.wordsWrongAnswers = [];
+  }
+
 
 export function countingPercentAnswerRightAudioCall() {
-  const wordsCorrectAnswers = resultsAudioCall.wordsCorrectAnswers.length;
-  const wordsWrongAnswers = resultsAudioCall.wordsWrongAnswers.length;
-  resultsAudioCall.percentAnswerRightAudioCall = Math.floor((wordsCorrectAnswers * 100) / (wordsCorrectAnswers + wordsWrongAnswers));
+  let wordsCorrectAnswers = resultsAudioCall.wordsCorrectAnswers.length;
+  let wordsWrongAnswers = resultsAudioCall.wordsWrongAnswers.length;
+  a += wordsCorrectAnswers;
+  b += wordsWrongAnswers;
+  resultsAudioCall.percentAnswerRightAudioCall = Math.floor((a * 100) / (a + b));
 }
 
 
@@ -50,7 +59,7 @@ export function resetLongestAnswerRightAudioCall () {
   };
   
   export const giveAudioCallStatistics = async () => {
-    //await countingPercentAnswerRightAudioCall();
+    countingPercentAnswerRightAudioCall();
     const audioCallStatistics = JSON.stringify(resultsAudioCall);
     localStorage.setItem('audioCallStatistics', audioCallStatistics);
   };
