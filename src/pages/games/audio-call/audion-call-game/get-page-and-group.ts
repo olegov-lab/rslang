@@ -33,7 +33,6 @@ export const getPageAndGroup = async (group = 0, page = 0) => {
         wordsRusArray.push(words[i].wordTranslate);
         wordsImgArray.push(words[i].image);
       }
-     console.log("есть токена, дикт " + words)
     } else { // для анонима
 
       const words = await getWords(+storageGroup, +storagePage);
@@ -46,7 +45,6 @@ export const getPageAndGroup = async (group = 0, page = 0) => {
         wordsRusArray.push(words[i].wordTranslate);
         wordsImgArray.push(words[i].image);
       }
-      //console.log(`нет токена, дикт ${arrWordsID}`)
     }
   } else { // не через словарь
       /* для юзера */
@@ -62,7 +60,6 @@ export const getPageAndGroup = async (group = 0, page = 0) => {
         wordsRusArray.push(words[i].wordTranslate);
         wordsImgArray.push(words[i].image);
       }
-      console.log("есть токен, нав " + arrWordsID)
     }
       else { // для анонима
         const words = await getWords(group, page);
@@ -75,7 +72,6 @@ export const getPageAndGroup = async (group = 0, page = 0) => {
           wordsRusArray.push(words[i].wordTranslate);
           wordsImgArray.push(words[i].image);
         }
-        console.log("нет токена, нав " + arrWordsID)
       }
     }
   };
