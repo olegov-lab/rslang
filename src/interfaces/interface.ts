@@ -14,7 +14,13 @@ export interface IWords {
   textMeaningTranslate: "string",
   textExampleTranslate: "string",
   userWord?: {
-    difficulty: "string"
+    difficulty: "string",
+    optional: {
+      testFieldString: "string",
+      testFieldBoolean: Boolean,
+      wrongCount: Number,
+      rightCount: Number
+    }
   }
 }
 

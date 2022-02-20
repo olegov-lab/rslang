@@ -12,7 +12,7 @@ export class Results extends Component {
 
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', ['game-sprint-results']);
-    document.querySelector('.game-sprint').remove();
+    document.querySelector('.game-sprint').remove(); /* FIXME  */
     this.main = parentNode;
   }
 

@@ -45,10 +45,10 @@ export class TextbookItem extends Component {
       <div class="likes-option">
       <div class="dislike">
         <img src="../../assets/dislike.png" />
-        <span>0</span>
+        <span>${word?.userWord?.optional.wrongCount || 0} </span>
       </div>
       <di class="like">
-        <span>0</span>
+        <span>${word?.userWord?.optional.rightCount || 0}</span>
         <img src="../../assets/like.png" />
       </div>
       </div>
@@ -70,6 +70,8 @@ export class TextbookItem extends Component {
     removeWordBtn.element.setAttribute('data-id',`${word._id}`);
 
     this.element.setAttribute('id', `${word._id}`);
+
+    this.element.setAttribute('data-name', `${word.word}`);
 
     if(localStorage.getItem('token')) {
 

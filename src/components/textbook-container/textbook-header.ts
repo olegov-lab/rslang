@@ -57,11 +57,6 @@ export class TextbookHeader extends Component {
     this.gamesBtn.element.addEventListener('click', () => localStorage.setItem('gameSource', 'dictionary'));
 
 
-    //const burgerMenu = new Component(containerPartOfHeader.element, 'div', ['burger'], '');
-    //const contentBurger = new Component(burgerMenu.element, 'div', ['sidepanel'], '');
-    //const burgerBtn = new Component(burgerMenu.element, 'button', ['openbtn-textbook'], '☰');
-
-
     this.linkForPart1.element.setAttribute('href', '#/textbook/0');
     this.linkForPart2.element.setAttribute('href', '#/textbook/1');
     this.linkForPart3.element.setAttribute('href', '#/textbook/2');
@@ -81,29 +76,6 @@ export class TextbookHeader extends Component {
     window.addEventListener('load', () => this.updateActiveOfLink(this.nav));
 
 
-
-
-    //const changeBurger = document.querySelector('.openbtn-textbook');
-    // const changeMenu = document.querySelector('.sidepanel');
-    // const closeBtn = document.querySelector('.closebtn');
-    // const exiteBtn = document.querySelector('.nav-btnEx');
-
-    // changeBurger.addEventListener('click' , (event) => {
-    //   changeMenu.classList.add('active-sidepanel');
-    // })
-
-    // closeBtn.addEventListener('click' , (event) => {
-    //   changeMenu.classList.remove('active-sidepanel');
-    // })
-
-    // exiteBtn.addEventListener('click', () => {
-
-    //   document.querySelector('.nav-btn').classList.remove('hidden');
-    //   document.querySelector('.nav-btnEx').classList.add('hidden');
-    //   window.location.hash = '#/signin';
-    //   localStorage.clear();
-    // })
-
   }
 
   updateActiveOfLink(nav: Component[]): void {
@@ -116,6 +88,7 @@ export class TextbookHeader extends Component {
       if (window.location.hash === '#/textbook') {
         this.nav[localStorage.getItem('group')].element.classList.add('active-link');
         item.element.classList.remove('active-link');
+
       }
 
       return item;
