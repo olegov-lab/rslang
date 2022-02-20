@@ -304,9 +304,9 @@ function getUzas() {
 
       let LongestAnswerRightAudioCall = data.optional.LongestAnswerRightAudioCall || localStorage.getItem('LongestAnswerRightAudioCall') || 0;
 
-      let percentAnswerForDay: Number = data.optional.percentAnswerForDay || percentAnswerRightSprint || percentRightAudioCall ||  (percentAnswerRightSprint + percentRightAudioCall) / 2 || 0;
+      let percentAnswerForDay: Number = +data.optional.percentAnswerForDay || (( percentAnswerRightSprint == 0) || (percentRightAudioCall == 0)) ? +percentAnswerRightSprint ||  +percentRightAudioCall : ((percentAnswerRightSprint + percentRightAudioCall) / 2) || 0;
 
-      localStorage.percentAnswerForDay = percentAnswerForDay;
+      //localStorage.percentAnswerForDay = percentAnswerForDay;
 
 
       let currentDate = getDate();

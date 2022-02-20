@@ -99,6 +99,10 @@ export class Header extends Component {
     window.location.reload();
     })
 
+    partOfHeader.element.addEventListener('click', () => {
+      reloadPageStatistics();
+      })
+
 
     document.querySelector('.games-btn-burger').addEventListener('click', () => {
       changeMenu.classList.remove('active-sidepanel');

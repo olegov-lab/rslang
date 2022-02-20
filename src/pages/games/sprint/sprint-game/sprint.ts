@@ -214,14 +214,12 @@ export class SprintGame extends Component {
 
         let LongestAnswerRightAudioCall = data.optional.LongestAnswerRightAudioCall || +localStorage.getItem('LongestAnswerRightAudioCall') || 0;
 
-        let percentAnswerForDay: Number = +data.optional.percentAnswerForDay || +percentAnswerRightSprint || +percentRightAudioCall ||  (percentAnswerRightSprint + percentRightAudioCall) / 2 || 0;
+        let percentAnswerForDay: Number = +data.optional.percentAnswerForDay || (( percentAnswerRightSprint == 0) || (percentRightAudioCall == 0)) ? +percentAnswerRightSprint ||  +percentRightAudioCall : ((percentAnswerRightSprint + percentRightAudioCall) / 2) || 0;
 
 
         let currentDate = getDate();
 
         let stateStatist;
-
-
 
         data = await getUserStatistics(userId);
 
