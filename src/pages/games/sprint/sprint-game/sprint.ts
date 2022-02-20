@@ -208,6 +208,8 @@ export class SprintGame extends Component {
 
        let LearnWord = await getUserAggrWordLearnAll(userId);
 
+       console.log(LearnWord)
+
 
 
         let data = await checkDate();

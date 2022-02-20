@@ -504,17 +504,20 @@ function getUzas() {
       let wordsCorrectAnswers = JSON.parse(localStorage.getItem('audioCallStatistics'))?.wordsCorrectAnswers || [];
       let wordsWrongAnswers = JSON.parse(localStorage.getItem('audioCallStatistics'))?.wordsWrongAnswers || [];
 
-      let newWordSprintSum = data?.optional?.newWordSprintSum || +JSON.parse(localStorage.getItem('SprintStatistics'))?.isUserWord || 0;
+      //let newWordAudioCallSum = data?.optional?.newWordSprintSum || +JSON.parse(localStorage.getItem('SprintStatistics'))?.isUserWord || 0;
       //let newWordSprintSum = data?.optional?.newWordSprintSum;
+
+      let newWordAudioCallSum = 0;
+          let newWordSprint = 0;
       let newWordForDaySum = 0 || +localStorage.getItem('newWordForDaySum');
-      let newWordSprint = +JSON.parse(localStorage.getItem('SprintStatistics'))?.isUserWord || 0;
+      //let newWordSprint = +JSON.parse(localStorage.getItem('SprintStatistics'))?.isUserWord || 0;
 
 
-      newWordSprintSum += +newWordSprint;
+      // newWordSprintSum += +newWordSprint;
 
-        let newWordForDay = +newWordSprintSum;
+      //   let newWordForDay = +newWordSprintSum;
 
-        newWordForDaySum += newWordForDay;
+      //   newWordForDaySum += newWordForDay;
 
       localStorage.flagTry = 0;
 
@@ -551,7 +554,7 @@ function getUzas() {
               percentRightAudioCall: +JSON.parse(localStorage.getItem('percentRightAudioCall'))?.percentRightAudioCall || data.optional.percentRightAudioCall,
               LongestAnswerRightAudioCall: +JSON.parse(localStorage.getItem('LongestAnswerRightAudioCall'))?.LongestAnswerRightAudioCall || data.optional.LongestAnswerRightAudioCall,
               percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
-              newWordSprintSum: newWordSprintSum || 1,
+              newWordAudioCallSum: 0,
               LearnWord: LearnWord.length,
               // rightCount: rightCount,
               // wrongCount: wrongCount,
@@ -615,7 +618,7 @@ function getUzas() {
               percentRightAudioCall: +JSON.parse(localStorage.getItem('percentRightAudioCall'))?.percentRightAudioCall || data.optional.percentRightAudioCall,
               LongestAnswerRightAudioCall: +JSON.parse(localStorage.getItem('LongestAnswerRightAudioCall'))?.LongestAnswerRightAudioCall || data.optional.LongestAnswerRightAudioCall,
               percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
-              newWordSprintSum: newWordSprintSum || 1,
+              newWordAudioCallSum: 0,
               LearnWord: LearnWord.length,
 
               // rightCount: rightCount,

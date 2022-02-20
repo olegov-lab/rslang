@@ -49,6 +49,7 @@ export const checkDate = () => {
 
 
 console.log(data?.optional?.newWordSprintSum)
+localStorage.newWordSprintSum = data?.optional?.newWordSprintSum;
     }
     getStata();
     }
