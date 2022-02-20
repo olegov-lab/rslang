@@ -256,7 +256,7 @@ document.addEventListener('keypress', answersKeybord)
 */
 body.addEventListener('change', chooseGroup);
 body.addEventListener('click', renderGameAudioPage);
-body.addEventListener('click', getUzas);
+
 startAudioCallStatistics();
 
 
@@ -313,13 +313,9 @@ function getUzas() {
 
       let stateStatist;
 
-      //console.log(currentDate)
-
-
 
       data = await getUserStatistics(userId);
 
-      //console.log(data.optional.startDate)
 
       if(currentDate != data.optional.startDate) {
         percentAnswerForDay = 0 ;
@@ -335,8 +331,6 @@ function getUzas() {
 
       localStorage.flagTry = 0;
 
-      // let rightCount = 0;
-      // let wrongCount = 0;
 
        let arrCountRight = [];
 
@@ -344,9 +338,10 @@ function getUzas() {
 
       let currentCorrectWordUser = wordsCorrectAnswers.map(async item => {
 
+
         let stateUser = {
           userId: localStorage.getItem('userId'),
-          wordId: item,
+          wordId: item._id,
         }
 
         const wordUserCount = await getUserWordById(stateUser);
@@ -356,7 +351,6 @@ function getUzas() {
 
         let rightCount = wordUserCount?.optional?.rightCount ?? 0;
 
-        console.log(rightCount);
 
          stateStatist = {
           userId: localStorage.getItem('userId'),
@@ -380,7 +374,7 @@ function getUzas() {
 
             state = {
             userId: localStorage.getItem('userId'),
-            wordId: item,
+            wordId: item._id,
             word: { "difficulty": "easy", "optional": {testFieldString: 'test', testFieldBoolean: true, rightCount: ++rightCount, wrongCount: wrongCount} }
            }
 
@@ -389,8 +383,6 @@ function getUzas() {
           localStorage.state = JSON.stringify(state);
 
           arrCountRight.push(state);
-
-
 
         if (createUserWord(state).then(reject => reject)) {
           updateUserWord(state);
@@ -406,27 +398,20 @@ function getUzas() {
 
       localStorage.arrCountRight = JSON.stringify(arrCountRight);
 
-
-
       let currentWrongWordUser = wordsWrongAnswers.map(async item => {
 
 
          let stateUser = {
           userId: localStorage.getItem('userId'),
-          wordId: item,
+          wordId: item._id,
         }
-
-        //const wordUserCount = await getUserAggrWordById(stateUser);
 
         const wordUserCount = await getUserWordById(stateUser);
 
         let rightCount = localStorage.getItem('rightCount') || wordUserCount?.optional?.rightCount;
 
-
-
         let wrongCount = wordUserCount?.optional?.wrongCount ?? 0;
 
-        console.log(wrongCount);
 
         stateStatist = {
           userId: localStorage.getItem('userId'),
@@ -448,7 +433,7 @@ function getUzas() {
 
             let state = {
             userId: localStorage.getItem('userId'),
-            wordId: item,
+            wordId: item._id,
             word: { "difficulty": "hard", "optional": {testFieldString: 'test', testFieldBoolean: true, wrongCount: ++wrongCount , rightCount: rightCount} }
           }
 
@@ -476,14 +461,8 @@ function getUzas() {
 
      localStorage.data = JSON.stringify(data);
 
-     console.log(data)
-
-  console.log("uzas");
-
   }
 
-
-  reloadPageStatistics();
   getDateAsyncCompare();
 
   }

@@ -17,6 +17,8 @@ from "../../api/user-aggregated";
 export class StaticsPage extends Component {
 
 
+
+
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', ['statistics', "wrapper"]);
 
@@ -49,7 +51,7 @@ export class StaticsPage extends Component {
 
 
 
-      //reloadPageStatistics();
+      reloadPageStatistics();
 
     contantStatist.element.innerHTML =   `
     ${renderBlockStatist('statist-item','Количество новых слов по игре “Спринт”', "нужна авторизация", "alarm-item-statist")}
@@ -73,13 +75,15 @@ export class StaticsPage extends Component {
 
 //console.log(userId)
 
-    const getDateAsyncCompare = async () => {
+  const getDateAsyncCompare = async () => {
 
       let userId = localStorage.getItem('userId');
 
-    console.log(userId)
+
 
     let dataWordsServer = await getUserStatistics(userId);
+
+    console.log(dataWordsServer)
 
     let percentAnswerRightSprint = JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring
                                    ?? dataWordsServer?.optional?.percentAnswerRightSprint ?? 0;
@@ -94,9 +98,9 @@ export class StaticsPage extends Component {
     let LongestAnswerRightAudioCall = JSON.parse(localStorage.getItem('audioCallStatistics'))?.LongestAnswerRightAudioCall
                                       ?? dataWordsServer.optional.LongestAnswerRightAudioCall ?? 0;
 
-    let percentAnswerForDay: Number = JSON.parse(localStorage.getItem('data'))?.optional.percentAnswerForDay ?? percentAnswerRightSprint ?? percentRightAudioCall ??  (percentAnswerRightSprint + percentRightAudioCall) / 2 ?? 0;
+    let percentAnswerForDay = +JSON.parse(localStorage.getItem('percentAnswerForDay')) ?? percentAnswerRightSprint ?? percentRightAudioCall ??  (percentAnswerRightSprint + percentRightAudioCall) / 2 ?? 0;
 
-    let newWordSprint = +JSON.parse(localStorage.getItem('data'))?.optional.newWordSprintSum ?? 0;
+    let newWordSprint = +JSON.parse(localStorage.getItem('data'))?.optional?.newWordSprintSum ?? 0;
 
 
 
@@ -114,7 +118,7 @@ export class StaticsPage extends Component {
 
 
 
-      //reloadPageStatistics();
+      reloadPageStatistics();
 
       contantStatist.element.innerHTML = `
       ${renderBlockStatist('statist-item','Количество новых слов по игре “Спринт”', newWordSprint)}
@@ -134,9 +138,11 @@ export class StaticsPage extends Component {
   getDateAsyncCompare();
   }
 
-  //renderStatistics();
-}
 
+}
+    //  renderStatistics() {
+    //   return this;
+    //  }
   }
 
 
