@@ -6,6 +6,7 @@ import { playCorrectSound, playWrongSound } from "./switch-sound";
 import { countingLongestAnswerRightAudioCall, giveAudioCallStatistics, resetLongestAnswerRightAudioCall, countingPercentAnswerRightAudioCall, resultsAudioCall } from "./audio-call-statistics";
 import { progressWidth } from "./audio-call";
 import { progressBar } from "./progress-bar";
+import { disable } from "./disable-keyboard";
 
 
 /*проверка ответа*/
@@ -30,7 +31,7 @@ export function checkAnswer(event: MouseEvent) {
         if (el.innerText != wordsRusArray[pageNum]) {
           el.style.opacity = '0.4';
           el.classList.add('event');
-          el.style["pointer-events"] = "none";
+          //el.style["pointer-events"] = "none";
         }
     });
     }
@@ -44,12 +45,12 @@ export function checkAnswer(event: MouseEvent) {
       answers.forEach((el: HTMLElement) => {
       if (el.innerText === wordsRusArray[pageNum]) {
         el.classList.add('active');
-        el.style["pointer-events"] = "none";
+        el.classList.add('event');
       }
       else if (el.innerText != wordsRusArray[pageNum]) {
         el.style.opacity = '0.4';
         el.classList.add('event');
-        el.style["pointer-events"] = "none";
+        //el.style["pointer-events"] = "none";
       }
     })
     arrFalseAnswer.push(wordsRusArray[pageNum]);
@@ -59,6 +60,7 @@ export function checkAnswer(event: MouseEvent) {
     resultsAudioCall.wordsWrongAnswers.push(arrWordsID[pageNum]);
 
 }
+disable();
 showAnswer();
 progressBar(progressWidth);
 countingPercentAnswerRightAudioCall();

@@ -1,11 +1,15 @@
 import './audio-call.css';
-import {  pageNum, wordsRusArray, arrCopy, spaceSound, clearArraysRepeat } from './audio-call';
+import {  pageNum, wordsRusArray, arrCopy, clearArraysRepeat } from './audio-call';
 import { playSound } from './play-word-audio';
 import { checkAnswer } from './check-answer';
 import { choosePage } from './get-page';
 import { nextPage } from './audio-call';
 import { switchSound } from './switch-sound';
 import { resetResultsAudioCall } from "./audio-call-statistics";
+import { answersKeybord } from './audio-btns-controller';
+import {spaceSound } from './space-btn-controller';
+//import { nextPageEnter } from './audio-call';
+
 
 /*рендер страницы игры*/
 export function renderGameAudioPage() {
@@ -74,7 +78,9 @@ export function renderGameAudioPage() {
     knowButton.className = 'know';
     knowButton.innerText = 'Не знаю';
 
-    document.addEventListener('keydown', spaceSound);
+    window.addEventListener('keydown', spaceSound);
+    window.addEventListener('keypress', answersKeybord);
+    //window.addEventListener('keydown', nextPageEnter);
 
     section.appendChild(progressBar);
     section.appendChild(container);
