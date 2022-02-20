@@ -36,7 +36,7 @@ export const checkDate = () => {
             || +JSON.parse(localStorage.getItem('audioCallStatistics'))?.longestAnswerRightAudioCall || 0,
             percentAnswerForDay:((data?.optional?.percentAnswerRightSprint == 0) || (data?.optional?.percentRightAudioCall == 0)) ? data?.optional?.percentAnswerRightSprint || data?.optional?.percentRightAudioCall : ((data?.optional?.percentAnswerRightSprint + data?.optional?.percentRightAudioCall) / 2) || 0,
             newWordSprintSum: data?.optional?.newWordSprintSum || +JSON.parse(localStorage.getItem('SprintStatistics'))?.isUserWord || 0,
-
+            LearnWord: data?.optional?.LearnWord || 0,
             // rightCount: data?.optional.rightCount || 0,
             // wrongCount: data?.optional.wrongCount || 0,
           }

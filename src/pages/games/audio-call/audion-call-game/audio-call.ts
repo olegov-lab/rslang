@@ -21,7 +21,7 @@ import { checkDate } from '../../../../components/react/check-date';
 
 
 import { getUserAggrWord, createUserWord, getUserAggrWordHard,
-  getUserAggrWordHardAll, updateUserWord, getUserWordAll, getUserWordById, getUserAggrWordById}
+  getUserAggrWordHardAll, updateUserWord, getUserWordAll, getUserWordById, getUserAggrWordById, getUserAggrWordLearnAll }
 from "../../../../api/user-aggregated";
 
 import { reloadPageStatistics } from "../../../../components/react/reload"
@@ -260,9 +260,6 @@ body.addEventListener('click', renderGameAudioPage);
 startAudioCallStatistics();
 
 
-
-
-
 function getUzas() {
 
   if(!localStorage.getItem('token')){
@@ -293,6 +290,10 @@ function getUzas() {
     let userId = localStorage.getItem('userId');
 
     const getDateAsyncCompare = async () => {
+
+      let LearnWord = await getUserAggrWordLearnAll(userId);
+
+
 
       let data = await checkDate();
 
@@ -329,9 +330,7 @@ function getUzas() {
       let wordsCorrectAnswers = JSON.parse(localStorage.getItem('audioCallStatistics'))?.wordsCorrectAnswers || [];
       let wordsWrongAnswers = JSON.parse(localStorage.getItem('audioCallStatistics'))?.wordsWrongAnswers || [];
 
-      let newWordSprintSum = data.optional.newWordSprintSum;
-
-
+      let newWordSprintSum = data?.optional?.newWordSprintSum;
 
       localStorage.flagTry = 0;
 
@@ -339,6 +338,8 @@ function getUzas() {
        let arrCountRight = [];
 
        let arrCountWrong = [];
+
+       localStorage.data = JSON.stringify(data);
 
       let currentCorrectWordUser = wordsCorrectAnswers.map(async item => {
 
@@ -366,8 +367,8 @@ function getUzas() {
               percentRightAudioCall: +localStorage.getItem('percentRightAudioCall') || data.optional.percentRightAudioCall,
               LongestAnswerRightAudioCall: localStorage.getItem('LongestAnswerRightAudioCall') || data.optional.LongestAnswerRightAudioCall,
               percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
-              newWordSprintSum: newWordSprintSum,
-
+              newWordSprintSum: newWordSprintSum || 0,
+              LearnWord: LearnWord.length,
               // rightCount: rightCount,
               // wrongCount: wrongCount,
             }
@@ -399,6 +400,7 @@ function getUzas() {
         updateUserStatistics(stateStatist);
 
         data = await getUserStatistics(userId);
+        localStorage.data = JSON.stringify(data);
       })
 
 
@@ -429,7 +431,8 @@ function getUzas() {
               percentRightAudioCall: +localStorage.getItem('percentRightAudioCall') || data.optional.percentRightAudioCall,
               LongestAnswerRightAudioCall: localStorage.getItem('LongestAnswerRightAudioCall') || data.optional.LongestAnswerRightAudioCall,
               percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
-              newWordSprintSum: newWordSprintSum,
+              newWordSprintSum: newWordSprintSum || 0,
+              LearnWord: LearnWord.length,
 
               // rightCount: rightCount,
               // wrongCount: wrongCount,
@@ -461,6 +464,7 @@ function getUzas() {
 
         updateUserStatistics(stateStatist);
         data = await getUserStatistics(userId);
+        localStorage.data = JSON.stringify(data);
       });
 
       localStorage.arrCountWrong = JSON.stringify(arrCountWrong);

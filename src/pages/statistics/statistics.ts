@@ -80,31 +80,29 @@ export class StaticsPage extends Component {
 
       let userId = localStorage.getItem('userId');
 
-
-
     let dataWordsServer = await getUserStatistics(userId);
 
-    console.log(dataWordsServer)
+    let LearnWord = dataWordsServer?.optional?.LearnWord || 0;
 
     let percentAnswerRightSprint = JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring
-                                   ?? dataWordsServer?.optional?.percentAnswerRightSprint ?? 0;
+                                   || dataWordsServer?.optional?.percentAnswerRightSprint || 0;
 
 
     let longestAnswerRightSprint = JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint
-                                   ?? dataWordsServer.optional.longestAnswerRightSprint ?? 0;
+                                   || dataWordsServer?.optional?.longestAnswerRightSprint || 0;
 
     let percentRightAudioCall = JSON.parse(localStorage.getItem('audioCallStatistics'))?.percentRightAudioCall
-                                ?? dataWordsServer.optional.percentRightAudioCall ?? 0;
+                                ?? dataWordsServer?.optional?.percentRightAudioCall ?? 0;
 
     let LongestAnswerRightAudioCall = JSON.parse(localStorage.getItem('audioCallStatistics'))?.LongestAnswerRightAudioCall
-                                      ?? dataWordsServer.optional.LongestAnswerRightAudioCall ?? 0;
+                                      ?? dataWordsServer?.optional?.LongestAnswerRightAudioCall ?? 0;
 
     //let percentAnswerForDay = +JSON.parse(localStorage.getItem('percentAnswerForDay')) || percentAnswerRightSprint || percentRightAudioCall ||  (percentAnswerRightSprint + percentRightAudioCall) / 2 || 0;
     let midleAnswer = (percentAnswerRightSprint + percentRightAudioCall) / 2;
 
-    let percentAnswerForDay = dataWordsServer.optional.percentAnswerForDay || ((percentAnswerRightSprint == 0) || (percentRightAudioCall == 0)) ? percentAnswerRightSprint || percentRightAudioCall : midleAnswer || 0;
+    let percentAnswerForDay = dataWordsServer?.optional?.percentAnswerForDay || ((percentAnswerRightSprint == 0) || (percentRightAudioCall == 0)) ? percentAnswerRightSprint || percentRightAudioCall : midleAnswer || 0;
 
-    let newWordSprint = +JSON.parse(localStorage.getItem('data'))?.optional?.newWordSprintSum ?? 0;
+    let newWordSprint = JSON.parse(localStorage.getItem('data'))?.optional?.newWordSprintSum || 0;
 
     percentAnswerForDay =+ percentAnswerForDay;
 
@@ -133,7 +131,7 @@ export class StaticsPage extends Component {
       ${renderBlockStatist('statist-item','Процент правильных ответов по игре “Аудиовызов”', percentRightAudioCall)}
       ${renderBlockStatist('statist-item','Самая длинная серия правильных ответов по игре “Аудиовызов”', LongestAnswerRightAudioCall)}
       ${renderBlockStatist('statist-item','Количество новых слов за день', newWordSprint)}
-      ${renderBlockStatist('statist-item','Количество изученных слов за день', count)}
+      ${renderBlockStatist('statist-item','Количество изученных слов за день', LearnWord)}
       ${renderBlockStatist('statist-item','Процент правильных ответов за день', percentAnswerForDay)}
   `
 
