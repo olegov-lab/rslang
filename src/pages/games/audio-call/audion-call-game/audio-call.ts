@@ -24,9 +24,6 @@ from "../../../../api/user-aggregated";
 import { reloadPageStatistics } from "../../../../components/react/reload"
 
 
-
-//import { pressKeyBoard } from './keybord';
-
 export const body = document.body;
 export let audioArray: string [] = []; // исходный массив аудио
 export let wordsEnArray: string [] = []; // исходный массив англ слов
