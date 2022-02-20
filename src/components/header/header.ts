@@ -1,6 +1,8 @@
 import { Component } from '../../utils/component';
 
-import { reloadPageStatistics } from "../../components/react/reload";
+import { StaticsPage } from '../../pages/statistics/statistics'
+
+import { reloadPageStatistics, reloadPageStatisticsTextbook } from "../../components/react/reload";
 
 import './header.css';
 
@@ -22,6 +24,8 @@ export class Header extends Component {
   exiteBtn: Component;
 
   nav: Component[] = [];
+
+  staticsPage: StaticsPage
 
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', ['header', 'wrapper']);
@@ -72,6 +76,7 @@ export class Header extends Component {
     const closeBtn = document.querySelector('.closebtn');
     const exiteBtn = document.querySelector('.nav-btnEx');
 
+
     changeBurger.addEventListener('click' , (event) => {
       changeMenu.classList.add('active-sidepanel');
     })
@@ -85,15 +90,28 @@ export class Header extends Component {
     })
 
     document.querySelector('.textbook-btn-burger').addEventListener('click', () => {
-      //reloadPageStatistics();
+
       changeMenu.classList.remove('active-sidepanel');
     })
 
-    // document.querySelector('.statistics-btn-burger').addEventListener('click', () => {
-    // window.location.hash = '#/statistics';
-    //  window.location.reload();
-    // })
+    document.querySelector('.statistics-btn-burger').addEventListener('click', () => {
+    window.location.hash = '#/statistics';
+    window.location.reload();
+    })
 
+
+    if(!localStorage.getItem('token')){
+      partOfHeader.element.addEventListener('click', () => {
+      reloadPageStatistics();
+      })
+    }
+
+
+    if(localStorage.getItem('token')){
+      partOfHeader.element.addEventListener('click', () => {
+      reloadPageStatistics();
+      })
+    }
 
     document.querySelector('.games-btn-burger').addEventListener('click', () => {
       changeMenu.classList.remove('active-sidepanel');
