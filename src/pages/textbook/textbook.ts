@@ -21,6 +21,7 @@ import {getUserStatistics , updateUserStatistics} from "../../api/statistics";
 import { getDate } from '../../components/react/get-date';
 import { checkDate } from '../../components/react/check-date';
 import { renderBlockStatist } from '../../pages/statistics/statist-item';
+import { body } from '../games/audio-call/audion-call-game/audio-call';
 
 
 
@@ -38,8 +39,8 @@ export class Textbook extends Component {
     super(parentNode, 'div', ['textbook', 'wrapper']);
 
 
+    //reloadPageStatisticsTextbook();
 
-    reloadPageStatisticsTextbook();
 
     if (localStorage.getItem('group')) {
       this.group = +localStorage.getItem('group');
@@ -65,8 +66,12 @@ export class Textbook extends Component {
 
 
 const navPartTextbook = document.querySelector('.nav-part-textbook');
+//const navPartTextbook = document.querySelector('body');
 
 const btnT = document.querySelector('.textbook-container-block');
+
+//const btnT = document.querySelector('body');
+
 
 btnT.addEventListener('click', (event) => {
 
@@ -249,6 +254,11 @@ let newArr = arr.join('');
   });
 
 
+
+
+
+
+
     navPartTextbook.addEventListener('click', (event) => {
        let target = event.target as HTMLElement;
 
@@ -284,6 +294,7 @@ set toLinkHref(value) {
 }
 
 private async getAllWords(group: number, page: number): Promise<void> {
+  //reloadPageStatisticsTextbook();
 
   let data;
 
@@ -340,6 +351,24 @@ private async getAllWords(group: number, page: number): Promise<void> {
 
   }
 
+
+  const navPart = document.querySelector('.nav-container-of-part');
+
+
+
+  navPart.addEventListener('click', (event) => {
+    this.getAllWords(this.group, this.page);
+  });
+
+// const navPartTwo = document.querySelector('.nav-part');
+
+  // navPartTwo.addEventListener('click', (event) => {
+  //   this.getAllWords(this.group, this.page);
+
+  //   console.log(this.group)
+  // });
+
+  //reloadPageStatisticsTextbook();
   checkWrong();
 
 
