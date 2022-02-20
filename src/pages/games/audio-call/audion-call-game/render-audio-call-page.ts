@@ -8,7 +8,8 @@ import { switchSound } from './switch-sound';
 import { resetResultsAudioCall } from "./audio-call-statistics";
 import { answersKeybord } from './audio-btns-controller';
 import {spaceSound } from './space-btn-controller';
-//import { nextPageEnter } from './audio-call';
+import { enable } from './disable-keyboard';
+import { nextPageEnter } from './audio-call';
 
 
 /*рендер страницы игры*/
@@ -21,7 +22,8 @@ export function renderGameAudioPage() {
 
     gameAudioDesc.style.display = "none";
     clearArraysRepeat();
-    resetResultsAudioCall();
+    //resetResultsAudioCall();
+    enable();
 
     const section = document.createElement('section');
     section.className = 'game-audio';
@@ -80,7 +82,7 @@ export function renderGameAudioPage() {
 
     window.addEventListener('keydown', spaceSound);
     window.addEventListener('keypress', answersKeybord);
-    //window.addEventListener('keydown', nextPageEnter);
+    window.addEventListener('keydown', nextPageEnter);
 
     section.appendChild(progressBar);
     section.appendChild(container);

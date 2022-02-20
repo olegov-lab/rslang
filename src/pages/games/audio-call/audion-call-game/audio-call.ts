@@ -90,6 +90,67 @@ export function resetProgressBar() {
   return progressBar.style.width = `${progressWidth}%`;
 }
 
+
+/* нажатие на не знаю */
+export async function nextPageEnter(event:KeyboardEvent) {
+  const keyPress: number = event.keyCode;
+  const answers = document.querySelectorAll('.answer') as NodeList;
+  const knowBtn = document.querySelector('.audion-btn') as HTMLElement;
+
+  if (keyPress === 13 && knowBtn.innerText === 'Не знаю' ) {
+
+      disable();
+
+      arrFalseAnswer.push(wordsRusArray[pageNum]);
+      arrFalseAnswerEn.push(wordsEnArray[pageNum]);
+      arrFalseAnswerAudio.push(audioArray[pageNum]);
+      arrFalseWordsID.push(arrWordsID[pageNum]);
+      resultsAudioCall.wordsWrongAnswers.push(arrWordsID[pageNum]);
+
+      showAnswer(); // показываем ответ
+      playWrongSound(); // проигрываем неправильный звук
+
+      countingPercentAnswerRightAudioCall();
+      resetLongestAnswerRightAudioCall();
+      giveAudioCallStatistics();
+
+      answers.forEach((el: any) => {
+        if (el.innerText === wordsRusArray[pageNum]) {
+          el.classList.add('active');
+          el.classList.add('event');
+        } else {
+          el.style.opacity = '0.4';
+          el.classList.add('event');
+        };
+      });
+
+      knowBtn.innerText = 'Далее';
+    }
+    else if ( keyPress === 13 && knowBtn.innerText === 'Далее') {
+      pageNum++;
+      progressWidth += 5;
+      knowBtn.innerText = 'Не знаю';
+      answers.forEach((el: any) => {
+        el.classList.remove('active');
+        el.classList.remove('event');
+        el.style.color = 'black';
+        el.style.opacity = '1';
+        el.style.textDecoration = 'none';
+      });
+      enable();
+      playSound();
+      progressBar(progressWidth);
+      hideAnswer();
+      getNewWords();
+    }
+    if (pageNum > lastPage ) {
+      resetProgressBar();
+      renderAudioCallResults();
+      getUzas();
+    }
+  };
+
+
 /* нажатие на не знаю */
 export function nextPage() {
   const target = event.target as HTMLElement;
@@ -149,66 +210,6 @@ export function nextPage() {
   }
 };
 
-/* нажатие на не знаю 
-export async function nextPageEnter(event:KeyboardEvent) {
-  const keyPress: number = event.keyCode;
-  const answers = document.querySelectorAll('.answer') as NodeList;
-  const knowBtn = document.querySelector('.audion-btn') as HTMLElement;
-
-  if (keyPress === 13 && knowBtn.innerText === 'Не знаю' ) {
-
-      disable();
-
-      arrFalseAnswer.push(wordsRusArray[pageNum]);
-      arrFalseAnswerEn.push(wordsEnArray[pageNum]);
-      arrFalseAnswerAudio.push(audioArray[pageNum]);
-      arrFalseWordsID.push(arrWordsID[pageNum]);
-      resultsAudioCall.wordsWrongAnswers.push(arrWordsID[pageNum]);
-
-      showAnswer(); // показываем ответ
-      playWrongSound(); // проигрываем неправильный звук
-
-      countingPercentAnswerRightAudioCall();
-      resetLongestAnswerRightAudioCall();
-      giveAudioCallStatistics();
-
-      answers.forEach((el: any) => {
-        if (el.innerText === wordsRusArray[pageNum]) {
-          el.classList.add('active');
-          el.classList.add('event');
-        } else {
-          el.style.opacity = '0.4';
-          el.classList.add('event');
-        }
-      });
-
-      knowBtn.innerText = 'Далее';
-
-    }
-    else if (pageNum < lastPage && keyPress === 13 &&  knowBtn.innerText === 'Далее') {
-      pageNum++;
-      progressWidth += 5;
-      knowBtn.innerText = 'Не знаю';
-      answers.forEach((el: any) => {
-        el.classList.remove('active');
-        el.classList.remove('event');
-        el.style.color = 'black';
-        el.style.opacity = '1';
-        el.style.textDecoration = 'none';
-      });
-     enable()
-      playSound();
-      progressBar(progressWidth);
-      hideAnswer();
-      getNewWords();
-    }
-
-    else {
-      resetProgressBar();
-      renderAudioCallResults();
-    }
-  };
-*/
 
 body.addEventListener('change', chooseGroup);
 body.addEventListener('click', renderGameAudioPage);
