@@ -36,7 +36,7 @@ export let arrFalseWordsID: string [] = [];  // массив неправиль�
 
 export let pageNum: number = 0; // номер текущей страницы
 const lastPage: number = 19; // номер последней страницы
-export let progressWidth  = 0
+export let progressWidth: number  = 0;
 
 /* получаем данные из другой группы для еще одного массива */
 const getRandomAnswers = async () => {
@@ -138,106 +138,282 @@ export function nextPage() {
   }
 };
 
-/*нажатие на клавиши
- export function keyPressCheck(event: KeyboardEvent) {
-  const keyPress = event.keyCode;
-  const answers = document.querySelectorAll('.answer') as NodeList;
-  const knowBtn = document.querySelector('.audion-btn') as HTMLElement;
-
-  if (knowBtn.innerHTML === 'Не знаю' && keyPress === 13) {
-    event.preventDefault();
-      arrFalseAnswer.push(wordsRusArray[pageNum]);
-      showAnswer();
-      playWrongSound();
-      answers.forEach((el: any) => {
-        if (el.innerText === wordsRusArray[pageNum]) {
-          el.classList.add('active');
-        } else {
-          el.style.opacity = '0.4';
-        }
-      });
-      knowBtn.innerText = 'Далее';
-  }
-  else if (pageNum < lastPage) {
-    pageNum++;
-    knowBtn.innerHTML = 'Не знаю';
-    answers.forEach((el: any) => {
-      el.style.color = 'black';
-      el.style.opacity = '1';
-      el.style.textDecoration = 'none';
-      el.classList.remove('active');
-      el.classList.remove('event');
-    });
-    playSound();
-    hideAnswer();
-    getNewWords();
-  }
-  else {
-    renderAudioCallResults();
-  }
-}
-*/
-
 /*проигрывание звука при нажатии на пробел*/
 export function spaceSound(event: KeyboardEvent) {
   const keyPress = event.keyCode;
   if (keyPress === 32) {
     event.preventDefault();
     playSound();
-  }
-}
+  };
+};
 
-/*
-export function answersKeybord(event: KeyboardEvent) {
-  const keyPress:any = event.key;
+
+/*нажатие на клавиши с не знаю*/
+ export function keyPressCheck(event: KeyboardEvent) {
+  const keyPress = event.key;
   const answers = document.querySelectorAll('.answer') as NodeList;
   const knowBtn = document.querySelector('.audion-btn') as HTMLElement;
 
- if (keyPress == 1) {
+event.preventDefault();
 
-  if (answers[0].textContent === wordsRusArray[pageNum] ) {
+  if (keyPress === '1') {
 
-    (answers[0] as HTMLElement).style.color = 'green';
-    console.log(answers[0]);
-    console.log('true')
-
-    arrTrueAnswer.push(wordsRusArray[pageNum]);
-
-    playCorrectSound();
-
+    if (answers[0].textContent === wordsRusArray[pageNum] ) {
+  
+      (answers[0] as HTMLElement).className = 'answer active';
+      (answers[0] as HTMLElement).style["pointer-events"] = "none";
+      
+      arrTrueAnswer.push(wordsRusArray[pageNum]);
+      arrTrueAnswerEn.push(wordsEnArray[pageNum]);
+      arrTrueAnswerAudio.push(audioArray[pageNum]);
+      arrTrueWordsID.push(arrWordsID[pageNum]);
+  
+      resultsAudioCall.wordsCorrectAnswers.push(arrWordsID[pageNum]);
+      countingLongestAnswerRightAudioCall();
+  
+      playCorrectSound();
+  
+      answers.forEach((el: HTMLElement) => {
+        if (el.innerText != wordsRusArray[pageNum]) {
+          el.style.opacity = '0.4';
+          el.classList.add('event');
+          el.style["pointer-events"] = "none";
+        }
+    });
+  }
+  else {
+    (answers[0] as HTMLElement).style.color = 'red';
+    (answers[0] as HTMLElement).style.textDecoration = 'line-through';
+  
+    playWrongSound();
+    resetLongestAnswerRightAudioCall();
+  
     answers.forEach((el: HTMLElement) => {
-      if (el.innerText != wordsRusArray[pageNum]) {
-        el.style.opacity = '0.4';
-        el.classList.add('event');
-      }
+    if (el.innerText === wordsRusArray[pageNum]) {
+      el.classList.add('active');
+      el.style["pointer-events"] = "none";
+    }
+    else if (el.innerText != wordsRusArray[pageNum]) {
+      el.style.opacity = '0.4';
+      el.classList.add('event');
+      el.style["pointer-events"] = "none";
+    }
   });
-}
-else {
-  (answers[0] as HTMLElement).style.color = 'red';
-  //target.style.textDecoration = 'line-through';
-  playWrongSound();
-
-  answers.forEach((el: HTMLElement) => {
-  if (el.innerText === wordsRusArray[pageNum]) {
-    el.classList.add('active');
+  arrFalseAnswer.push(wordsRusArray[pageNum]);
+  arrFalseAnswerEn.push(wordsEnArray[pageNum]);
+  arrFalseAnswerAudio.push(audioArray[pageNum]);
+  arrFalseWordsID.push(arrWordsID[pageNum]);
+  resultsAudioCall.wordsWrongAnswers.push(arrWordsID[pageNum]);
+      }
+   
   }
-  else if (el.innerText != wordsRusArray[pageNum]) {
-    el.style.opacity = '0.4';
-    el.classList.add('event');
+  
+  if (keyPress === '2') {
+  
+    if (answers[1].textContent === wordsRusArray[pageNum] ) {
+  
+      (answers[1] as HTMLElement).className = 'answer active';
+      (answers[1] as HTMLElement).style["pointer-events"] = "none";
+  
+      arrTrueAnswer.push(wordsRusArray[pageNum]);
+      arrTrueAnswerEn.push(wordsEnArray[pageNum]);
+      arrTrueAnswerAudio.push(audioArray[pageNum]);
+      arrTrueWordsID.push(arrWordsID[pageNum]);
+  
+      resultsAudioCall.wordsCorrectAnswers.push(arrWordsID[pageNum]);
+      countingLongestAnswerRightAudioCall();
+  
+      playCorrectSound();
+      answers.forEach((el: HTMLElement) => {
+        if (el.innerText != wordsRusArray[pageNum]) {
+          el.style.opacity = '0.4';
+          el.classList.add('event');
+          el.style["pointer-events"] = "none";
+        }
+    });
   }
-})
-arrFalseAnswer.push(wordsRusArray[pageNum]);
-}
- }
-showAnswer();
-knowBtn.innerText = 'Далее';
-}
+  else {
+    (answers[1] as HTMLElement).style.color = 'red';
+    (answers[1] as HTMLElement).style.textDecoration = 'line-through';
+  
+    playWrongSound();
+    resetLongestAnswerRightAudioCall();
+  
+    answers.forEach((el: HTMLElement) => {
+    if (el.innerText === wordsRusArray[pageNum]) {
+      el.classList.add('active');
+      el.style["pointer-events"] = "none";
+    }
+    else if (el.innerText != wordsRusArray[pageNum]) {
+      el.style.opacity = '0.4';
+      el.classList.add('event');
+      el.style["pointer-events"] = "none";
+    }
+  });
+  arrFalseAnswer.push(wordsRusArray[pageNum]);
+  arrFalseAnswerEn.push(wordsEnArray[pageNum]);
+  arrFalseAnswerAudio.push(audioArray[pageNum]);
+  arrFalseWordsID.push(arrWordsID[pageNum]);
+  resultsAudioCall.wordsWrongAnswers.push(arrWordsID[pageNum]);
+    }
+  }
+  
+  if (keyPress === '3') {
+  
+    if (answers[2].textContent === wordsRusArray[pageNum] ) {
+  
+      (answers[2] as HTMLElement).className = 'answer active';
+      (answers[2] as HTMLElement).style["pointer-events"] = "none";
+  
+      arrTrueAnswer.push(wordsRusArray[pageNum]);
+      arrTrueAnswerEn.push(wordsEnArray[pageNum]);
+      arrTrueAnswerAudio.push(audioArray[pageNum]);
+      arrTrueWordsID.push(arrWordsID[pageNum]);
+  
+      resultsAudioCall.wordsCorrectAnswers.push(arrWordsID[pageNum]);
+      countingLongestAnswerRightAudioCall();
+  
+      playCorrectSound();
+      answers.forEach((el: HTMLElement) => {
+        if (el.innerText != wordsRusArray[pageNum]) {
+          el.style.opacity = '0.4';
+          el.classList.add('event');
+          el.style["pointer-events"] = "none";
+        }
+    });
+  }
+  else {
+    (answers[2] as HTMLElement).style.color = 'red';
+    (answers[2] as HTMLElement).style.textDecoration = 'line-through';
+  
+    playWrongSound();
+    resetLongestAnswerRightAudioCall();
+  
+    answers.forEach((el: HTMLElement) => {
+    if (el.innerText === wordsRusArray[pageNum]) {
+      el.classList.add('active');
+      el.style["pointer-events"] = "none";
+    }
+    else if (el.innerText != wordsRusArray[pageNum]) {
+      el.style.opacity = '0.4';
+      el.classList.add('event');
+      el.style["pointer-events"] = "none";
+    }
+  });
+  arrFalseAnswer.push(wordsRusArray[pageNum]);
+  arrFalseAnswerEn.push(wordsEnArray[pageNum]);
+  arrFalseAnswerAudio.push(audioArray[pageNum]);
+  arrFalseWordsID.push(arrWordsID[pageNum]);
+  resultsAudioCall.wordsWrongAnswers.push(arrWordsID[pageNum]);
+    }
+  }
+  
+  if (keyPress == '4') {
+  
+    if (answers[3].textContent === wordsRusArray[pageNum] ) {
+  
+      (answers[3] as HTMLElement).className = 'answer active';
+      (answers[3] as HTMLElement).style["pointer-events"] = "none";
+  
+      arrTrueAnswer.push(wordsRusArray[pageNum]);
+      arrTrueAnswerEn.push(wordsEnArray[pageNum]);
+      arrTrueAnswerAudio.push(audioArray[pageNum]);
+      arrTrueWordsID.push(arrWordsID[pageNum]);
+  
+      resultsAudioCall.wordsCorrectAnswers.push(arrWordsID[pageNum]);
+      countingLongestAnswerRightAudioCall();
+  
+      playCorrectSound();
+      answers.forEach((el: HTMLElement) => {
+        if (el.innerText != wordsRusArray[pageNum]) {
+          el.style.opacity = '0.4';
+          el.classList.add('event');
+          el.style["pointer-events"] = "none";
+        }
+    });
+  }
+  else {
+    (answers[3] as HTMLElement).style.color = 'red';
+    (answers[3] as HTMLElement).style.textDecoration = 'line-through';
+  
+    playWrongSound();
+    resetLongestAnswerRightAudioCall();
+  
+    answers.forEach((el: HTMLElement) => {
+    if (el.innerText === wordsRusArray[pageNum]) {
+      el.classList.add('active');
+      el.style["pointer-events"] = "none";
+    }
+    else if (el.innerText != wordsRusArray[pageNum]) {
+      el.style.opacity = '0.4';
+      el.classList.add('event');
+      el.style["pointer-events"] = "none";
+    }
+  });
+  arrFalseAnswer.push(wordsRusArray[pageNum]);
+  arrFalseAnswerEn.push(wordsEnArray[pageNum]);
+  arrFalseAnswerAudio.push(audioArray[pageNum]);
+  arrFalseWordsID.push(arrWordsID[pageNum]);
+  resultsAudioCall.wordsWrongAnswers.push(arrWordsID[pageNum]);
+    }
+  }
+  if (keyPress == '5') {
+  
+    if (answers[4].textContent === wordsRusArray[pageNum] ) {
+  
+      (answers[4] as HTMLElement).className = 'answer active';
+      (answers[4] as HTMLElement).style["pointer-events"] = "none";
+  
+      arrTrueAnswer.push(wordsRusArray[pageNum]);
+      arrTrueAnswerEn.push(wordsEnArray[pageNum]);
+      arrTrueAnswerAudio.push(audioArray[pageNum]);
+      arrTrueWordsID.push(arrWordsID[pageNum]);
+  
+      resultsAudioCall.wordsCorrectAnswers.push(arrWordsID[pageNum]);
+      countingLongestAnswerRightAudioCall();
+  
+      playCorrectSound();
+      answers.forEach((el: HTMLElement) => {
+        if (el.innerText != wordsRusArray[pageNum]) {
+          el.style.opacity = '0.4';
+          el.classList.add('event');
+          el.style["pointer-events"] = "none";
+        }
+    });
+  }
+  else {
+    (answers[4] as HTMLElement).style.color = 'red';
+    (answers[4] as HTMLElement).style.textDecoration = 'line-through';
+  
+    playWrongSound();
+    resetLongestAnswerRightAudioCall();
+  
+    answers.forEach((el: HTMLElement) => {
+    if (el.innerText === wordsRusArray[pageNum]) {
+      el.classList.add('active');
+      el.style["pointer-events"] = "none";
+    }
+    else if (el.innerText != wordsRusArray[pageNum]) {
+      el.style.opacity = '0.4';
+      el.classList.add('event');
+      el.style["pointer-events"] = "none";
+    }
+  });
+  arrFalseAnswer.push(wordsRusArray[pageNum]);
+  arrFalseAnswerEn.push(wordsEnArray[pageNum]);
+  arrFalseAnswerAudio.push(audioArray[pageNum]);
+  arrFalseWordsID.push(arrWordsID[pageNum]);
+  resultsAudioCall.wordsWrongAnswers.push(arrWordsID[pageNum]);
+    }
+  }
+  showAnswer();
+  progressBar(progressWidth);
+  countingPercentAnswerRightAudioCall();
+  giveAudioCallStatistics();
+  knowBtn.innerText = 'Далее';
+};
 
-document.addEventListener('keypress', answersKeybord)
-
-
-//body.addEventListener('keypress', keyPressCheck);
-*/
 body.addEventListener('change', chooseGroup);
 body.addEventListener('click', renderGameAudioPage);
+body.addEventListener('keydown', keyPressCheck);
 startAudioCallStatistics();

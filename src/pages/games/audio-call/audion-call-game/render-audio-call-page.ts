@@ -5,7 +5,7 @@ import { checkAnswer } from './check-answer';
 import { choosePage } from './get-page';
 import { nextPage } from './audio-call';
 import { switchSound } from './switch-sound';
-import { progressBar } from './progress-bar';
+import { resetResultsAudioCall } from "./audio-call-statistics";
 
 /*рендер страницы игры*/
 export function renderGameAudioPage() {
@@ -17,6 +17,7 @@ export function renderGameAudioPage() {
 
     gameAudioDesc.style.display = "none";
     clearArraysRepeat();
+    resetResultsAudioCall();
 
     const section = document.createElement('section');
     section.className = 'game-audio';

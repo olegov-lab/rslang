@@ -3,6 +3,10 @@
     background: linear-gradient(to bottom, #fff, #ffcce0);
 }
 
+.game-audio-description {
+    min-height: 100%;
+}
+
 .game-audio-page {
     padding-top: 80px;
 }
@@ -118,7 +122,6 @@
 
 .answer.active {
     border: 2px solid #29CFAC;
-    color: #008000;
     pointer-events: none;
 }
 
@@ -304,6 +307,10 @@
 }
 
 @media (max-width: 768px) {
+    .game-audio {
+        height: auto;
+    }
+
     .game-audio-page {
         padding: 30px;
     }
