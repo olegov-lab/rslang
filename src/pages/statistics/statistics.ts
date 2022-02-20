@@ -68,17 +68,11 @@ export class StaticsPage extends Component {
 
   } else if(localStorage.getItem('token')) {
 
-    // startDate = checkDate();
 
-    // reloadPageStatistics();
 
-    // let userId = localStorage.getItem('userId');
+    const getDateAsyncCompare = async () => {
 
-//console.log(userId)
-
-  const getDateAsyncCompare = async () => {
-
-      let userId = localStorage.getItem('userId');
+    let userId = localStorage.getItem('userId');
 
     let dataWordsServer = await getUserStatistics(userId);
 
@@ -107,17 +101,19 @@ export class StaticsPage extends Component {
     percentAnswerForDay =+ percentAnswerForDay;
 
 
-    // newWordSprintSum += +newWordSprint;
-
-    // localStorage.newWordSprintSum = newWordSprintSum;
-
-    // let newWordForDay = +newWordSprintSum;
-
-    // newWordForDaySum += newWordForDay;
-
-    // localStorage.newWordForDaySum = +newWordForDaySum;
 
 
+
+      document.querySelector('.statistics-btn-burger').addEventListener('click',  (event) => {
+
+        const target = event.target as HTMLElement;
+
+        if(target.getAttribute('href') == "#/statistics") {
+
+          window.location.hash = "#/statistics";
+          window.location.reload();
+
+        } });
 
 
 
