@@ -11,7 +11,7 @@ import { userId } from '../../api/user-authorization';
 
 
 import { getUserAggrWord, createUserWord, getUserAggrWordHard,
-  getUserAggrWordHardAll, updateUserWord, getUserAggrWordAll, getUserWordAll }
+  getUserAggrWordHardAll, updateUserWord, getUserAggrWordAll, getUserWordAll, getUserAggrWordLearnAll }
 from "../../api/user-aggregated";
 
 export class StaticsPage extends Component {
@@ -68,21 +68,23 @@ export class StaticsPage extends Component {
 
   } else if(localStorage.getItem('token')) {
 
-    // startDate = checkDate();
 
-    // reloadPageStatistics();
 
-    // let userId = localStorage.getItem('userId');
+    const getDateAsyncCompare = async () => {
 
-//console.log(userId)
-
-  const getDateAsyncCompare = async () => {
-
-      let userId = localStorage.getItem('userId');
+    let userId = localStorage.getItem('userId');
 
     let dataWordsServer = await getUserStatistics(userId);
 
-    let LearnWord = dataWordsServer?.optional?.LearnWord || 0;
+
+    let dataLearn = await getUserAggrWordLearnAll(userId);
+
+
+        //LearnWord = LearnWord.length dataWordsServer?.optional?.LearnWord || 0;
+
+    let LearnWord = dataLearn.length || 0;
+
+    console.log(LearnWord)
 
     let percentAnswerRightSprint = JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring
                                    || dataWordsServer?.optional?.percentAnswerRightSprint || 0;
@@ -91,46 +93,64 @@ export class StaticsPage extends Component {
     let longestAnswerRightSprint = JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint
                                    || dataWordsServer?.optional?.longestAnswerRightSprint || 0;
 
-    let percentRightAudioCall = JSON.parse(localStorage.getItem('audioCallStatistics'))?.percentRightAudioCall
-                                ?? dataWordsServer?.optional?.percentRightAudioCall ?? 0;
+    let percentAnswerRightAudioCall = JSON.parse(localStorage.getItem('audioCallStatistics'))?.percentAnswerRightAudioCall
+                                || dataWordsServer?.optional?.percentRightAudioCall || 0;
 
     let LongestAnswerRightAudioCall = JSON.parse(localStorage.getItem('audioCallStatistics'))?.LongestAnswerRightAudioCall
-                                      ?? dataWordsServer?.optional?.LongestAnswerRightAudioCall ?? 0;
+                                      || dataWordsServer?.optional?.LongestAnswerRightAudioCall || 0;
 
     //let percentAnswerForDay = +JSON.parse(localStorage.getItem('percentAnswerForDay')) || percentAnswerRightSprint || percentRightAudioCall ||  (percentAnswerRightSprint + percentRightAudioCall) / 2 || 0;
-    let midleAnswer = (percentAnswerRightSprint + percentRightAudioCall) / 2;
+    let midleAnswer = (percentAnswerRightSprint + percentAnswerRightAudioCall) / 2;
 
-    let percentAnswerForDay = dataWordsServer?.optional?.percentAnswerForDay || ((percentAnswerRightSprint == 0) || (percentRightAudioCall == 0)) ? percentAnswerRightSprint || percentRightAudioCall : midleAnswer || 0;
+    let percentAnswerForDay = dataWordsServer?.optional?.percentAnswerForDay || ((percentAnswerRightSprint == 0) || (percentAnswerRightAudioCall == 0)) ? percentAnswerRightSprint || percentAnswerRightAudioCall : midleAnswer || 0;
 
-    let newWordSprint = JSON.parse(localStorage.getItem('data'))?.optional?.newWordSprintSum || 0;
+    //let newWordSprint = JSON.parse(localStorage.getItem('data'))?.optional?.newWordSprintSum;
 
     percentAnswerForDay =+ percentAnswerForDay;
 
+    let newWordSprintNotServer = +JSON.parse(localStorage.getItem('SprintStatistics'))?.isUserWord || 0;
 
-    // newWordSprintSum += +newWordSprint;
+    let newWordSprintNotServerSum = 0;
 
-    // localStorage.newWordSprintSum = newWordSprintSum;
+    newWordSprintNotServerSum += newWordSprintNotServer;
 
-    // let newWordForDay = +newWordSprintSum;
+   localStorage.newWordSprintNotServerSum = newWordSprintNotServerSum;
 
-    // newWordForDaySum += newWordForDay;
-
-    // localStorage.newWordForDaySum = +newWordForDaySum;
+   newWordSprintNotServerSum = newWordSprintNotServer + +localStorage.newWordSprintNotServerSum;
 
 
+
+  //  let newAudioCall = percentAnswerRightSprint / percentAnswerRightSprint * 5;
+
+   let newAudioCallSum = 0;
+
+   //newAudioCallSum += newAudioCall;
+
+
+
+      document.querySelector('.statistics-btn-burger').addEventListener('click',  (event) => {
+
+        const target = event.target as HTMLElement;
+
+        if(target.getAttribute('href') == "#/statistics") {
+
+          window.location.hash = "#/statistics";
+          window.location.reload();
+
+        } });
 
 
 
       reloadPageStatistics();
 
       contantStatist.element.innerHTML = `
-      ${renderBlockStatist('statist-item','Количество новых слов по игре “Спринт”', newWordSprint)}
+      ${renderBlockStatist('statist-item','Количество новых слов по игре “Спринт”', newWordSprintNotServerSum)}
       ${renderBlockStatist('statist-item','Процент правильных ответов по игре “Спринт”', percentAnswerRightSprint)}
       ${renderBlockStatist('statist-item','Самая длинная серия правильных ответов по игре “Спринт”', longestAnswerRightSprint)}
-      ${renderBlockStatist('statist-item','Количество новых слов по игре “Аудиовызов”', count)}
-      ${renderBlockStatist('statist-item','Процент правильных ответов по игре “Аудиовызов”', percentRightAudioCall)}
+      ${renderBlockStatist('statist-item','Количество новых слов по игре “Аудиовызов”', newAudioCallSum)}
+      ${renderBlockStatist('statist-item','Процент правильных ответов по игре “Аудиовызов”', percentAnswerRightAudioCall)}
       ${renderBlockStatist('statist-item','Самая длинная серия правильных ответов по игре “Аудиовызов”', LongestAnswerRightAudioCall)}
-      ${renderBlockStatist('statist-item','Количество новых слов за день', newWordSprint)}
+      ${renderBlockStatist('statist-item','Количество новых слов за день', newWordSprintNotServerSum)}
       ${renderBlockStatist('statist-item','Количество изученных слов за день', LearnWord)}
       ${renderBlockStatist('statist-item','Процент правильных ответов за день', percentAnswerForDay)}
   `

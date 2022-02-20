@@ -94,24 +94,19 @@ export class Header extends Component {
       changeMenu.classList.remove('active-sidepanel');
     })
 
-    document.querySelector('.statistics-btn-burger').addEventListener('click', () => {
-    window.location.hash = '#/statistics';
-    window.location.reload();
-    })
-
 
     if(!localStorage.getItem('token')){
       partOfHeader.element.addEventListener('click', () => {
       reloadPageStatistics();
+      document.querySelector('.statistics-btn-burger').addEventListener('click', () => {
+        window.location.hash = '#/statistics';
+        window.location.reload();
+        })
       })
     }
 
 
-    if(localStorage.getItem('token')){
-      partOfHeader.element.addEventListener('click', () => {
-      reloadPageStatistics();
-      })
-    }
+
 
     document.querySelector('.games-btn-burger').addEventListener('click', () => {
       changeMenu.classList.remove('active-sidepanel');

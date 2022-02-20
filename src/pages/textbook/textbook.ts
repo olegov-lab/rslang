@@ -354,11 +354,20 @@ private async getAllWords(group: number, page: number): Promise<void> {
 
   const navPart = document.querySelector('.nav-container-of-part');
 
-
-
   navPart.addEventListener('click', (event) => {
     this.getAllWords(this.group, this.page);
   });
+
+  const statUpdate = document.querySelector('.statistics-btn-burger');
+
+
+  // statUpdate.addEventListener('click', (event) => {
+  //   this.getAllWords(this.group, this.page);
+  //   reloadPageStatistics();
+
+  // });
+
+
 
 // const navPartTwo = document.querySelector('.nav-part');
 

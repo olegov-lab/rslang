@@ -30,12 +30,12 @@ export const checkDate = () => {
             || JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || 0,
             longestAnswerRightSprint: data?.optional?.longestAnswerRightSprint
             || +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || 0,
-            percentRightAudioCall: data?.optional?.percentRightAudioCall
+            percentAnswerRightAudioCall: data?.optional?.percentAnswerRightAudioCall
             || JSON.parse(localStorage.getItem('audioCallStatistics'))?.percentAnswerRightAudioCall || 0,
             LongestAnswerRightAudioCall: data?.optional?.LongestAnswerRightAudioCall
             || +JSON.parse(localStorage.getItem('audioCallStatistics'))?.longestAnswerRightAudioCall || 0,
             percentAnswerForDay:((data?.optional?.percentAnswerRightSprint == 0) || (data?.optional?.percentRightAudioCall == 0)) ? data?.optional?.percentAnswerRightSprint || data?.optional?.percentRightAudioCall : ((data?.optional?.percentAnswerRightSprint + data?.optional?.percentRightAudioCall) / 2) || 0,
-            newWordSprintSum: data?.optional?.newWordSprintSum || +JSON.parse(localStorage.getItem('SprintStatistics'))?.isUserWord || 0,
+            newWordSprintSum: data?.optional?.newWordSprintSum || +JSON.parse(localStorage.getItem('SprintStatistics'))?.isUserWord || 1,
             LearnWord: data?.optional?.LearnWord || 0,
             // rightCount: data?.optional.rightCount || 0,
             // wrongCount: data?.optional.wrongCount || 0,
@@ -49,6 +49,7 @@ export const checkDate = () => {
 
 
 console.log(data?.optional?.newWordSprintSum)
+localStorage.newWordSprintSum = data?.optional?.newWordSprintSum;
     }
     getStata();
     }
