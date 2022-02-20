@@ -96,7 +96,7 @@ export class StaticsPage extends Component {
 
     let percentAnswerForDay = dataWordsServer?.optional?.percentAnswerForDay || ((percentAnswerRightSprint == 0) || (percentRightAudioCall == 0)) ? percentAnswerRightSprint || percentRightAudioCall : midleAnswer || 0;
 
-    let newWordSprint = JSON.parse(localStorage.getItem('data'))?.optional?.newWordSprintSum || 0;
+    let newWordSprint = 0 ?? JSON.parse(localStorage.getItem('data'))?.optional?.newWordSprintSum;
 
     percentAnswerForDay =+ percentAnswerForDay;
 

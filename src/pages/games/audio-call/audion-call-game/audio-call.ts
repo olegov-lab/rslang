@@ -330,7 +330,17 @@ function getUzas() {
       let wordsCorrectAnswers = JSON.parse(localStorage.getItem('audioCallStatistics'))?.wordsCorrectAnswers || [];
       let wordsWrongAnswers = JSON.parse(localStorage.getItem('audioCallStatistics'))?.wordsWrongAnswers || [];
 
-      let newWordSprintSum = data?.optional?.newWordSprintSum;
+      let newWordSprintSum = data?.optional?.newWordSprintSum || +JSON.parse(localStorage.getItem('SprintStatistics'))?.isUserWord || 0;
+      //let newWordSprintSum = data?.optional?.newWordSprintSum;
+      let newWordForDaySum = 0 || +localStorage.getItem('newWordForDaySum');
+      let newWordSprint = +JSON.parse(localStorage.getItem('SprintStatistics'))?.isUserWord || 0;
+
+
+      newWordSprintSum += +newWordSprint;
+
+        let newWordForDay = +newWordSprintSum;
+
+        newWordForDaySum += newWordForDay;
 
       localStorage.flagTry = 0;
 
@@ -367,7 +377,7 @@ function getUzas() {
               percentRightAudioCall: +localStorage.getItem('percentRightAudioCall') || data.optional.percentRightAudioCall,
               LongestAnswerRightAudioCall: localStorage.getItem('LongestAnswerRightAudioCall') || data.optional.LongestAnswerRightAudioCall,
               percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
-              newWordSprintSum: newWordSprintSum || 0,
+              newWordSprintSum: newWordSprintSum || 1,
               LearnWord: LearnWord.length,
               // rightCount: rightCount,
               // wrongCount: wrongCount,
@@ -431,7 +441,7 @@ function getUzas() {
               percentRightAudioCall: +localStorage.getItem('percentRightAudioCall') || data.optional.percentRightAudioCall,
               LongestAnswerRightAudioCall: localStorage.getItem('LongestAnswerRightAudioCall') || data.optional.LongestAnswerRightAudioCall,
               percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
-              newWordSprintSum: newWordSprintSum || 0,
+              newWordSprintSum: newWordSprintSum || 1,
               LearnWord: LearnWord.length,
 
               // rightCount: rightCount,
