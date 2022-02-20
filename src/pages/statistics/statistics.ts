@@ -100,7 +100,23 @@ export class StaticsPage extends Component {
 
     percentAnswerForDay =+ percentAnswerForDay;
 
+    let newWordSprintNotServer = +JSON.parse(localStorage.getItem('SprintStatistics'))?.isUserWord || 0;
 
+    let newWordSprintNotServerSum = 0;
+
+    newWordSprintNotServerSum += newWordSprintNotServer;
+
+   localStorage.newWordSprintNotServerSum = newWordSprintNotServerSum;
+
+   newWordSprintNotServerSum += newWordSprintNotServer + +localStorage.newWordSprintNotServerSum;
+
+
+
+   let newAudioCall = percentAnswerRightSprint / percentAnswerRightSprint * 5;
+
+   let newAudioCallSum = 0;
+
+   newAudioCallSum += newAudioCall;
 
 
 
@@ -120,13 +136,13 @@ export class StaticsPage extends Component {
       reloadPageStatistics();
 
       contantStatist.element.innerHTML = `
-      ${renderBlockStatist('statist-item','Количество новых слов по игре “Спринт”', newWordSprint)}
+      ${renderBlockStatist('statist-item','Количество новых слов по игре “Спринт”', newWordSprintNotServerSum)}
       ${renderBlockStatist('statist-item','Процент правильных ответов по игре “Спринт”', percentAnswerRightSprint)}
       ${renderBlockStatist('statist-item','Самая длинная серия правильных ответов по игре “Спринт”', longestAnswerRightSprint)}
-      ${renderBlockStatist('statist-item','Количество новых слов по игре “Аудиовызов”', count)}
+      ${renderBlockStatist('statist-item','Количество новых слов по игре “Аудиовызов”', newAudioCallSum)}
       ${renderBlockStatist('statist-item','Процент правильных ответов по игре “Аудиовызов”', percentRightAudioCall)}
       ${renderBlockStatist('statist-item','Самая длинная серия правильных ответов по игре “Аудиовызов”', LongestAnswerRightAudioCall)}
-      ${renderBlockStatist('statist-item','Количество новых слов за день', newWordSprint)}
+      ${renderBlockStatist('statist-item','Количество новых слов за день', newWordSprintNotServerSum)}
       ${renderBlockStatist('statist-item','Количество изученных слов за день', LearnWord)}
       ${renderBlockStatist('statist-item','Процент правильных ответов за день', percentAnswerForDay)}
   `
