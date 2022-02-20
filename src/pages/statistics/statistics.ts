@@ -93,16 +93,16 @@ export class StaticsPage extends Component {
     let longestAnswerRightSprint = JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint
                                    || dataWordsServer?.optional?.longestAnswerRightSprint || 0;
 
-    let percentRightAudioCall = JSON.parse(localStorage.getItem('audioCallStatistics'))?.percentRightAudioCall
-                                ?? dataWordsServer?.optional?.percentRightAudioCall ?? 0;
+    let percentAnswerRightAudioCall = JSON.parse(localStorage.getItem('audioCallStatistics'))?.percentAnswerRightAudioCall
+                                || dataWordsServer?.optional?.percentRightAudioCall || 0;
 
     let LongestAnswerRightAudioCall = JSON.parse(localStorage.getItem('audioCallStatistics'))?.LongestAnswerRightAudioCall
-                                      ?? dataWordsServer?.optional?.LongestAnswerRightAudioCall ?? 0;
+                                      || dataWordsServer?.optional?.LongestAnswerRightAudioCall || 0;
 
     //let percentAnswerForDay = +JSON.parse(localStorage.getItem('percentAnswerForDay')) || percentAnswerRightSprint || percentRightAudioCall ||  (percentAnswerRightSprint + percentRightAudioCall) / 2 || 0;
-    let midleAnswer = (percentAnswerRightSprint + percentRightAudioCall) / 2;
+    let midleAnswer = (percentAnswerRightSprint + percentAnswerRightAudioCall) / 2;
 
-    let percentAnswerForDay = dataWordsServer?.optional?.percentAnswerForDay || ((percentAnswerRightSprint == 0) || (percentRightAudioCall == 0)) ? percentAnswerRightSprint || percentRightAudioCall : midleAnswer || 0;
+    let percentAnswerForDay = dataWordsServer?.optional?.percentAnswerForDay || ((percentAnswerRightSprint == 0) || (percentAnswerRightAudioCall == 0)) ? percentAnswerRightSprint || percentAnswerRightAudioCall : midleAnswer || 0;
 
     //let newWordSprint = JSON.parse(localStorage.getItem('data'))?.optional?.newWordSprintSum;
 
@@ -148,7 +148,7 @@ export class StaticsPage extends Component {
       ${renderBlockStatist('statist-item','Процент правильных ответов по игре “Спринт”', percentAnswerRightSprint)}
       ${renderBlockStatist('statist-item','Самая длинная серия правильных ответов по игре “Спринт”', longestAnswerRightSprint)}
       ${renderBlockStatist('statist-item','Количество новых слов по игре “Аудиовызов”', newAudioCallSum)}
-      ${renderBlockStatist('statist-item','Процент правильных ответов по игре “Аудиовызов”', percentRightAudioCall)}
+      ${renderBlockStatist('statist-item','Процент правильных ответов по игре “Аудиовызов”', percentAnswerRightAudioCall)}
       ${renderBlockStatist('statist-item','Самая длинная серия правильных ответов по игре “Аудиовызов”', LongestAnswerRightAudioCall)}
       ${renderBlockStatist('statist-item','Количество новых слов за день', newWordSprintNotServerSum)}
       ${renderBlockStatist('statist-item','Количество изученных слов за день', LearnWord)}

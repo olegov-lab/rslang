@@ -30,7 +30,7 @@ export const checkDate = () => {
             || JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || 0,
             longestAnswerRightSprint: data?.optional?.longestAnswerRightSprint
             || +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || 0,
-            percentRightAudioCall: data?.optional?.percentRightAudioCall
+            percentAnswerRightAudioCall: data?.optional?.percentAnswerRightAudioCall
             || JSON.parse(localStorage.getItem('audioCallStatistics'))?.percentAnswerRightAudioCall || 0,
             LongestAnswerRightAudioCall: data?.optional?.LongestAnswerRightAudioCall
             || +JSON.parse(localStorage.getItem('audioCallStatistics'))?.longestAnswerRightAudioCall || 0,
