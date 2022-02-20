@@ -52,7 +52,7 @@ export class StaticsPage extends Component {
       let percentAnswerForDay: Number = (( percentAnswerRightSprint == 0) || (percentRightAudioCall == 0)) ? percentAnswerRightSprint || percentRightAudioCall : midleAnswer || 0;
 
 
-      //reloadPageStatistics();
+      reloadPageStatistics();
 
     contantStatist.element.innerHTML =   `
     ${renderBlockStatist('statist-item','Количество новых слов по игре “Спринт”', "нужна авторизация", "alarm-item-statist")}
@@ -79,8 +79,6 @@ export class StaticsPage extends Component {
   const getDateAsyncCompare = async () => {
 
       let userId = localStorage.getItem('userId');
-
-
 
     let dataWordsServer = await getUserStatistics(userId);
 

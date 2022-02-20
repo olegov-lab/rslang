@@ -208,8 +208,6 @@ export class SprintGame extends Component {
 
        let LearnWord = await getUserAggrWordLearnAll(userId);
 
-       console.log(LearnWord.length);
-
 
 
         let data = await checkDate();
@@ -240,7 +238,7 @@ export class SprintGame extends Component {
 
 
 
-        let newWordSprintSum = data.optional.newWordSprintSum || +JSON.parse(localStorage.getItem('SprintStatistics'))?.isUserWord || 0;
+        let newWordSprintSum = data?.optional?.newWordSprintSum || +JSON.parse(localStorage.getItem('SprintStatistics'))?.isUserWord || 0;
         let newWordForDaySum = 0 || +localStorage.getItem('newWordForDaySum');
 
         let newWordSprint = +JSON.parse(localStorage.getItem('SprintStatistics'))?.isUserWord || 0;
@@ -293,7 +291,7 @@ export class SprintGame extends Component {
                 percentRightAudioCall: +localStorage.getItem('percentRightAudioCall') || data.optional.percentRightAudioCall,
                 LongestAnswerRightAudioCall: localStorage.getItem('LongestAnswerRightAudioCall') || data.optional.LongestAnswerRightAudioCall,
                 percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
-                newWordSprintSum: newWordSprintSum,
+                newWordSprintSum: newWordSprintSum || 0,
                 LearnWord: LearnWord.length,
                 // rightCount: rightCount,
                 // wrongCount: wrongCount,
@@ -365,7 +363,7 @@ export class SprintGame extends Component {
                 percentRightAudioCall: +localStorage.getItem('percentRightAudioCall') || data.optional.percentRightAudioCall,
                 LongestAnswerRightAudioCall: localStorage.getItem('LongestAnswerRightAudioCall') || data.optional.LongestAnswerRightAudioCall,
                 percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
-                newWordSprintSum: newWordSprintSum,
+                newWordSprintSum: newWordSprintSum || 0,
                 LearnWord: LearnWord.length,
 
                 // rightCount: rightCount,
@@ -373,9 +371,6 @@ export class SprintGame extends Component {
               }
             }
           };
-
-
-
 
               let state = {
               userId: localStorage.getItem('userId'),
@@ -399,7 +394,6 @@ export class SprintGame extends Component {
 
           updateUserStatistics(stateStatist);
           localStorage.data = JSON.stringify(data);
-
         });
 
         localStorage.arrCountWrong = JSON.stringify(arrCountWrong);
