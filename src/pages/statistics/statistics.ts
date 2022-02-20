@@ -98,10 +98,12 @@ export class StaticsPage extends Component {
     let LongestAnswerRightAudioCall = JSON.parse(localStorage.getItem('audioCallStatistics'))?.LongestAnswerRightAudioCall
                                       ?? dataWordsServer.optional.LongestAnswerRightAudioCall ?? 0;
 
-    let percentAnswerForDay = +JSON.parse(localStorage.getItem('percentAnswerForDay')) ?? percentAnswerRightSprint ?? percentRightAudioCall ??  (percentAnswerRightSprint + percentRightAudioCall) / 2 ?? 0;
+    //let percentAnswerForDay = +JSON.parse(localStorage.getItem('percentAnswerForDay')) || percentAnswerRightSprint || percentRightAudioCall ||  (percentAnswerRightSprint + percentRightAudioCall) / 2 || 0;
+    let percentAnswerForDay = dataWordsServer.optional.percentAnswerForDay || percentAnswerRightSprint || percentRightAudioCall ||  (percentAnswerRightSprint + percentRightAudioCall) / 2 || 0;
 
-    let newWordSprint = +JSON.parse(localStorage.getItem('data'))?.optional?.newWordSprintSum ?? 0;
+    let newWordSprint = +JSON.parse(localStorage.getItem('data'))?.optional?.newWordSprintSum || 0;
 
+    percentAnswerForDay =+ percentAnswerForDay;
 
 
     // newWordSprintSum += +newWordSprint;

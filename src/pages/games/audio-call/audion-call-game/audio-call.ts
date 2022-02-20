@@ -329,6 +329,10 @@ function getUzas() {
       let wordsCorrectAnswers = JSON.parse(localStorage.getItem('audioCallStatistics'))?.wordsCorrectAnswers || [];
       let wordsWrongAnswers = JSON.parse(localStorage.getItem('audioCallStatistics'))?.wordsWrongAnswers || [];
 
+      let newWordSprintSum = data.optional.newWordSprintSum;
+
+
+
       localStorage.flagTry = 0;
 
 
@@ -362,6 +366,8 @@ function getUzas() {
               percentRightAudioCall: +localStorage.getItem('percentRightAudioCall') || data.optional.percentRightAudioCall,
               LongestAnswerRightAudioCall: localStorage.getItem('LongestAnswerRightAudioCall') || data.optional.LongestAnswerRightAudioCall,
               percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
+              newWordSprintSum: newWordSprintSum,
+
               // rightCount: rightCount,
               // wrongCount: wrongCount,
             }
@@ -423,6 +429,8 @@ function getUzas() {
               percentRightAudioCall: +localStorage.getItem('percentRightAudioCall') || data.optional.percentRightAudioCall,
               LongestAnswerRightAudioCall: localStorage.getItem('LongestAnswerRightAudioCall') || data.optional.LongestAnswerRightAudioCall,
               percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
+              newWordSprintSum: newWordSprintSum,
+
               // rightCount: rightCount,
               // wrongCount: wrongCount,
             }
