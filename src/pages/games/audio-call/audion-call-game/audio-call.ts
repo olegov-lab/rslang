@@ -257,9 +257,9 @@ function getUzas() {
 
       let longestAnswerRightSprint = data.optional.longestAnswerRightSprint || +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || 0;
 
-      let percentAnswerRightAudioCall = data.optional.percentAnswerRightAudioCall || +JSON.parse(localStorage.getItem('percentRightAudioCall'))?.percentAnswerRightAudioCall || 0;
+      let percentAnswerRightAudioCall = data.optional.percentAnswerRightAudioCall || +JSON.parse(localStorage.getItem('audioCallStatistics'))?.percentAnswerRightAudioCall || 0;
 
-      let LongestAnswerRightAudioCall = data.optional.LongestAnswerRightAudioCall || +JSON.parse(localStorage.getItem('LongestAnswerRightAudioCall'))?.LongestAnswerRightAudioCall || 0;
+      let LongestAnswerRightAudioCall = data.optional.longestAnswerRightAudioCall || +JSON.parse(localStorage.getItem('audioCallStatistics'))?.longestAnswerRightAudioCall || 0;
 
       let percentAnswerForDay: Number = +data.optional.percentAnswerForDay || (( percentAnswerRightSprint == 0) || (percentAnswerRightAudioCall == 0)) ? +percentAnswerRightSprint ||  +percentAnswerRightAudioCall : ((percentAnswerRightSprint + percentAnswerRightAudioCall) / 2) || 0;
 
@@ -333,8 +333,8 @@ function getUzas() {
               startDate: data.optional.startDate || startDate,
               percentAnswerRightSprint: JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || data.optional.percentAnswerRightSprint,
               longestAnswerRightSprint: +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || data.optional.longestAnswerRightSprint,
-              percentAnswerRightAudioCall: +JSON.parse(localStorage.getItem('percentAnswerRightAudioCall'))?.percentAnswerRightAudioCall || data.optional.percentAnswerRightAudioCall,
-              LongestAnswerRightAudioCall: +JSON.parse(localStorage.getItem('LongestAnswerRightAudioCall'))?.LongestAnswerRightAudioCall || data.optional.LongestAnswerRightAudioCall,
+              percentAnswerRightAudioCall: +JSON.parse(localStorage.getItem('audioCallStatistics'))?.percentAnswerRightAudioCall || data.optional.percentAnswerRightAudioCall,
+              LongestAnswerRightAudioCall: +JSON.parse(localStorage.getItem('audioCallStatistics'))?.longestAnswerRightAudioCall || data.optional.longestAnswerRightAudioCall,
               percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
               newWordAudioCallSum: 0,
               LearnWord: LearnWord.length,
@@ -397,8 +397,8 @@ function getUzas() {
               startDate: data.optional.startDate || startDate,
               percentAnswerRightSprint: JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || data.optional.percentAnswerRightSprint,
               longestAnswerRightSprint: +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || data.optional.longestAnswerRightSprint,
-              percentAnswerRightAudioCall: +JSON.parse(localStorage.getItem('percentAnswerRightAudioCall'))?.percentAnswerRightAudioCall || data.optional.percentAnswerRightAudioCall,
-              LongestAnswerRightAudioCall: +JSON.parse(localStorage.getItem('LongestAnswerRightAudioCall'))?.LongestAnswerRightAudioCall || data.optional.LongestAnswerRightAudioCall,
+              percentAnswerRightAudioCall: +JSON.parse(localStorage.getItem('audioCallStatistics'))?.percentAnswerRightAudioCall || data.optional.percentAnswerRightAudioCall,
+              LongestAnswerRightAudioCall: +JSON.parse(localStorage.getItem('audioCallStatistics'))?.longestAnswerRightAudioCall || data.optional.longestAnswerRightAudioCall,
               percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
               newWordAudioCallSum: 0,
               LearnWord: LearnWord.length,
