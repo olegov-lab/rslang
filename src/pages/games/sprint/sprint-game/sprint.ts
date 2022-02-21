@@ -54,6 +54,12 @@ export class SprintGame extends Component {
   constructor(parentNode: HTMLElement) {
     super(parentNode);
     this.main = parentNode;
+    const navMenu = document.querySelector('.nav-container-of-part') as HTMLElement;
+    navMenu.addEventListener('click', () => {
+      this.timer.destroy();
+      clearInterval(this.timerId);
+      sprintData.timerStatus = true;
+    });
   }
 
   renderDescription() {
@@ -128,7 +134,6 @@ export class SprintGame extends Component {
 
   static renderResults() {
     const root = document.querySelector('.main') as HTMLElement;
-    console.log(document.querySelector('.game-sprint'));
     const results = new Results(root);
     results.renderAnswers();
     giveSprintStatistics();
@@ -149,7 +154,6 @@ export class SprintGame extends Component {
     this.timerId = setInterval(() => {
       if (!sprintData.timerStatus) {
         // SprintGame.renderResults();
-
         this.stopGame();
       } else {
         // eslint-disable-next-line no-lonely-if
@@ -165,7 +169,6 @@ export class SprintGame extends Component {
           this.timer.destroy();
           clearInterval(this.timerId);
           sprintData.timerStatus = true;
-
           this.stopGame();
         }
       }
