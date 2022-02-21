@@ -31,7 +31,7 @@ export const checkDate = () => {
             longestAnswerRightSprint: data?.optional?.longestAnswerRightSprint
             || +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || 0,
             percentAnswerRightAudioCall: data?.optional?.percentAnswerRightAudioCall
-            || JSON.parse(localStorage.getItem('audioCallStatistics'))?.longestAnswerRightAudioCall || 0,
+            || JSON.parse(localStorage.getItem('audioCallStatistics'))?.percentAnswerRightAudioCall || 0,
             LongestAnswerRightAudioCall: data?.optional?.LongestAnswerRightAudioCall
             || +JSON.parse(localStorage.getItem('audioCallStatistics'))?.longestAnswerRightAudioCall || 0,
             percentAnswerForDay:((data?.optional?.percentAnswerRightSprint == 0) || (data?.optional?.percentRightAudioCall == 0)) ? data?.optional?.percentAnswerRightSprint || data?.optional?.percentRightAudioCall : ((data?.optional?.percentAnswerRightSprint + data?.optional?.percentRightAudioCall) / 2) || 0,
