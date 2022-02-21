@@ -165,7 +165,7 @@ export class SprintGame extends Component {
           curentTime -= 1;
           circle.style.strokeDashoffset = progress.toString();
         } else {
-          SprintGame.renderResults();
+          // SprintGame.renderResults();
           this.timer.destroy();
           clearInterval(this.timerId);
           sprintData.timerStatus = true;
