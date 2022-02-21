@@ -7,12 +7,14 @@ export class Results extends Component {
   correctAnswerSection: HTMLElement;
 
   wrongAnswerSection: HTMLElement;
-  
+
   main: HTMLElement;
 
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', ['game-sprint-results']);
-    document.querySelector('.game-sprint').remove(); /* FIXME  */
+    if (document.querySelector('.game-sprint')) {
+      document.querySelector('.game-sprint').remove();
+    }
     this.main = parentNode;
   }
 
@@ -31,9 +33,7 @@ export class Results extends Component {
     btnAgain.element.addEventListener('click', () => {
       document.querySelector('.game-sprint-results').remove();
       const newGame = new SprintGame(this.main);
-      newGame.renderGame()
-      console.log('дальше');
-      
+      newGame.renderGame();
     });
 
     let countCorrectAnswers = 0;

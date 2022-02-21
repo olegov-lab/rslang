@@ -133,6 +133,10 @@
     flex-direction: column;
   }
 
+  .game-sprint-answers {
+    flex-direction: column;
+  }
+
   .wrong-answer-title,
   .correct-answer-title {
     font-size: 2rem;
@@ -142,6 +146,7 @@
   .sprint-result-count-wrong {
     width: 20px;
     height: auto;
+    padding: 0 12px;
   }
   .correct-answer-list,
   .wrong-answer-list {
