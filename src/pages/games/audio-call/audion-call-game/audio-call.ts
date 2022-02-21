@@ -13,21 +13,16 @@ import { countingPercentAnswerRightAudioCall, resetLongestAnswerRightAudioCall }
 import { startAudioCallStatistics, giveAudioCallStatistics, resultsAudioCall, countingLongestAnswerRightAudioCall } from './audio-call-statistics';
 import { progressBar } from './progress-bar';
 
-
+import { disable, enable } from './disable-keyboard';
 import { getUserStatistics, updateUserStatistics } from '../../../../api/statistics';
-
 import { getDate } from '../../../../components/react/get-date';
 import { checkDate } from '../../../../components/react/check-date';
-
-
 import { getUserAggrWord, createUserWord, getUserAggrWordHard,
   getUserAggrWordHardAll, updateUserWord, getUserWordAll, getUserWordById, getUserAggrWordById, getUserAggrWordLearnAll }
 from "../../../../api/user-aggregated";
 
 import { reloadPageStatistics } from "../../../../components/react/reload"
 
-
-//import { pressKeyBoard } from './keybord';
 
 export const body = document.body;
 export let audioArray: string [] = []; // исходный массив аудио
@@ -95,6 +90,68 @@ export function resetProgressBar() {
   return progressBar.style.width = `${progressWidth}%`;
 }
 
+
+/* нажатие на не знаю */
+export async function nextPageEnter(event:KeyboardEvent) {
+  const keyPress: number = event.keyCode;
+  const answers = document.querySelectorAll('.answer') as NodeList;
+  const knowBtn = document.querySelector('.audion-btn') as HTMLElement;
+
+  if (keyPress === 13 && knowBtn.innerText === 'Не знаю' ) {
+
+      disable();
+
+      arrFalseAnswer.push(wordsRusArray[pageNum]);
+      arrFalseAnswerEn.push(wordsEnArray[pageNum]);
+      arrFalseAnswerAudio.push(audioArray[pageNum]);
+      arrFalseWordsID.push(arrWordsID[pageNum]);
+      resultsAudioCall.wordsWrongAnswers.push(arrWordsID[pageNum]);
+
+      showAnswer(); // показываем ответ
+      playWrongSound(); // проигрываем неправильный звук
+
+      countingPercentAnswerRightAudioCall();
+      resetLongestAnswerRightAudioCall();
+      giveAudioCallStatistics();
+
+      answers.forEach((el: any) => {
+        if (el.innerText === wordsRusArray[pageNum]) {
+          el.classList.add('active');
+          el.classList.add('event');
+        } else {
+          el.style.opacity = '0.4';
+          el.classList.add('event');
+        };
+      });
+
+      knowBtn.innerText = 'Далее';
+    }
+    else if ( keyPress === 13 && knowBtn.innerText === 'Далее') {
+      pageNum++;
+      progressWidth += 5;
+      knowBtn.innerText = 'Не знаю';
+      answers.forEach((el: any) => {
+        el.classList.remove('active');
+        el.classList.remove('event');
+        el.style.color = 'black';
+        el.style.opacity = '1';
+        el.style.textDecoration = 'none';
+      });
+      enable();
+      playSound();
+      progressBar(progressWidth);
+      hideAnswer();
+      getNewWords();
+    }
+    if (pageNum > lastPage ) {
+      resetProgressBar();
+      renderAudioCallResults();
+      getUzas();
+    }
+  };
+
+
+
 /* нажатие на не знаю */
 export function nextPage() {
   const target = event.target as HTMLElement;
@@ -119,10 +176,10 @@ export function nextPage() {
       answers.forEach((el: any) => {
         if (el.innerText === wordsRusArray[pageNum]) {
           el.classList.add('active');
-          el.style["pointer-events"] = "none";
+          el.classList.add('event');
         } else {
           el.style.opacity = '0.4';
-          el.style["pointer-events"] = "none";
+          el.classList.add('event');
         }
       });
 
@@ -133,13 +190,13 @@ export function nextPage() {
       progressWidth += 5;
       target.innerText = 'Не знаю';
       answers.forEach((el: any) => {
+        el.classList.remove('active');
+        el.classList.remove('event');
         el.style.color = 'black';
         el.style.opacity = '1';
         el.style.textDecoration = 'none';
-        el.classList.remove('active');
-        el.classList.remove('event');
-        el.style["pointer-events"] = "auto";
       });
+      enable();
       playSound();
       progressBar(progressWidth);
       hideAnswer();
@@ -152,281 +209,6 @@ export function nextPage() {
       getUzas();
     }
   }
-};
-
-/*проигрывание звука при нажатии на пробел*/
-export function spaceSound(event: KeyboardEvent) {
-  const keyPress = event.keyCode;
-  if (keyPress === 32) {
-    event.preventDefault();
-    playSound();
-  };
-};
-
-
-/*нажатие на клавиши с не знаю*/
- export function keyPressCheck(event: KeyboardEvent) {
-  const keyPress = event.key;
-  const answers = document.querySelectorAll('.answer') as NodeList;
-  const knowBtn = document.querySelector('.audion-btn') as HTMLElement;
-
-event.preventDefault();
-
-  if (keyPress === '1') {
-
-    if (answers[0].textContent === wordsRusArray[pageNum] ) {
-
-      (answers[0] as HTMLElement).className = 'answer active';
-      (answers[0] as HTMLElement).style["pointer-events"] = "none";
-
-      arrTrueAnswer.push(wordsRusArray[pageNum]);
-      arrTrueAnswerEn.push(wordsEnArray[pageNum]);
-      arrTrueAnswerAudio.push(audioArray[pageNum]);
-      arrTrueWordsID.push(arrWordsID[pageNum]);
-
-      resultsAudioCall.wordsCorrectAnswers.push(arrWordsID[pageNum]);
-      countingLongestAnswerRightAudioCall();
-
-      playCorrectSound();
-
-      answers.forEach((el: HTMLElement) => {
-        if (el.innerText != wordsRusArray[pageNum]) {
-          el.style.opacity = '0.4';
-          el.classList.add('event');
-          el.style["pointer-events"] = "none";
-        }
-    });
-  }
-  else {
-    (answers[0] as HTMLElement).style.color = 'red';
-    (answers[0] as HTMLElement).style.textDecoration = 'line-through';
-
-    playWrongSound();
-    resetLongestAnswerRightAudioCall();
-
-    answers.forEach((el: HTMLElement) => {
-    if (el.innerText === wordsRusArray[pageNum]) {
-      el.classList.add('active');
-      el.style["pointer-events"] = "none";
-    }
-    else if (el.innerText != wordsRusArray[pageNum]) {
-      el.style.opacity = '0.4';
-      el.classList.add('event');
-      el.style["pointer-events"] = "none";
-    }
-  });
-  arrFalseAnswer.push(wordsRusArray[pageNum]);
-  arrFalseAnswerEn.push(wordsEnArray[pageNum]);
-  arrFalseAnswerAudio.push(audioArray[pageNum]);
-  arrFalseWordsID.push(arrWordsID[pageNum]);
-  resultsAudioCall.wordsWrongAnswers.push(arrWordsID[pageNum]);
-      }
-
-  }
-
-  if (keyPress === '2') {
-
-    if (answers[1].textContent === wordsRusArray[pageNum] ) {
-
-      (answers[1] as HTMLElement).className = 'answer active';
-      (answers[1] as HTMLElement).style["pointer-events"] = "none";
-
-      arrTrueAnswer.push(wordsRusArray[pageNum]);
-      arrTrueAnswerEn.push(wordsEnArray[pageNum]);
-      arrTrueAnswerAudio.push(audioArray[pageNum]);
-      arrTrueWordsID.push(arrWordsID[pageNum]);
-
-      resultsAudioCall.wordsCorrectAnswers.push(arrWordsID[pageNum]);
-      countingLongestAnswerRightAudioCall();
-
-      playCorrectSound();
-      answers.forEach((el: HTMLElement) => {
-        if (el.innerText != wordsRusArray[pageNum]) {
-          el.style.opacity = '0.4';
-          el.classList.add('event');
-          el.style["pointer-events"] = "none";
-        }
-    });
-  }
-  else {
-    (answers[1] as HTMLElement).style.color = 'red';
-    (answers[1] as HTMLElement).style.textDecoration = 'line-through';
-
-    playWrongSound();
-    resetLongestAnswerRightAudioCall();
-
-    answers.forEach((el: HTMLElement) => {
-    if (el.innerText === wordsRusArray[pageNum]) {
-      el.classList.add('active');
-      el.style["pointer-events"] = "none";
-    }
-    else if (el.innerText != wordsRusArray[pageNum]) {
-      el.style.opacity = '0.4';
-      el.classList.add('event');
-      el.style["pointer-events"] = "none";
-    }
-  });
-  arrFalseAnswer.push(wordsRusArray[pageNum]);
-  arrFalseAnswerEn.push(wordsEnArray[pageNum]);
-  arrFalseAnswerAudio.push(audioArray[pageNum]);
-  arrFalseWordsID.push(arrWordsID[pageNum]);
-  resultsAudioCall.wordsWrongAnswers.push(arrWordsID[pageNum]);
-    }
-  }
-
-  if (keyPress === '3') {
-
-    if (answers[2].textContent === wordsRusArray[pageNum] ) {
-
-      (answers[2] as HTMLElement).className = 'answer active';
-      (answers[2] as HTMLElement).style["pointer-events"] = "none";
-
-      arrTrueAnswer.push(wordsRusArray[pageNum]);
-      arrTrueAnswerEn.push(wordsEnArray[pageNum]);
-      arrTrueAnswerAudio.push(audioArray[pageNum]);
-      arrTrueWordsID.push(arrWordsID[pageNum]);
-
-      resultsAudioCall.wordsCorrectAnswers.push(arrWordsID[pageNum]);
-      countingLongestAnswerRightAudioCall();
-
-      playCorrectSound();
-      answers.forEach((el: HTMLElement) => {
-        if (el.innerText != wordsRusArray[pageNum]) {
-          el.style.opacity = '0.4';
-          el.classList.add('event');
-          el.style["pointer-events"] = "none";
-        }
-    });
-  }
-  else {
-    (answers[2] as HTMLElement).style.color = 'red';
-    (answers[2] as HTMLElement).style.textDecoration = 'line-through';
-
-    playWrongSound();
-    resetLongestAnswerRightAudioCall();
-
-    answers.forEach((el: HTMLElement) => {
-    if (el.innerText === wordsRusArray[pageNum]) {
-      el.classList.add('active');
-      el.style["pointer-events"] = "none";
-    }
-    else if (el.innerText != wordsRusArray[pageNum]) {
-      el.style.opacity = '0.4';
-      el.classList.add('event');
-      el.style["pointer-events"] = "none";
-    }
-  });
-  arrFalseAnswer.push(wordsRusArray[pageNum]);
-  arrFalseAnswerEn.push(wordsEnArray[pageNum]);
-  arrFalseAnswerAudio.push(audioArray[pageNum]);
-  arrFalseWordsID.push(arrWordsID[pageNum]);
-  resultsAudioCall.wordsWrongAnswers.push(arrWordsID[pageNum]);
-    }
-  }
-
-  if (keyPress == '4') {
-
-    if (answers[3].textContent === wordsRusArray[pageNum] ) {
-
-      (answers[3] as HTMLElement).className = 'answer active';
-      (answers[3] as HTMLElement).style["pointer-events"] = "none";
-
-      arrTrueAnswer.push(wordsRusArray[pageNum]);
-      arrTrueAnswerEn.push(wordsEnArray[pageNum]);
-      arrTrueAnswerAudio.push(audioArray[pageNum]);
-      arrTrueWordsID.push(arrWordsID[pageNum]);
-
-      resultsAudioCall.wordsCorrectAnswers.push(arrWordsID[pageNum]);
-      countingLongestAnswerRightAudioCall();
-
-      playCorrectSound();
-      answers.forEach((el: HTMLElement) => {
-        if (el.innerText != wordsRusArray[pageNum]) {
-          el.style.opacity = '0.4';
-          el.classList.add('event');
-          el.style["pointer-events"] = "none";
-        }
-    });
-  }
-  else {
-    (answers[3] as HTMLElement).style.color = 'red';
-    (answers[3] as HTMLElement).style.textDecoration = 'line-through';
-
-    playWrongSound();
-    resetLongestAnswerRightAudioCall();
-
-    answers.forEach((el: HTMLElement) => {
-    if (el.innerText === wordsRusArray[pageNum]) {
-      el.classList.add('active');
-      el.style["pointer-events"] = "none";
-    }
-    else if (el.innerText != wordsRusArray[pageNum]) {
-      el.style.opacity = '0.4';
-      el.classList.add('event');
-      el.style["pointer-events"] = "none";
-    }
-  });
-  arrFalseAnswer.push(wordsRusArray[pageNum]);
-  arrFalseAnswerEn.push(wordsEnArray[pageNum]);
-  arrFalseAnswerAudio.push(audioArray[pageNum]);
-  arrFalseWordsID.push(arrWordsID[pageNum]);
-  resultsAudioCall.wordsWrongAnswers.push(arrWordsID[pageNum]);
-    }
-  }
-  if (keyPress == '5') {
-
-    if (answers[4].textContent === wordsRusArray[pageNum] ) {
-
-      (answers[4] as HTMLElement).className = 'answer active';
-      (answers[4] as HTMLElement).style["pointer-events"] = "none";
-
-      arrTrueAnswer.push(wordsRusArray[pageNum]);
-      arrTrueAnswerEn.push(wordsEnArray[pageNum]);
-      arrTrueAnswerAudio.push(audioArray[pageNum]);
-      arrTrueWordsID.push(arrWordsID[pageNum]);
-
-      resultsAudioCall.wordsCorrectAnswers.push(arrWordsID[pageNum]);
-      countingLongestAnswerRightAudioCall();
-
-      playCorrectSound();
-      answers.forEach((el: HTMLElement) => {
-        if (el.innerText != wordsRusArray[pageNum]) {
-          el.style.opacity = '0.4';
-          el.classList.add('event');
-          el.style["pointer-events"] = "none";
-        }
-    });
-  }
-  else {
-    (answers[4] as HTMLElement).style.color = 'red';
-    (answers[4] as HTMLElement).style.textDecoration = 'line-through';
-
-    playWrongSound();
-    resetLongestAnswerRightAudioCall();
-
-    answers.forEach((el: HTMLElement) => {
-    if (el.innerText === wordsRusArray[pageNum]) {
-      el.classList.add('active');
-      el.style["pointer-events"] = "none";
-    }
-    else if (el.innerText != wordsRusArray[pageNum]) {
-      el.style.opacity = '0.4';
-      el.classList.add('event');
-      el.style["pointer-events"] = "none";
-    }
-  });
-  arrFalseAnswer.push(wordsRusArray[pageNum]);
-  arrFalseAnswerEn.push(wordsEnArray[pageNum]);
-  arrFalseAnswerAudio.push(audioArray[pageNum]);
-  arrFalseWordsID.push(arrWordsID[pageNum]);
-  resultsAudioCall.wordsWrongAnswers.push(arrWordsID[pageNum]);
-    }
-  }
-  showAnswer();
-  progressBar(progressWidth);
-  countingPercentAnswerRightAudioCall();
-  giveAudioCallStatistics();
-  knowBtn.innerText = 'Далее';
 };
 
 body.addEventListener('change', chooseGroup);
@@ -477,7 +259,9 @@ function getUzas() {
 
       let percentAnswerRightAudioCall = data.optional.percentAnswerRightAudioCall || +JSON.parse(localStorage.getItem('audioCallStatistics'))?.percentAnswerRightAudioCall || 0;
 
-      let LongestAnswerRightAudioCall = data.optional.LongestAnswerRightAudioCall || +JSON.parse(localStorage.getItem('audioCallStatistics'))?.LongestAnswerRightAudioCall || 0;
+
+      let LongestAnswerRightAudioCall = data.optional.longestAnswerRightAudioCall || +JSON.parse(localStorage.getItem('audioCallStatistics'))?.longestAnswerRightAudioCall || 0;
+
 
       let percentAnswerForDay: Number = +data.optional.percentAnswerForDay || (( percentAnswerRightSprint == 0) || (percentAnswerRightAudioCall == 0)) ? +percentAnswerRightSprint ||  +percentAnswerRightAudioCall : ((percentAnswerRightSprint + percentAnswerRightAudioCall) / 2) || 0;
 
@@ -552,7 +336,9 @@ function getUzas() {
               percentAnswerRightSprint: JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || data.optional.percentAnswerRightSprint,
               longestAnswerRightSprint: +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || data.optional.longestAnswerRightSprint,
               percentAnswerRightAudioCall: +JSON.parse(localStorage.getItem('audioCallStatistics'))?.percentAnswerRightAudioCall || data.optional.percentAnswerRightAudioCall,
-              LongestAnswerRightAudioCall: +JSON.parse(localStorage.getItem('audioCallStatistics'))?.LongestAnswerRightAudioCall || data.optional.LongestAnswerRightAudioCall,
+
+              LongestAnswerRightAudioCall: +JSON.parse(localStorage.getItem('audioCallStatistics'))?.longestAnswerRightAudioCall || data.optional.longestAnswerRightAudioCall,
+
               percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
               newWordAudioCallSum: 0,
               LearnWord: LearnWord.length,
@@ -616,7 +402,9 @@ function getUzas() {
               percentAnswerRightSprint: JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || data.optional.percentAnswerRightSprint,
               longestAnswerRightSprint: +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || data.optional.longestAnswerRightSprint,
               percentAnswerRightAudioCall: +JSON.parse(localStorage.getItem('audioCallStatistics'))?.percentAnswerRightAudioCall || data.optional.percentAnswerRightAudioCall,
-              LongestAnswerRightAudioCall: +JSON.parse(localStorage.getItem('audioCallStatistics'))?.LongestAnswerRightAudioCall || data.optional.LongestAnswerRightAudioCall,
+
+              LongestAnswerRightAudioCall: +JSON.parse(localStorage.getItem('audioCallStatistics'))?.longestAnswerRightAudioCall || data.optional.longestAnswerRightAudioCall,
+
               percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
               newWordAudioCallSum: 0,
               LearnWord: LearnWord.length,

@@ -23,7 +23,7 @@ interface IAudioCallResults {
   }
 
 
-export function countingPercentAnswerRightAudioCall() {
+export async function countingPercentAnswerRightAudioCall() {
   let wordsCorrectAnswers = resultsAudioCall.wordsCorrectAnswers.length;
   let wordsWrongAnswers = resultsAudioCall.wordsWrongAnswers.length;
   a += wordsCorrectAnswers;
@@ -32,7 +32,7 @@ export function countingPercentAnswerRightAudioCall() {
 }
 
 
-export function countingLongestAnswerRightAudioCall() {
+export async function countingLongestAnswerRightAudioCall() {
   longestAnswerRightAudioCall++;
       if (longestAnswerRightAudioCall > resultsAudioCall.longestAnswerRightAudioCall) {
         resultsAudioCall.longestAnswerRightAudioCall = longestAnswerRightAudioCall;
@@ -59,7 +59,7 @@ export function resetLongestAnswerRightAudioCall () {
   };
   
   export const giveAudioCallStatistics = async () => {
-    countingPercentAnswerRightAudioCall();
+    await countingPercentAnswerRightAudioCall();
     const audioCallStatistics = JSON.stringify(resultsAudioCall);
     localStorage.setItem('audioCallStatistics', audioCallStatistics);
   };

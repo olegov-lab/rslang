@@ -1,4 +1,4 @@
-/*import {wordsRusArray, pageNum, arrTrueAnswer, arrFalseAnswer, arrTrueAnswerEn,
+import {wordsRusArray, pageNum, arrTrueAnswer, arrFalseAnswer, arrTrueAnswerEn,
    wordsEnArray, arrTrueAnswerAudio, audioArray, arrTrueWordsID, arrWordsID, arrFalseAnswerEn, arrFalseAnswerAudio, arrFalseWordsID } from './audio-call';
 import { playCorrectSound, playWrongSound } from './switch-sound';
 import { resultsAudioCall} from "./audio-call-statistics";
@@ -6,9 +6,10 @@ import { countingPercentAnswerRightAudioCall, countingLongestAnswerRightAudioCal
 import { progressBar } from './progress-bar';
 import {showAnswer } from './show-answer';
 import { progressWidth } from './audio-call';
-import {giveAudioCallStatistics} from './audio-call-statistics'
+import {giveAudioCallStatistics} from './audio-call-statistics';
+import { disable } from './disable-keyboard';
 
- /*ответ кнопками
+ /*ответ кнопками*/
 export function answersKeybord(event: KeyboardEvent) {
   const keyPress:any = event.key;
   const answers = document.querySelectorAll('.answer') as NodeList;
@@ -34,7 +35,6 @@ export function answersKeybord(event: KeyboardEvent) {
       if (el.innerText != wordsRusArray[pageNum]) {
         el.style.opacity = '0.4';
         el.classList.add('event');
-        el.style["pointer-events"] = "none";
       }
   });
 }
@@ -49,12 +49,11 @@ else {
   answers.forEach((el: HTMLElement) => {
   if (el.innerText === wordsRusArray[pageNum]) {
     el.classList.add('active');
-    el.style["pointer-events"] = "none";
+    el.classList.add('event');
   }
   else if (el.innerText != wordsRusArray[pageNum]) {
     el.style.opacity = '0.4';
     el.classList.add('event');
-    el.style["pointer-events"] = "none";
   }
 });
 arrFalseAnswer.push(wordsRusArray[pageNum]);
@@ -85,7 +84,6 @@ if (keyPress == 2) {
       if (el.innerText != wordsRusArray[pageNum]) {
         el.style.opacity = '0.4';
         el.classList.add('event');
-        el.style["pointer-events"] = "none";
       }
   });
 }
@@ -99,12 +97,11 @@ else {
   answers.forEach((el: HTMLElement) => {
   if (el.innerText === wordsRusArray[pageNum]) {
     el.classList.add('active');
-    el.style["pointer-events"] = "none";
+    el.classList.add('event');
   }
   else if (el.innerText != wordsRusArray[pageNum]) {
     el.style.opacity = '0.4';
     el.classList.add('event');
-    el.style["pointer-events"] = "none";
   }
 });
 arrFalseAnswer.push(wordsRusArray[pageNum]);
@@ -134,7 +131,6 @@ if (keyPress == 3) {
       if (el.innerText != wordsRusArray[pageNum]) {
         el.style.opacity = '0.4';
         el.classList.add('event');
-        el.style["pointer-events"] = "none";
       }
   });
 }
@@ -148,12 +144,11 @@ else {
   answers.forEach((el: HTMLElement) => {
   if (el.innerText === wordsRusArray[pageNum]) {
     el.classList.add('active');
-    el.style["pointer-events"] = "none";
+    el.classList.add('event');
   }
   else if (el.innerText != wordsRusArray[pageNum]) {
     el.style.opacity = '0.4';
     el.classList.add('event');
-    el.style["pointer-events"] = "none";
   }
 });
 arrFalseAnswer.push(wordsRusArray[pageNum]);
@@ -183,7 +178,6 @@ if (keyPress == 4) {
       if (el.innerText != wordsRusArray[pageNum]) {
         el.style.opacity = '0.4';
         el.classList.add('event');
-        el.style["pointer-events"] = "none";
       }
   });
 }
@@ -197,12 +191,11 @@ else {
   answers.forEach((el: HTMLElement) => {
   if (el.innerText === wordsRusArray[pageNum]) {
     el.classList.add('active');
-    el.style["pointer-events"] = "none";
+    el.classList.add('event');
   }
   else if (el.innerText != wordsRusArray[pageNum]) {
     el.style.opacity = '0.4';
     el.classList.add('event');
-    el.style["pointer-events"] = "none";
   }
 });
 arrFalseAnswer.push(wordsRusArray[pageNum]);
@@ -231,7 +224,6 @@ if (keyPress == 5) {
       if (el.innerText != wordsRusArray[pageNum]) {
         el.style.opacity = '0.4';
         el.classList.add('event');
-        el.style["pointer-events"] = "none";
       }
   });
 }
@@ -245,12 +237,11 @@ else {
   answers.forEach((el: HTMLElement) => {
   if (el.innerText === wordsRusArray[pageNum]) {
     el.classList.add('active');
-    el.style["pointer-events"] = "none";
+    el.classList.add('event');
   }
   else if (el.innerText != wordsRusArray[pageNum]) {
     el.style.opacity = '0.4';
     el.classList.add('event');
-    el.style["pointer-events"] = "none";
   }
 });
 arrFalseAnswer.push(wordsRusArray[pageNum]);
@@ -260,7 +251,7 @@ arrFalseWordsID.push(arrWordsID[pageNum]);
 resultsAudioCall.wordsWrongAnswers.push(arrWordsID[pageNum]);
   }
 }
-
+disable();
 showAnswer();
 progressBar(progressWidth);
 countingPercentAnswerRightAudioCall();
@@ -268,5 +259,5 @@ giveAudioCallStatistics();
 knowBtn.innerText = 'Далее';
 };
 
-//window.addEventListener('keypress', answersKeybord);
-*/
+
+
