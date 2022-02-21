@@ -3,11 +3,10 @@ import { wordsRusArray, wordsEnArray, pageNum, arrTrueAnswer, arrFalseAnswer, ar
  } from "./audio-call";
 import { showAnswer } from "./show-answer";
 import { playCorrectSound, playWrongSound } from "./switch-sound";
-import { countingLongestAnswerRightAudioCall, giveAudioCallStatistics, resetLongestAnswerRightAudioCall, countingPercentAnswerRightAudioCall, resultsAudioCall } from "./audio-call-statistics";
+import { countingLongestAnswerRightAudioCall, giveAudioCallStatistics, resetLongestAnswerRightAudioCall, resultsAudioCall, startAudioCallStatistics } from "./audio-call-statistics";
 import { progressWidth } from "./audio-call";
 import { progressBar } from "./progress-bar";
 import { disable } from "./disable-keyboard";
-
 
 /*проверка ответа*/
 export function checkAnswer(event: MouseEvent) {
@@ -27,11 +26,11 @@ export function checkAnswer(event: MouseEvent) {
       countingLongestAnswerRightAudioCall();
 
       playCorrectSound();
+
       answers.forEach((el: HTMLElement) => {
         if (el.innerText != wordsRusArray[pageNum]) {
           el.style.opacity = '0.4';
           el.classList.add('event');
-          //el.style["pointer-events"] = "none";
         }
     });
     }
@@ -40,7 +39,6 @@ export function checkAnswer(event: MouseEvent) {
       target.style.textDecoration = 'line-through';
 
       playWrongSound();
-      resetLongestAnswerRightAudioCall();
 
       answers.forEach((el: HTMLElement) => {
       if (el.innerText === wordsRusArray[pageNum]) {
@@ -58,12 +56,11 @@ export function checkAnswer(event: MouseEvent) {
     arrFalseAnswerAudio.push(audioArray[pageNum]);
     arrFalseWordsID.push(arrWordsID[pageNum]);
     resultsAudioCall.wordsWrongAnswers.push(arrWordsID[pageNum]);
-
+    resetLongestAnswerRightAudioCall();
 }
+
 disable();
 showAnswer();
 progressBar(progressWidth);
-countingPercentAnswerRightAudioCall();
-giveAudioCallStatistics();
 knowBtn.innerText = 'Далее';
 };
