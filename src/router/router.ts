@@ -140,7 +140,6 @@ export class Router {
                           <option value="3">Группа 4</option>
                           <option value="4">Группа 5</option>
                           <option value="5">Группа 6</option>
-                          <option value="6">Группа 7</option>
                         </select>
                   </div>
                   <div class="audio-call-start">

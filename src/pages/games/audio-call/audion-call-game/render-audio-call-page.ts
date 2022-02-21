@@ -5,7 +5,7 @@ import { checkAnswer } from './check-answer';
 import { choosePage } from './get-page';
 import { nextPage } from './audio-call';
 import { switchSound } from './switch-sound';
-import { resetResultsAudioCall } from "./audio-call-statistics";
+import { resetResultsAudioCall, resetLongestAnswerRightAudioCall } from "./audio-call-statistics";
 import { answersKeybord } from './audio-btns-controller';
 import {spaceSound } from './space-btn-controller';
 import { enable } from './disable-keyboard';
@@ -19,10 +19,13 @@ export function renderGameAudioPage() {
   const gameAudioDesc = document.querySelector('.game-audio-description') as HTMLElement;
 
   if ((target as HTMLDivElement).closest('.audio-call-start')) {
-
     gameAudioDesc.style.display = "none";
+    
     clearArraysRepeat();
-    //resetResultsAudioCall();
+
+    resetResultsAudioCall();
+    resetLongestAnswerRightAudioCall()
+
     enable();
 
     const section = document.createElement('section');

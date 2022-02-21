@@ -1,8 +1,6 @@
-import {arrTrueWordsID, arrFalseWordsID} from "./audio-call";
+
 let  longestAnswerRightAudioCall: number = 0;
 
-let a = 0;
-let b = 0;
 interface IAudioCallResults {
     wordsCorrectAnswers: string [],
     wordsWrongAnswers: string [],
@@ -14,21 +12,22 @@ interface IAudioCallResults {
     wordsCorrectAnswers: [],
     wordsWrongAnswers: [],
     percentAnswerRightAudioCall: 0,
-    longestAnswerRightAudioCall: 0,
+    longestAnswerRightAudioCall: 0
   };
 
   export function resetResultsAudioCall() {
     resultsAudioCall.wordsCorrectAnswers = [];
     resultsAudioCall.wordsWrongAnswers = [];
-  }
+    resultsAudioCall.percentAnswerRightAudioCall = 0,
+    resultsAudioCall.longestAnswerRightAudioCall = 0
+  };
 
 
 export async function countingPercentAnswerRightAudioCall() {
   let wordsCorrectAnswers = resultsAudioCall.wordsCorrectAnswers.length;
   let wordsWrongAnswers = resultsAudioCall.wordsWrongAnswers.length;
-  a += wordsCorrectAnswers;
-  b += wordsWrongAnswers;
-  resultsAudioCall.percentAnswerRightAudioCall = Math.floor((a * 100) / (a + b));
+
+  resultsAudioCall.percentAnswerRightAudioCall = Math.floor((wordsCorrectAnswers * 100) / (wordsCorrectAnswers + wordsWrongAnswers));
 }
 
 

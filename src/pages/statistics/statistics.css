@@ -54,3 +54,13 @@
   border-radius: 20px;
   color: rgb(238, 223, 223);
 }
+
+@media (max-width: 700px) {
+  .contant-statist {
+    justify-content: center;
+  }
+
+  .statist-item {
+    width: 100%;
+  }
+}

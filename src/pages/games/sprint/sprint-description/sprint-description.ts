@@ -10,7 +10,7 @@ const sprintDescriptionSection = `
             <div class="sprint-sub-text">
                 <ul>
                     <li>Используйте мышь, чтобы выбрать</li>
-                    <li>Используйте цифровые клавиши влево и вправо для выбора ответа</li>
+                    <li>Используйте клавиши влево и вправо для выбора ответа</li>
                   </ul>
             </div>
         </div>
@@ -24,7 +24,6 @@ const sprintDescriptionSection = `
                     <option value="3">Группа 4</option>
                     <option value="4">Группа 5</option>
                     <option value="5">Группа 6</option>
-                    <option value="6">Группа 7</option>
                 </select>
             </div>
             <div class="sprint-start">
@@ -38,7 +37,7 @@ export class SprintDescriptionPage extends Component {
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'section', ['game-sprint-description']);
 
-    const sprintGuest = new Component(this.element, 'div', ['container-sprint-description'], '');
+    const sprintGuest: Component = new Component(this.element, 'div', ['container-sprint-description'], '');
     sprintGuest.element.innerHTML = sprintDescriptionSection;
 
     const btnStartGame = sprintGuest.element.querySelector('.sprint-start-btn');

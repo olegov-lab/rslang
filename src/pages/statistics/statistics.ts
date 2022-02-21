@@ -94,9 +94,9 @@ export class StaticsPage extends Component {
                                    || dataWordsServer?.optional?.longestAnswerRightSprint || 0;
 
     let percentAnswerRightAudioCall = JSON.parse(localStorage.getItem('audioCallStatistics'))?.percentAnswerRightAudioCall
-                                || dataWordsServer?.optional?.percentRightAudioCall || 0;
+                                || dataWordsServer?.optional?.percentAnswerRightAudioCall || 0;
 
-    let LongestAnswerRightAudioCall = JSON.parse(localStorage.getItem('audioCallStatistics'))?.LongestAnswerRightAudioCall
+    let LongestAnswerRightAudioCall = JSON.parse(localStorage.getItem('audioCallStatistics'))?.longestAnswerRightAudioCall
                                       || dataWordsServer?.optional?.LongestAnswerRightAudioCall || 0;
 
     //let percentAnswerForDay = +JSON.parse(localStorage.getItem('percentAnswerForDay')) || percentAnswerRightSprint || percentRightAudioCall ||  (percentAnswerRightSprint + percentRightAudioCall) / 2 || 0;
@@ -108,15 +108,16 @@ export class StaticsPage extends Component {
 
     percentAnswerForDay =+ percentAnswerForDay;
 
-    let newWordSprintNotServer = +JSON.parse(localStorage.getItem('SprintStatistics'))?.isUserWord || 0;
+    //let newWordSprintNotServer = +JSON.parse(localStorage.getItem('SprintStatistics'))?.isUserWord || 0;
+    let newWordSprintNotServer =  dataWordsServer?.optional?.newWordSprintSum || +JSON.parse(localStorage.getItem('SprintStatistics'))?.isUserWord || +localStorage.getItem('newWordSprintSum') || 0;
 
-    let newWordSprintNotServerSum = 0;
+  //   let newWordSprintNotServerSum = 0;
 
-    newWordSprintNotServerSum += newWordSprintNotServer;
+  //   newWordSprintNotServerSum += newWordSprintNotServer;
 
-   localStorage.newWordSprintNotServerSum = newWordSprintNotServerSum;
+  //  localStorage.newWordSprintNotServerSum = newWordSprintNotServerSum;
 
-   newWordSprintNotServerSum = newWordSprintNotServer + +localStorage.newWordSprintNotServerSum;
+  //  newWordSprintNotServerSum = newWordSprintNotServer + +localStorage.newWordSprintNotServerSum;
 
 
 
@@ -144,13 +145,13 @@ export class StaticsPage extends Component {
       reloadPageStatistics();
 
       contantStatist.element.innerHTML = `
-      ${renderBlockStatist('statist-item','Количество новых слов по игре “Спринт”', newWordSprintNotServerSum)}
+      ${renderBlockStatist('statist-item','Количество новых слов по игре “Спринт”', newWordSprintNotServer)}
       ${renderBlockStatist('statist-item','Процент правильных ответов по игре “Спринт”', percentAnswerRightSprint)}
       ${renderBlockStatist('statist-item','Самая длинная серия правильных ответов по игре “Спринт”', longestAnswerRightSprint)}
       ${renderBlockStatist('statist-item','Количество новых слов по игре “Аудиовызов”', newAudioCallSum)}
       ${renderBlockStatist('statist-item','Процент правильных ответов по игре “Аудиовызов”', percentAnswerRightAudioCall)}
       ${renderBlockStatist('statist-item','Самая длинная серия правильных ответов по игре “Аудиовызов”', LongestAnswerRightAudioCall)}
-      ${renderBlockStatist('statist-item','Количество новых слов за день', newWordSprintNotServerSum)}
+      ${renderBlockStatist('statist-item','Количество новых слов за день', newWordSprintNotServer)}
       ${renderBlockStatist('statist-item','Количество изученных слов за день', LearnWord)}
       ${renderBlockStatist('statist-item','Процент правильных ответов за день', percentAnswerForDay)}
   `

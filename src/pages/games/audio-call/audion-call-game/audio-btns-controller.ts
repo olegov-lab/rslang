@@ -255,7 +255,6 @@ disable();
 showAnswer();
 progressBar(progressWidth);
 countingPercentAnswerRightAudioCall();
-giveAudioCallStatistics();
 knowBtn.innerText = 'Далее';
 };
 

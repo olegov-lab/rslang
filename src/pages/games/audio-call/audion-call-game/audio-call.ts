@@ -9,7 +9,7 @@ import {getNewWords} from './get-new-words';
 import { chooseGroup} from './get-group';
 import { playWrongSound, playCorrectSound } from "./switch-sound";
 import { renderAudioCallResults} from "./audio-call-results";
-import { countingPercentAnswerRightAudioCall, resetLongestAnswerRightAudioCall } from "./audio-call-statistics";
+import { countingPercentAnswerRightAudioCall, resetLongestAnswerRightAudioCall, resetResultsAudioCall } from "./audio-call-statistics";
 import { startAudioCallStatistics, giveAudioCallStatistics, resultsAudioCall, countingLongestAnswerRightAudioCall } from './audio-call-statistics';
 import { progressBar } from './progress-bar';
 
@@ -40,9 +40,6 @@ export let arrCopy: string [] = []; // рандомный массив для з
 export let arrWordsID: string [] = []; // массив  ID слов
 export let arrTrueWordsID: string [] = []; // массив правильных ID слов
 export let arrFalseWordsID: string [] = [];  // массив неправильных ID слов
-
-
-
 
 export let pageNum: number = 0; // номер текущей страницы
 const lastPage: number = 19; // номер последней страницы
@@ -109,10 +106,7 @@ export async function nextPageEnter(event:KeyboardEvent) {
 
       showAnswer(); // показываем ответ
       playWrongSound(); // проигрываем неправильный звук
-
-      countingPercentAnswerRightAudioCall();
-      resetLongestAnswerRightAudioCall();
-      giveAudioCallStatistics();
+      resetLongestAnswerRightAudioCall();// сбрасываем серию слов
 
       answers.forEach((el: any) => {
         if (el.innerText === wordsRusArray[pageNum]) {
@@ -146,6 +140,7 @@ export async function nextPageEnter(event:KeyboardEvent) {
     if (pageNum > lastPage ) {
       resetProgressBar();
       renderAudioCallResults();
+      giveAudioCallStatistics();
       getUzas();
     }
   };
@@ -168,11 +163,8 @@ export function nextPage() {
 
       showAnswer(); // показываем ответ
       playWrongSound(); // проигрываем неправильный звук
-
-      countingPercentAnswerRightAudioCall();
       resetLongestAnswerRightAudioCall();
-      giveAudioCallStatistics();
-
+     
       answers.forEach((el: any) => {
         if (el.innerText === wordsRusArray[pageNum]) {
           el.classList.add('active');
@@ -206,6 +198,7 @@ export function nextPage() {
     else {
       resetProgressBar();
       renderAudioCallResults();
+      giveAudioCallStatistics();
       getUzas();
     }
   }
@@ -249,8 +242,6 @@ function getUzas() {
 
       let LearnWord = await getUserAggrWordLearnAll(userId);
 
-
-
       let data = await checkDate();
 
       let percentAnswerRightSprint = data.optional.percentAnswerRightSprint || JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || 0;
@@ -259,20 +250,20 @@ function getUzas() {
 
       let percentAnswerRightAudioCall = data.optional.percentAnswerRightAudioCall || +JSON.parse(localStorage.getItem('audioCallStatistics'))?.percentAnswerRightAudioCall || 0;
 
+
+     // let LongestAnswerRightAudioCall = data.optional.longestAnswerRightAudioCall || +JSON.parse(localStorage.getItem('audioCallStatistics'))?.longestAnswerRightAudioCall || 0;
+
+
       let LongestAnswerRightAudioCall = data.optional.longestAnswerRightAudioCall || +JSON.parse(localStorage.getItem('audioCallStatistics'))?.longestAnswerRightAudioCall || 0;
 
+
       let percentAnswerForDay: Number = +data.optional.percentAnswerForDay || (( percentAnswerRightSprint == 0) || (percentAnswerRightAudioCall == 0)) ? +percentAnswerRightSprint ||  +percentAnswerRightAudioCall : ((percentAnswerRightSprint + percentAnswerRightAudioCall) / 2) || 0;
-
-      //localStorage.percentAnswerForDay = percentAnswerForDay;
-
 
       let currentDate = getDate();
 
       let stateStatist;
 
-
       data = await getUserStatistics(userId);
-
 
       if(currentDate != data.optional.startDate) {
         percentAnswerForDay = 0 ;
@@ -281,25 +272,14 @@ function getUzas() {
         data.optional.startDate = localStorage.startDate;
       }
 
-
-
       let wordsCorrectAnswers = JSON.parse(localStorage.getItem('audioCallStatistics'))?.wordsCorrectAnswers || [];
       let wordsWrongAnswers = JSON.parse(localStorage.getItem('audioCallStatistics'))?.wordsWrongAnswers || [];
 
-      //let newWordAudioCallSum = data?.optional?.newWordSprintSum || +JSON.parse(localStorage.getItem('SprintStatistics'))?.isUserWord || 0;
-      //let newWordSprintSum = data?.optional?.newWordSprintSum;
 
       let newWordAudioCallSum = 0;
           let newWordSprint = 0;
       let newWordForDaySum = 0 || +localStorage.getItem('newWordForDaySum');
-      //let newWordSprint = +JSON.parse(localStorage.getItem('SprintStatistics'))?.isUserWord || 0;
 
-
-      // newWordSprintSum += +newWordSprint;
-
-      //   let newWordForDay = +newWordSprintSum;
-
-      //   newWordForDaySum += newWordForDay;
 
       localStorage.flagTry = 0;
 
@@ -312,7 +292,6 @@ function getUzas() {
 
       let currentCorrectWordUser = wordsCorrectAnswers.map(async item => {
 
-
         let stateUser = {
           userId: localStorage.getItem('userId'),
           wordId: item._id,
@@ -324,7 +303,6 @@ function getUzas() {
 
 
         let rightCount = wordUserCount?.optional?.rightCount ?? 0;
-
 
          stateStatist = {
           userId: localStorage.getItem('userId'),
@@ -343,8 +321,6 @@ function getUzas() {
             }
           }
         };
-
-
 
         let state;
 
@@ -377,7 +353,6 @@ function getUzas() {
 
       let currentWrongWordUser = wordsWrongAnswers.map(async item => {
 
-
          let stateUser = {
           userId: localStorage.getItem('userId'),
           wordId: item._id,
@@ -389,7 +364,6 @@ function getUzas() {
 
         let wrongCount = wordUserCount?.optional?.wrongCount ?? 0;
 
-
         stateStatist = {
           userId: localStorage.getItem('userId'),
           statistics: {
@@ -398,18 +372,21 @@ function getUzas() {
               percentAnswerRightSprint: JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || data.optional.percentAnswerRightSprint,
               longestAnswerRightSprint: +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || data.optional.longestAnswerRightSprint,
               percentAnswerRightAudioCall: +JSON.parse(localStorage.getItem('audioCallStatistics'))?.percentAnswerRightAudioCall || data.optional.percentAnswerRightAudioCall,
+//<<<<<<< HEAD
+//              LongestAnswerRightAudioCall: +JSON.parse(localStorage.getItem('audioCallStatistics'))?.longestAnswerRightAudioCall || data.optional.longestAnswerRightAudioCall,
+//=======
+
               LongestAnswerRightAudioCall: +JSON.parse(localStorage.getItem('audioCallStatistics'))?.longestAnswerRightAudioCall || data.optional.longestAnswerRightAudioCall,
+
+//>>>>>>> c22baa3d2b1b9f8f71e4295f92a1f7184eec07a4
               percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
               newWordAudioCallSum: 0,
               LearnWord: LearnWord.length,
-
               // rightCount: rightCount,
               // wrongCount: wrongCount,
             }
           }
         };
-
-
 
             let state = {
             userId: localStorage.getItem('userId'),
