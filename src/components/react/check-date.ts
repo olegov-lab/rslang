@@ -48,8 +48,8 @@ export const checkDate = () => {
     updateUserStatistics(state);
 
 
-console.log(data?.optional?.newWordSprintSum)
-localStorage.newWordSprintSum = data?.optional?.newWordSprintSum;
+//console.log(+JSON.parse(localStorage.getItem('SprintStatistics'))?.isUserWord)
+//localStorage.newWordSprintSum = data?.optional?.newWordSprintSum;
     }
     getStata();
     }

@@ -242,6 +242,8 @@ export class SprintGame extends Component {
 
         newWordForDaySum += newWordForDay;
 
+        localStorage.newWordSprintSum = newWordSprintSum;
+
         localStorage.flagTry = 0;
 
          let arrCountRight = [];
@@ -249,6 +251,7 @@ export class SprintGame extends Component {
          let arrCountWrong = [];
 
          localStorage.data = JSON.stringify(data);
+
         let currentCorrectWordUser = wordsCorrectAnswers.map(async item => {
 
           let stateUser = {
@@ -272,7 +275,7 @@ export class SprintGame extends Component {
                 percentRightAudioCall: +JSON.parse(localStorage.getItem('percentRightAudioCall'))?.percentRightAudioCall || data.optional.percentRightAudioCall,
                 LongestAnswerRightAudioCall: +JSON.parse(localStorage.getItem('LongestAnswerRightAudioCall'))?.LongestAnswerRightAudioCall || data.optional.LongestAnswerRightAudioCall,
                 percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
-                newWordSprintSum: newWordSprintSum || 0,
+                newWordSprintSum: localStorage.getItem('newWordSprintSum') ||newWordSprintSum || 0,
                 LearnWord: LearnWord.length,
                 // rightCount: rightCount,
                 // wrongCount: wrongCount,
@@ -333,9 +336,9 @@ export class SprintGame extends Component {
                 percentAnswerRightSprint: JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || data.optional.percentAnswerRightSprint,
                 longestAnswerRightSprint: +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || data.optional.longestAnswerRightSprint,
                 percentRightAudioCall: +JSON.parse(localStorage.getItem('percentRightAudioCall'))?.percentRightAudioCall || data.optional.percentRightAudioCall,
-              LongestAnswerRightAudioCall: +JSON.parse(localStorage.getItem('LongestAnswerRightAudioCall'))?.LongestAnswerRightAudioCall || data.optional.LongestAnswerRightAudioCall,
+                LongestAnswerRightAudioCall: +JSON.parse(localStorage.getItem('LongestAnswerRightAudioCall'))?.LongestAnswerRightAudioCall || data.optional.LongestAnswerRightAudioCall,
                 percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
-                newWordSprintSum: newWordSprintSum || 0,
+                newWordSprintSum: localStorage.getItem('newWordSprintSum') || newWordSprintSum || 0,
                 LearnWord: LearnWord.length,
                 // rightCount: rightCount,
                 // wrongCount: wrongCount,

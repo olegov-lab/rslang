@@ -355,144 +355,18 @@ private async getAllWords(group: number, page: number): Promise<void> {
   const navPart = document.querySelector('.nav-container-of-part');
 
   navPart.addEventListener('click', (event) => {
-    this.getAllWords(this.group, this.page);
+
+    const target = event.target as HTMLElement;
+
+    if(target.getAttribute('href') == "#/textbook") {
+      this.getAllWords(this.group, this.page);
+    }
   });
 
-  const statUpdate = document.querySelector('.statistics-btn-burger');
-
-
-  // statUpdate.addEventListener('click', (event) => {
-  //   this.getAllWords(this.group, this.page);
-  //   reloadPageStatistics();
-
-  // });
-
-
-
-// const navPartTwo = document.querySelector('.nav-part');
-
-  // navPartTwo.addEventListener('click', (event) => {
-  //   this.getAllWords(this.group, this.page);
-
-  //   console.log(this.group)
-  // });
-
-  //reloadPageStatisticsTextbook();
   checkWrong();
-
-
-//!
-
-// function getUzas() {
-
-// if(localStorage.getItem('token')) {
-
-//   let startDate = checkDate();
-
-//   let userId = localStorage.getItem('userId');
-
-//   const getDateAsyncCompare = async () => {
-
-//     let data = await checkDate();
-
-//     let percentAnswerRightSprint = data.optional.percentAnswerRightSprint || JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || 0;
-
-//     let longestAnswerRightSprint = data.optional.longestAnswerRightSprint || +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || 0;
-
-//     let percentRightAudioCall = data.optional.percentRightAudioCall || +localStorage.getItem('percentRightAudioCall') || 0;
-
-//     let LongestAnswerRightAudioCall = data.optional.LongestAnswerRightAudioCall || localStorage.getItem('LongestAnswerRightAudioCall') || 0;
-
-//     let percentAnswerForDay: Number = data.optional.percentAnswerForDay || percentAnswerRightSprint || percentRightAudioCall ||  (percentAnswerRightSprint + percentRightAudioCall) / 2 || 0;
-
-//     localStorage.percentAnswerForDay = percentAnswerForDay;
-
-
-//     let currentDate = getDate();
-
-//     let state = {
-//       userId: localStorage.getItem('userId'),
-//       statistics: {
-//         "optional": {
-//           startDate: data.optional.startDate,
-//           percentAnswerRightSprint: JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || data.optional.percentAnswerRightSprint,
-//           longestAnswerRightSprint: +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || data.optional.longestAnswerRightSprint,
-//           percentRightAudioCall: +localStorage.getItem('percentRightAudioCall') || data.optional.percentRightAudioCall,
-//           LongestAnswerRightAudioCall: localStorage.getItem('LongestAnswerRightAudioCall') || data.optional.LongestAnswerRightAudioCall,
-//           percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
-//           }
-//       }
-//     };
-
-//     updateUserStatistics(state);
-
-//     data = await getUserStatistics(userId);
-
-//     if(currentDate != data.optional.startDate) {
-//       percentAnswerForDay = 0 ;
-//       localStorage.percentAnswerForDay = percentAnswerForDay;
-//       localStorage.startDate = currentDate;
-//       data.optional.startDate = localStorage.startDate;
-//     }
-
-//     updateUserStatistics(state);
-
-//     data = await getUserStatistics(userId);
-
-//     let wordsCorrectAnswers = JSON.parse(localStorage.getItem('SprintStatistics'))?.wordsCorrectAnswers || [];
-//     let wordsWrongAnswers = JSON.parse(localStorage.getItem('SprintStatistics'))?.wordsWrongAnswers || [];
-
-//     let currentCorrectWordUser = wordsCorrectAnswers.map(item => {
-
-//       let state = {
-//         userId: localStorage.getItem('userId'),
-//         wordId: item.id,
-//         word: { "difficulty": "easy", "optional": {testFieldString: 'test', testFieldBoolean: true} }
-//       }
-
-//       if (createUserWord(state).then(reject => reject)) {
-//         updateUserWord(state);
-//       } else {
-//         createUserWord(state);
-//         updateUserWord(state);
-//       }
-
-//     })
-
-
-//     let currentWrongWordUser = wordsWrongAnswers.map(item => {
-
-//       let state = {
-//         userId: localStorage.getItem('userId'),
-//         wordId: item.id,
-//         word: { "difficulty": "hard", "optional": {testFieldString: 'test', testFieldBoolean: true} }
-//       }
-
-
-//       if (createUserWord(state).then(reject => reject)) {
-//         updateUserWord(state);
-//       } else {
-//         createUserWord(state);
-//         updateUserWord(state);
-//       }
-//     })
-
-// console.log("uzas");
-
-// }
-
-// getDateAsyncCompare();
-
-// }
+}
 
 }
 
-
-}
-
-
-
-
-//!
 
 
