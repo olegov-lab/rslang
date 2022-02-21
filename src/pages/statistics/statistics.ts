@@ -96,8 +96,8 @@ export class StaticsPage extends Component {
     let percentAnswerRightAudioCall = JSON.parse(localStorage.getItem('audioCallStatistics'))?.percentAnswerRightAudioCall
                                 || dataWordsServer?.optional?.percentRightAudioCall || 0;
 
-    let LongestAnswerRightAudioCall = JSON.parse(localStorage.getItem('audioCallStatistics'))?.LongestAnswerRightAudioCall
-                                      || dataWordsServer?.optional?.LongestAnswerRightAudioCall || 0;
+    let LongestAnswerRightAudioCall = JSON.parse(localStorage.getItem('audioCallStatistics'))?.longestAnswerRightAudioCall
+                                      || dataWordsServer?.optional?.longestAnswerRightAudioCall || 0;
 
     //let percentAnswerForDay = +JSON.parse(localStorage.getItem('percentAnswerForDay')) || percentAnswerRightSprint || percentRightAudioCall ||  (percentAnswerRightSprint + percentRightAudioCall) / 2 || 0;
     let midleAnswer = (percentAnswerRightSprint + percentAnswerRightAudioCall) / 2;
