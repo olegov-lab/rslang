@@ -11,14 +11,10 @@ export class TextbookItem extends Component {
   private removeWordBtn: UIButton;
   public word: IWords;
 
-
-
   constructor(parentNode: HTMLElement, word: IWords) {
 
     super(parentNode, 'div', ['textbook-item']);
     this.word = word;
-
-
 
     if(word.userWord?.difficulty) {
       this.element.setAttribute('data-dif', `${word.userWord.difficulty}`);
@@ -79,8 +75,6 @@ export class TextbookItem extends Component {
       difficultWordBtn.element.classList.remove('non-event');
       removeWordBtn.setDisabled(false);
       removeWordBtn.element.classList.remove('non-event');
-
-      console.log('kol');
 
     } else {
       difficultWordBtn.setDisabled(true);
