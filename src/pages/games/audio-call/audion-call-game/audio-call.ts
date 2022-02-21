@@ -249,8 +249,6 @@ function getUzas() {
 
       let LearnWord = await getUserAggrWordLearnAll(userId);
 
-
-
       let data = await checkDate();
 
       let percentAnswerRightSprint = data.optional.percentAnswerRightSprint || JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || 0;
@@ -265,16 +263,11 @@ function getUzas() {
 
       let percentAnswerForDay: Number = +data.optional.percentAnswerForDay || (( percentAnswerRightSprint == 0) || (percentAnswerRightAudioCall == 0)) ? +percentAnswerRightSprint ||  +percentAnswerRightAudioCall : ((percentAnswerRightSprint + percentAnswerRightAudioCall) / 2) || 0;
 
-      //localStorage.percentAnswerForDay = percentAnswerForDay;
-
-
       let currentDate = getDate();
 
       let stateStatist;
 
-
       data = await getUserStatistics(userId);
-
 
       if(currentDate != data.optional.startDate) {
         percentAnswerForDay = 0 ;
@@ -283,25 +276,14 @@ function getUzas() {
         data.optional.startDate = localStorage.startDate;
       }
 
-
-
       let wordsCorrectAnswers = JSON.parse(localStorage.getItem('audioCallStatistics'))?.wordsCorrectAnswers || [];
       let wordsWrongAnswers = JSON.parse(localStorage.getItem('audioCallStatistics'))?.wordsWrongAnswers || [];
 
-      //let newWordAudioCallSum = data?.optional?.newWordSprintSum || +JSON.parse(localStorage.getItem('SprintStatistics'))?.isUserWord || 0;
-      //let newWordSprintSum = data?.optional?.newWordSprintSum;
 
       let newWordAudioCallSum = 0;
           let newWordSprint = 0;
       let newWordForDaySum = 0 || +localStorage.getItem('newWordForDaySum');
-      //let newWordSprint = +JSON.parse(localStorage.getItem('SprintStatistics'))?.isUserWord || 0;
 
-
-      // newWordSprintSum += +newWordSprint;
-
-      //   let newWordForDay = +newWordSprintSum;
-
-      //   newWordForDaySum += newWordForDay;
 
       localStorage.flagTry = 0;
 
@@ -313,7 +295,6 @@ function getUzas() {
        localStorage.data = JSON.stringify(data);
 
       let currentCorrectWordUser = wordsCorrectAnswers.map(async item => {
-
 
         let stateUser = {
           userId: localStorage.getItem('userId'),
@@ -327,7 +308,6 @@ function getUzas() {
 
         let rightCount = wordUserCount?.optional?.rightCount ?? 0;
 
-
          stateStatist = {
           userId: localStorage.getItem('userId'),
           statistics: {
@@ -336,9 +316,7 @@ function getUzas() {
               percentAnswerRightSprint: JSON.parse(localStorage.getItem('SprintStatistics'))?.percentAnswerRightSpring || data.optional.percentAnswerRightSprint,
               longestAnswerRightSprint: +JSON.parse(localStorage.getItem('SprintStatistics'))?.longestAnswerRightSprint || data.optional.longestAnswerRightSprint,
               percentAnswerRightAudioCall: +JSON.parse(localStorage.getItem('audioCallStatistics'))?.percentAnswerRightAudioCall || data.optional.percentAnswerRightAudioCall,
-
               LongestAnswerRightAudioCall: +JSON.parse(localStorage.getItem('audioCallStatistics'))?.longestAnswerRightAudioCall || data.optional.longestAnswerRightAudioCall,
-
               percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
               newWordAudioCallSum: 0,
               LearnWord: LearnWord.length,
@@ -347,8 +325,6 @@ function getUzas() {
             }
           }
         };
-
-
 
         let state;
 
@@ -381,7 +357,6 @@ function getUzas() {
 
       let currentWrongWordUser = wordsWrongAnswers.map(async item => {
 
-
          let stateUser = {
           userId: localStorage.getItem('userId'),
           wordId: item._id,
@@ -392,7 +367,6 @@ function getUzas() {
         let rightCount = localStorage.getItem('rightCount') || wordUserCount?.optional?.rightCount;
 
         let wrongCount = wordUserCount?.optional?.wrongCount ?? 0;
-
 
         stateStatist = {
           userId: localStorage.getItem('userId'),
@@ -408,14 +382,11 @@ function getUzas() {
               percentAnswerForDay: percentAnswerForDay || data.optional.percentAnswerForDay,
               newWordAudioCallSum: 0,
               LearnWord: LearnWord.length,
-
               // rightCount: rightCount,
               // wrongCount: wrongCount,
             }
           }
         };
-
-
 
             let state = {
             userId: localStorage.getItem('userId'),
