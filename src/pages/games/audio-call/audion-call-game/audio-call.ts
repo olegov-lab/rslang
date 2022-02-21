@@ -9,7 +9,7 @@ import {getNewWords} from './get-new-words';
 import { chooseGroup} from './get-group';
 import { playWrongSound, playCorrectSound } from "./switch-sound";
 import { renderAudioCallResults} from "./audio-call-results";
-import { countingPercentAnswerRightAudioCall, resetLongestAnswerRightAudioCall } from "./audio-call-statistics";
+import { countingPercentAnswerRightAudioCall, resetLongestAnswerRightAudioCall, resetResultsAudioCall } from "./audio-call-statistics";
 import { startAudioCallStatistics, giveAudioCallStatistics, resultsAudioCall, countingLongestAnswerRightAudioCall } from './audio-call-statistics';
 import { progressBar } from './progress-bar';
 
@@ -40,9 +40,6 @@ export let arrCopy: string [] = []; // рандомный массив для з
 export let arrWordsID: string [] = []; // массив  ID слов
 export let arrTrueWordsID: string [] = []; // массив правильных ID слов
 export let arrFalseWordsID: string [] = [];  // массив неправильных ID слов
-
-
-
 
 export let pageNum: number = 0; // номер текущей страницы
 const lastPage: number = 19; // номер последней страницы
@@ -109,10 +106,7 @@ export async function nextPageEnter(event:KeyboardEvent) {
 
       showAnswer(); // показываем ответ
       playWrongSound(); // проигрываем неправильный звук
-
-      countingPercentAnswerRightAudioCall();
-      resetLongestAnswerRightAudioCall();
-      giveAudioCallStatistics();
+      resetLongestAnswerRightAudioCall();// сбрасываем серию слов
 
       answers.forEach((el: any) => {
         if (el.innerText === wordsRusArray[pageNum]) {
@@ -146,6 +140,7 @@ export async function nextPageEnter(event:KeyboardEvent) {
     if (pageNum > lastPage ) {
       resetProgressBar();
       renderAudioCallResults();
+      giveAudioCallStatistics();
       getUzas();
     }
   };
@@ -168,11 +163,8 @@ export function nextPage() {
 
       showAnswer(); // показываем ответ
       playWrongSound(); // проигрываем неправильный звук
-
-      countingPercentAnswerRightAudioCall();
       resetLongestAnswerRightAudioCall();
-      giveAudioCallStatistics();
-
+     
       answers.forEach((el: any) => {
         if (el.innerText === wordsRusArray[pageNum]) {
           el.classList.add('active');
@@ -206,6 +198,7 @@ export function nextPage() {
     else {
       resetProgressBar();
       renderAudioCallResults();
+      giveAudioCallStatistics();
       getUzas();
     }
   }
