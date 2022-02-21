@@ -72,7 +72,7 @@
 
 .answer-icon-true {
   position: absolute;
-  top: 380px;
+  top: 20px;
   left: calc(50% - 30px);
   height: 60px;
   width: 60px;
@@ -82,7 +82,7 @@
 
 .answer-icon-false {
   position: absolute;
-  top: 380px;
+  top: 20px;
   left: calc(50% - 30px);
   height: 60px;
   width: 60px;
@@ -188,7 +188,7 @@
 
   .answer-icon-true,
   .answer-icon-false {
-    top: 370px;
+    top: 20px;
     left: calc(50% - 20px);
     height: 40px;
     width: 40px;

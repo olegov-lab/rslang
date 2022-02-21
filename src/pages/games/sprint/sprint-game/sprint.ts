@@ -49,7 +49,7 @@ export class SprintGame extends Component {
 
   private timerId: NodeJS.Timer;
 
-  static renderGame: any;
+  // static renderGame: any;
 
   constructor(parentNode: HTMLElement) {
     super(parentNode);
@@ -68,7 +68,7 @@ export class SprintGame extends Component {
     if (sprintData.currentWordsKit[sprintData.currentNumberWord].answer === curentAnswer) {
       const sound = new PlaySound();
       sound.playCorrectSound();
-      const icon = new Component(this.main, 'div', ['answer-icon-true'], '');
+      const icon = new Component(document.querySelector('.game-section'), 'div', ['answer-icon-true'], '');
       setInterval(() => icon.destroy(), 500);
       sprintData.currentWordsKit[sprintData.currentNumberWord].userAnswer = true;
       resultsSprint.wordsCorrectAnswers.push(
@@ -78,7 +78,7 @@ export class SprintGame extends Component {
     } else {
       const sound = new PlaySound();
       sound.playWrongSound();
-      const icon = new Component(this.main, 'div', ['answer-icon-false'], '');
+      const icon = new Component(document.querySelector('.game-section'), 'div', ['answer-icon-false'], '');
       setInterval(() => icon.destroy(), 500);
       sprintData.currentWordsKit[sprintData.currentNumberWord].userAnswer = false;
       resultsSprint.wordsWrongAnswers.push(
@@ -94,7 +94,6 @@ export class SprintGame extends Component {
     sprintData.currentWordsKit = [];
     await defineGroupAndPage();
     await generateWordsForGame();
-    console.log(sprintData.currentWordsKit);
 
     const sprintPage = new SprintPage(this.main);
     if (document.querySelector('.game-sprint-description')) {
