@@ -77,6 +77,7 @@ export const loginUser = async (user: {}): Promise<IUserToken> => {
   refreshToken = content.refreshToken;
   userId = content.userId;
 
+  console.log(content)
   // getUserStatistics(userId);
   // updateUserStatistics({userId, statistics:"default"});
 
